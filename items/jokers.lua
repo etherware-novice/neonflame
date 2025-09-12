@@ -72,3 +72,105 @@ SMODS.Joker {
 	end
     end,
 }
+
+SMODS.Joker {
+    name = "Hoarder",
+    key = "hoarder",
+
+    atlas = "jokers1",
+    pos = { x = 1, y = 0 },
+
+    rarity = 3,
+    cost = 5,
+    blueprint_compat = true,
+    config = { extra = { mult = 1 }, immutable = { lv = 1 } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { center.ability.extra.mult, center.ability.extra.mult * center.ability.immutable.lv }}
+    end,
+
+    update_numbers = function(self, card)
+        local value = 0
+	if G.STEAM and G.STEAM.user then
+	    value = G.STEAM.user.getPlayerSteamLevel()
+	end
+
+	card.ability.immutable.lv = 1 + value
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        self:update_numbers(card)
+    end,
+
+    load = function(self, card, card_table, other_card)
+        self:update_numbers(card)
+    end,
+
+    calculate = function(self, card, context)
+	
+        if context.joker_main or context.forcetrigger
+	then
+	    local cmult = card.ability.extra.mult * card.ability.immutable.lv
+	    
+	    return {
+	        message = localize({ type = "variable", key = "a_xmult", vars = { cmult } }),
+		Xmult_mod = cmult,
+		colour = G.C.MULT,
+	    }
+	end
+    end,
+}
+
+
+SMODS.Joker {
+    key = "nflame",
+    name = "Neonflame",
+
+    atlas = "jokers1",
+    pos = { x = 2, y = 0 },
+
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 0 }},
+    rarity = 3,
+    cost = 7,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.Xmult, card.ability.extra.decay} }
+    end,
+
+    update_numbers = function(self, card)
+    	local scale = 0
+        for _, jok in pairs(G.P_CENTER_POOLS.Joker) do
+	    if jok.original_mod and jok.original_mod.id == "nflame" then
+	        scale = scale + 1
+	    end
+	end
+
+	card.ability.immutable.cards = scale
+    end,
+
+    xmult_calc = function(self, card)
+        return card.ability.extra.Xmult * card.ability.immutable.cards
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+    	self:update_numbers(card)
+    end,
+
+    load = function(self, card, card_table, other_card)
+    	self:update_numbers(card)
+    end,
+
+    calc_xmult = function(self, card)
+        self:update_numbers(card)
+    end,
+
+    calculate = function(self, card, context)
+        if context.joker_main or context.forcetrigger
+	then
+	    print("no trigger yet srroryy")
+	end
+    end,
+}
