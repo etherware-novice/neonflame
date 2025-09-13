@@ -30,7 +30,16 @@ return {
 		    "since a new update",
 		    "{C:inactive}Currently {C:white,X:mult}X#3#{}"
 		}
-	    }
+	    },
+
+	    j_neoflame_forecast = {
+	        name = "Forecast",
+		text = {
+		    "When booster pack is opened",
+		    "draw #1# more cards",
+		    "{C:inactive}Idea by badfontkeming{}",
+		},
+	    },
 	}
     }
 }

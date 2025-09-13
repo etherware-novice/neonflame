@@ -129,7 +129,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 757637001 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1757737690 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -177,6 +177,45 @@ SMODS.Joker {
 		Xmult_mod = xm,
 		colour = G.C.MULT,
 	    }
+	end
+    end,
+}
+
+SMODS.Joker {
+    key = "forecast",
+    name = "Forecast",
+
+    atlas = "jokers1",
+    pos = { x = 3, y = 0 },
+
+    config = { extra = { cards = 4 } },
+    rarity = 2,
+    cost = 4,
+    blueprint_compat = true,
+    demicolon_compat = true,
+    eternal_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.cards} }
+    end,
+
+    calculate = function(self, card, context)
+    	if context.ending_booster then
+ 	    card.stopinf = false
+	end
+
+        if context.other_drawn or context.force_trigger then
+	    if card.stopinf then return end
+	    G.E_MANAGER:add_event(Event({
+		func = function()
+		    card:juice_up(0.8, 0.5)
+		    SMODS.draw_cards(card.ability.extra.cards)
+
+		    return true
+		end,
+	    }))
+
+	    card.stopinf = true
 	end
     end,
 }
