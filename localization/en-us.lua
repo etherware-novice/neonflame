@@ -20,6 +20,17 @@ return {
 		    "{C:inactive}Currently {C:white,X:mult}X#2#{}"
 		}
 	    },
+
+	    j_neoflame_nflame = {
+	        name = "Neonflame",
+		text = {
+		    "Gains {C:white,X:mult} X#1# {} Mult",
+		    "for each {C:attention}new card added by Neonflame{}",
+		    "Loses {C:white,X:mult} X#2# {} Mult for each day",
+		    "since a new update",
+		    "{C:inactive}Currently {C:white,X:mult}X#3#{}"
+		}
+	    }
 	}
     }
 }

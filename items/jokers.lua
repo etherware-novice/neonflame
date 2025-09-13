@@ -128,7 +128,8 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 2, y = 0 },
 
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 0 }},
+    -- hardcoding the timestamp will definitely not bite me in the butt later
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 757637001 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -137,7 +138,7 @@ SMODS.Joker {
     demicolon_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.Xmult, card.ability.extra.decay} }
+        return { vars = {card.ability.extra.Xmult, card.ability.extra.decay, self:calc_xmult(card) } }
     end,
 
     update_numbers = function(self, card)
@@ -151,8 +152,12 @@ SMODS.Joker {
 	card.ability.immutable.cards = scale
     end,
 
-    xmult_calc = function(self, card)
-        return card.ability.extra.Xmult * card.ability.immutable.cards
+    calc_xmult = function(self, card)
+    	local xm = card.ability.extra.Xmult * card.ability.immutable.cards
+	local decaytime = (os.time() - card.ability.immutable.timestamp) / 86400
+	xm = xm - (card.ability.extra.decay * decaytime)
+
+	return math.max(xm, 1.5)
     end,
 
     set_ability = function(self, card, initial, delay_sprites)
@@ -163,14 +168,15 @@ SMODS.Joker {
     	self:update_numbers(card)
     end,
 
-    calc_xmult = function(self, card)
-        self:update_numbers(card)
-    end,
-
     calculate = function(self, card, context)
         if context.joker_main or context.forcetrigger
 	then
-	    print("no trigger yet srroryy")
+	    local xm = self:calc_xmult(card)
+	    return {
+	        message = localize({ type = "variable", key = "a_xmult", vars = { xm } }),
+		Xmult_mod = xm,
+		colour = G.C.MULT,
+	    }
 	end
     end,
 }
