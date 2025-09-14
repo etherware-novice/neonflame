@@ -40,6 +40,15 @@ return {
 		    "{C:inactive}Idea by badfontkeming{}",
 		},
 	    },
+
+	    j_neoflame_numberup = {
+	        name = "Number Go Up",
+		text = {
+		    "Jokers give {C:white,X:mult}X#1#{}",
+		    "Increases by {C:white,X:mult}X#2#{} for every {C:yellow}$#3#{}",
+		    "If hand scored less than 25% of blind, lose 75% of money",
+		}
+	    },
 	}
     }
 }

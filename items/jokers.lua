@@ -219,3 +219,64 @@ SMODS.Joker {
 	end
     end,
 }
+
+SMODS.Joker {
+    key = "numberup",
+    name = "Number Go Up",
+
+    atlas = "jokers1",
+    pos = { x = 4, y = 0 },
+
+    config = { extra = { increase = 0.1, requirement = 5 } },
+    rarity = 3,
+    cost = 8,
+    blueprint_compat = true,
+    demicolon_compat = true,
+    eternal_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {self:calc_xmult(card), card.ability.extra.increase, card.ability.extra.requirement} }
+    end,
+
+    calc_xmult = function(self, card)
+        local dollar = (G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)
+	local bonus = math.floor(dollar / card.ability.extra.requirement) * card.ability.extra.increase
+        return bonus + 1
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        self:calc_xmult(card)
+    end,
+
+    calculate = function(self, card, context)
+        local xm_trigger = context.forcetrigger
+	
+        if context.other_joker and context.other_joker.ability.set == "Joker" then
+	    G.E_MANAGER:add_event(Event({
+	        func = function()
+		    context.other_joker:juice_up(0.5, 0.5)
+		    return true
+		end
+	    }))
+	    xm_trigger = true
+	end
+
+	if xm_trigger then
+	    local multv = self:calc_xmult(card)
+	    return {
+	        message = localize({ type = "variable", key = "a_xmult", vars = { multv }}),
+		colour = G.C.MULT,
+		Xmult_mod = multv,
+	    }
+	end
+
+	if context.final_scoring_step then
+	    if SMODS.calculate_round_score() < (G.GAME.blind.chips * 0.25) then
+	        return {
+		    dollars = math.floor(G.GAME.dollars * -0.75),
+		    color = G.C.MONEY
+		}
+	    end
+	end
+    end,
+}
