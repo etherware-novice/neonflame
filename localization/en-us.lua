@@ -2,7 +2,7 @@
 return {
     descriptions = {
         Joker = {
-	    j_neoflame_jokerhelp = {
+	    j_nflame_jokerhelp = {
 	        name = "Helping Hand",
 		text = {
 		    "{C:blue}+#1#{} Hands for each {C:attention}Joker{}",
@@ -12,7 +12,7 @@ return {
 		}
 	    },
 
-	    j_neoflame_hoarder = {
+	    j_nflame_hoarder = {
 	        name = "Hoarder",
 		text = {
 		    "Gains {C:white,X:mult} X#1# {} Mult",
@@ -21,7 +21,7 @@ return {
 		}
 	    },
 
-	    j_neoflame_nflame = {
+	    j_nflame_nflame = {
 	        name = "Neonflame",
 		text = {
 		    "Gains {C:white,X:mult} X#1# {} Mult",
@@ -32,7 +32,7 @@ return {
 		}
 	    },
 
-	    j_neoflame_forecast = {
+	    j_nflame_forecast = {
 	        name = "Forecast",
 		text = {
 		    "When booster pack is opened",
@@ -41,11 +41,11 @@ return {
 		},
 	    },
 
-	    j_neoflame_numberup = {
+	    j_nflame_numberup = {
 	        name = "Number Go Up",
 		text = {
 		    "Jokers give {C:white,X:mult}X#1#{}",
-		    "Increases by {C:white,X:mult}X#2#{} for every {C:yellow}$#3#{}",
+		    "Increases by {C:white,X:mult}X#2#{} for every {C:money}$#3#{} owned",
 		    "If hand scored less than 25% of blind, lose 75% of money",
 		}
 	    },
