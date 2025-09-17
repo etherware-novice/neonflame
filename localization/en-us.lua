@@ -49,6 +49,15 @@ return {
 		    "If hand scored less than 25% of blind, lose 75% of money",
 		}
 	    },
+
+	    j_nflame_tjhenry = {
+	        name = "TJ 'Henry' Yoshi",
+		text = {
+		    "If played hand has #1# or less cards",
+		    "Scored cards gain {C:white,X:mult}X#2#{}",
+		    "and are {C:attention}drawn to hand next round{}"
+		}
+	    }
 	}
     }
 }

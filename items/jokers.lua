@@ -129,7 +129,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1757911924 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1758115000 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -219,7 +219,7 @@ SMODS.Joker {
 	end
     end,
 }
-
+ 
 SMODS.Joker {
     key = "numberup",
     name = "Number Go Up",
@@ -280,3 +280,97 @@ SMODS.Joker {
 	end
     end,
 }
+
+
+SMODS.Joker {
+    key = "tjhenry",
+    name = "TJ HENRY Yoshi",
+
+    atlas = "layerjoker",
+    pos = { x = 0, y = 0 },
+    soul_pos = { x = 1, y = 0},
+
+    config = { extra = { size = 3, xmgain = 0.1 } },
+    rarity = 4,
+    cost = 20,
+    blueprint_compat = true,
+    demicolon_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.size, card.ability.extra.xmgain} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+	    if #context.full_hand > card.ability.extra.size and not context.force_trigger then return end
+
+	    context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.xmgain
+            context.other_card.ability.nflame_tjdraw = true
+	    
+	    return {
+	        extra = {
+		    message = localize('k_upgrade_ex'),
+		    colour = G.C.MULT
+		},
+	    }
+
+	end
+
+        if context.first_hand_drawn then
+            for _, c in pairs(G.deck.cards) do
+                if c.ability.nflame_tjdraw then
+		    draw_card(G.deck, G.hand, nil, "up", true, c)
+		    c.ability.nflame_tjdraw = false
+		end
+            end
+
+	    card:juice_up(0.5, 0.5)
+	end
+    end,
+}
+
+
+
+--[[
+
+    going to reuse this for reassurance bucket
+
+    calculate = function(self, card, context)
+
+        if context.end_of_round and context.cardarea == G.jokers then
+	    card.ability.extra.score = card.ability.extra.score + math.floor(G.GAME.chips / 2)
+	end
+
+
+        if context.press_play then
+
+	    G.E_MANAGER:add_event(Event({
+	        func = function()
+		    card:juice_up(0.5, 0.5)
+		    return true
+		end,
+	    }))
+
+	    local transfer = math.floor(card.ability.extra.score / 2)
+	    card.ability.extra.score = transfer
+
+	    G.E_MANAGER:add_event(Event({
+	        trigger = 'ease',
+		ref_table = G.GAME,
+		ref_value = "chips",
+		ease_to = to_big(G.GAME.chips + transfer),
+		delay = 1,
+		func = (function(t) return math.floor(t) end)
+	    }))
+
+	    return {
+	           message = "you cant say its only a half",
+		   message_card = card,
+		   -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
+            }
+	end
+    end,
+
+--]]
