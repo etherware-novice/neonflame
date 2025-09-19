@@ -57,6 +57,18 @@ return {
 		    "Scored cards gain {C:white,X:mult}X#2#{}",
 		    "and are {C:attention}drawn to hand next round{}"
 		}
+	    },
+
+	    j_nflame_stanleybucket = {
+	        name = "Reassurance Bucket",
+		text = {
+		    "Siphons half of {C:purple}round score {C:attention}on discard{}, then doubles it",
+		    "Adds {C:purple}stored round score{} when {C:attention}playing a hand{}",
+		    "Gains a quarter of round score at {C:attention}end of round{}",
+		    "{C:inactive}(Currently {C:purple}+#1#{C:inactive} score){}",
+		    "{s:0.8,C:inactive}Stanley and the bucket couragously bet all of their",
+		    "{s:0.8,C:inactive}life savings on a poker game. Let's see how this turns out."
+		}
 	    }
 	}
     }

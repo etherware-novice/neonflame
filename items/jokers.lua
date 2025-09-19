@@ -129,7 +129,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1758115000 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1758256742 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -331,16 +331,30 @@ SMODS.Joker {
     end,
 }
 
+SMODS.Joker {
+    key = "stanleybucket",
+    name = "Reassurance Bucket",
 
+    atlas = "jokers1",
+    pos = { x = 5, y = 0 },
 
---[[
+    -- its a stanley parable item of course we reference "8"
+    config = { extra = { score = 88 } },
+    rarity = 3,
+    cost = 8,
+    blueprint_compat = false,
+    demicolon_compat = false,
+    eternal_compat = true,
+    perishable_compat = false,
 
-    going to reuse this for reassurance bucket
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.score} }
+    end,
 
     calculate = function(self, card, context)
 
         if context.end_of_round and context.cardarea == G.jokers then
-	    card.ability.extra.score = card.ability.extra.score + math.floor(G.GAME.chips / 2)
+	    card.ability.extra.score = card.ability.extra.score + math.floor(G.GAME.chips / 4)
 	end
 
 
@@ -366,11 +380,45 @@ SMODS.Joker {
 	    }))
 
 	    return {
-	           message = "you cant say its only a half",
+	           message = "...",
+		   message_card = card,
+		   -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
+            }
+	end
+
+
+	if context.pre_discard and not context.hook then
+	    G.E_MANAGER:add_event(Event({
+	        func = function()
+		    card:juice_up(0.5, 0.5)
+		    return true
+		end,
+	    }))
+
+	    local transfer = math.floor(G.GAME.chips / 2)
+	    card.ability.extra.score = card.ability.extra.score + G.GAME.chips
+
+	    G.E_MANAGER:add_event(Event({
+	        trigger = 'ease',
+		ref_table = G.GAME,
+		ref_value = "chips",
+		ease_to = to_big(transfer),
+		delay = 1,
+		func = (function(t) return math.floor(t) end)
+	    }))
+
+	    return {
+	           message = "...",
 		   message_card = card,
 		   -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
             }
 	end
     end,
+}
 
---]]
+
+
+
+
+
+
