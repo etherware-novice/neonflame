@@ -129,7 +129,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1758256742 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1758337930 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -416,9 +416,52 @@ SMODS.Joker {
     end,
 }
 
+SMODS.Joker {
+    key = "acpart",
+    name = "Agamemnon Counterpart",
 
+    atlas = "jokers1",
+    pos = { x = 0, y = 1 },
 
+    rarity = 1,
+    cost = 4,
+    blueprint_compat = true,
+    demicolon_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
 
+    calculate = function(self, card, context)
+        local trigger = context.force_trigger
 
+	if context.before then
+	    for _, playing_card in ipairs(G.play.cards) do
+	    	print(playing_card:get_id())
+	        if playing_card:get_id() == 14 then
+		    trigger = true
+		    print("trigger enable")
+		end
+	    end
+	end
 
+	if not trigger then return end
 
+	-- looking for non aces in hand
+	local ace_hand = {}
+	for _, playing_card in ipairs(G.hand.cards) do
+	    if playing_card:get_id() ~= 14 then ace_hand[#ace_hand + 1] = playing_card end
+	    print(playing_card:get_id())
+	end
+
+	if #ace_hand < 1 then return end
+
+	local c = pseudorandom_element(ace_hand, "nflame_acpart")
+        G.E_MANAGER:add_event(Event({
+	    func = function()
+	        assert(SMODS.change_base(c, nil, 'Ace'))
+	        c:juice_up(0.8, 0.5)
+		card:juice_up(0.5, 0.5)
+		return true
+	    end,
+	}))
+    end
+}

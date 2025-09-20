@@ -69,6 +69,15 @@ return {
 		    "{s:0.8,C:inactive}Stanley and the bucket couragously bet all of their",
 		    "{s:0.8,C:inactive}life savings on a poker game. Let's see how this turns out."
 		}
+	    },
+
+	    j_nflame_acpart = {
+	        name = "Agamemnon Counterpart",
+		text = {
+		    "If {C:attention}played hand{} contains an {C:attention}Ace{},",
+		    "convert a {C:attention}random card in hand{} to an {C:attention}Ace{}",
+		    "{C:inactive}a{}"
+		}
 	    }
 	}
     }
