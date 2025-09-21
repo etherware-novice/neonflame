@@ -12,6 +12,7 @@ SMODS.Joker {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = { set = "Other", key = "cry_green_seal" }
         info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_commit
 	info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_rework
 	info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_delete
@@ -41,4 +42,37 @@ SMODS.Joker {
 	    end,
 	}))
     end,
+}
+
+SMODS.Challenge {
+    key = "moderntech",
+    unlocked = true,
+
+    rules = {
+        modifiers = {
+	    {id = "consumable_slots", value = 3}
+	},
+        custom = {
+	    {id = "no_shop_jokers"},
+	    {id = "cry_all_perishable"},
+	    {id = "cry_any_sticker"}
+	}
+    },
+    restrictions = {
+        banned_cards = {
+	    { id = "p_buffoon_normal_1", ids = { "p_buffoon_normal_1", "p_buffoon_normal_2", "p_buffoon_jumbo_1", "p_buffoon_mega_1" } }
+	},
+    },
+    jokers = {
+        {id = "j_nflame_opensource", eternal = true},
+	{id = "j_cry_seal_the_deal", stickers = { "perishable" }}
+    },
+    consumeables = {
+        { id = "c_judgement" },
+	{ id = "c_judgement" },
+	{ id = "c_cry_source" }
+    },
+    vouchers = {
+        { id = "v_cry_command_prompt" }
+    },
 }

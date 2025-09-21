@@ -89,5 +89,11 @@ return {
 		}
 	    },
 	}
+    },
+
+    misc = {
+    	 challenge_names = {
+	     c_nflame_moderntech = "Day-One Patches"
+	 },
     }
 }
