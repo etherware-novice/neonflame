@@ -78,7 +78,16 @@ return {
 		    "convert a {C:attention}random card in hand{} to an {C:attention}Ace{}",
 		    "{C:inactive}a{}"
 		}
-	    }
+	    },
+
+	    j_nflame_opensource = {
+	        name = "Open Source",
+		text = {
+		    "When a {C:cry_code}Green Seal{} is scored",
+		    "Create a {C:cry_code}Commit, Rework, or Delete{} card",
+		    "{C:inactive}(Must have room){}"
+		}
+	    },
 	}
     }
 }
