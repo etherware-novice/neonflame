@@ -88,6 +88,15 @@ return {
 		    "{C:inactive}(Must have room){}"
 		}
 	    },
+
+	    j_nflame_miafey = {
+	        name = "Mia Fey",
+		text = {
+		    "When {C:attention}Ghost Cards{} are played and unscored",
+		    "{C:attention}Scored Cards{} gain the {C:white,X:mult}XMult{}",
+		    "of the {C:attention}Ghost Cards{}"
+		}
+	    }
 	},
 	Enhanced = {
 	    m_nflame_snow = {
