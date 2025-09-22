@@ -88,6 +88,27 @@ return {
 		    "{C:inactive}(Must have room){}"
 		}
 	    },
+	},
+	Enhanced = {
+	    m_nflame_snow = {
+	        name = "Snow Card",
+	        text = {
+		    "Gains {C:mult}+#1#{} Mult {C:attention}permanently{}",
+		    "for each {C:attention}Snow Card{} in hand",
+		    "at end of round"
+		}
+	    }
+	},
+
+	Tarot = {
+	    c_nflame_frost = {
+	        name = "Frost",
+		text = {
+		    "Enhances {C:attention}#1#{}",
+		    "selected cards to",
+		    "{C:attention}#2#{}"
+		}
+	    }
 	}
     },
 

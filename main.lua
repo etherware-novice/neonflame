@@ -18,7 +18,9 @@ SMODS.current_mod.badge_text_colour = SMODS.Gradient {
 
 local files = {
       "items/jokers",
-      "lib/atlas"
+      "items/enhance",
+      "items/item",
+      "lib/atlas",
 }
 
 local crossmodfiles = {
