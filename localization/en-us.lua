@@ -106,12 +106,31 @@ return {
 		    "for each {C:attention}Snow Card{} in hand",
 		    "at end of round"
 		}
-	    }
+	    },
+
+	    m_nflame_rules = {
+	        name = "Rouxls Kaard",
+		text = {
+		    "Decreases {C:attention}Blind Requirement{} by {C:attention}#1#%{}",
+		    "{C:green}#2# in #3#{} chance to {C:attention}disable boss blind{}",
+		    "{C:inactive,s:0.8}Thou thought me a {C:inactive,E:1,s:0.8}fool{C:inactive,s:0.8}, didest thou?",
+		    "{C:inactive,E:1,s:0.8}Worms{C:inactive,s:0.8}, if thereseth one thingeth I'm {C:red,s:0.8}NOT{},",
+		    "{C:inactive,s:0.8}its a {C:red,E:1}COURTETH JESTER.{}"
+		}
+	    },
 	},
 
 	Tarot = {
 	    c_nflame_frost = {
-	        name = "Frost",
+	        name = "The Frost",
+		text = {
+		    "Enhances {C:attention}#1#{}",
+		    "selected cards to",
+		    "{C:attention}#2#{}"
+		}
+	    },
+	    c_nflame_trabant = {
+	        name = "The Trabant",
 		text = {
 		    "Enhances {C:attention}#1#{}",
 		    "selected cards to",
