@@ -465,3 +465,211 @@ SMODS.Joker {
 	}))
     end
 }
+
+SMODS.Joker {
+   key = "potatorevenge",
+   name = "Cold Potato",
+
+   atlas = "jokers1",
+   pos = { x = 2, y = 1 },
+
+   rarity = 1,
+   price = 4,
+   blueprint_compat = true,
+   demicolon_compat = true,
+   perishable_compat = true,
+   eternal_compat = true,
+
+   config = { extra = { enigmatic = 1, fires = {}, newcounter = 0 } },
+
+   blowingsmoke = {
+      "acceptable", "excellent", "exceptional", "favorable", "great",
+      "marvelous", "positive", "satisfactory", "satisfying", "superb",
+      "valuable", "wonderful", "ace", "capital", "pleasing", "prime",
+      "quality", "rad", "sterling", "superior", "superior", "superior", "superior",
+      "worthy", "admirable", "agreeable", "commendable", "cogneial",
+      "deluxe", "first-class", "first-rate", "gnarly", "honorable",
+      "jake", "neat", "precious", "reputable", "select", "shipshape",
+      "splendid", "stupendous", "super-excellent", "tiptop", "upright",
+      "ethical", "blameless", "incorrupt", "capable", "clever", "proper",
+      "appropriate", "beneficial", "decent", "desirable", "fruitful",
+      "healthy", "helpful", "proper", "satisfying", "suitable", "right",
+      "ample", "apt", "favoring", "opprotune", "flawless", "normal",
+      "perfect", "safe", "solid", "stable", "eatable", "fresh", "loyal",
+      "unhurt", "considerate", "humane", "true", "valid", "reliable",
+      "legitimate", "dependable", "genuine", "trustworthy", "well-founded",
+      "dutiful", "profitable", "respectable", "worthwhile", "great", "full",
+      "extensive", "immesurable", "lucrative", "sizeable", "substantial",
+      "godsend", "favor", "profitable", 
+   },
+
+   loc_vars = function(self, info_queue, card)
+      return { vars = {
+		  pseudorandom_element(self.blowingsmoke, "nflame_potato"),
+		  card.ability.extra.enigmatic
+      } }
+   end,
+
+   set_ability = function(self, card, inital, delay_sprites)
+      self:add_ability(card)
+   end,
+
+   add_ability = function(self, card)
+      local newability = {}
+
+      local outcomes = {
+	 nonblind = { "scale", "xscale", "create" },
+	 blind = { "scale", "xscale", "create", "score" },
+	 score = { "scale", "xscale", "create", "mult", "chips", "xmult", "xchips" }
+      }
+
+      local requirements = {
+	 cardtype = { "Joker", "consumeable", "Tarot", "Spectral", "Planet", "dollars", "Default" },
+	 cardsuit = { "Hearts", "Clubs", "Spades", "Diamonds", "Stone" }, -- stone is any non rank
+	 cardrank = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }, -- 0 is no rank
+	 cardany = { "Stone", "Hearts", "Clubs", "Spades", "Diamonds", 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 },
+	 blind = { "Small", "Big", "Boss" },
+	 rarity = { 1, 2, 3, 4, 5 } -- 5 is modded
+      }
+      
+      local possibility = {
+	 open_booster = { out = outcomes.nonblind },
+	 buying_card = { out = outcomes.nonblind, req = "cardtype" },
+	 selling_card = { out = outcomes.blind, req = "cardtype" },
+	 reroll_shop = { out = outcomes.nonblind },
+	 skip_blind = { out = outcomes.nonblind },
+	 skipping_booster = { out = outcomes.nonblind },
+	 playing_card_added = { out = outcomes.nonblind, req = "cardany" },
+	 first_hand_drawn = { out = outcomes.blind, req = "cardany", },
+	 setting_blind = { out = outcomes.blind, req = "bind" },
+	 remove_playing_cards = { out = outcomes.nonblind, req = "cardany" },
+	 using_consumeable = { out = outcomes.nonblind }, -- once per round :(
+	 debuffed_hand = { out = outcomes.score },
+	 pre_discard = { out = outcomes.blind },
+	 discard = { out = outcomes.blind, req = "cardany" },
+	 end_of_round = { out = outcomes.blind, req = "cardany" },
+	 individual = { out = outcomes.score, req = "cardany" },
+	 other_joker = { out = outcomes.score, req = "rarity" },
+	 before = { out = outcomes.nonblind },
+	 after = { out = outcomes.nonblind },
+	 joker_main = { out = outcomes.score }
+      }
+
+      local desc, ctx = pseudorandom_element(possibility, "nflame_potato")
+      newability.context = ctx
+
+      if desc.req and (pseudorandom("nflame_potato") < 0.5) then
+	 newability.requiretype = desc.req
+	 newability.requires = pseudorandom_element(requirements[desc.req], "nflame_potato")
+      end
+
+      newability.outcome = pseudorandom_element(desc.out, "nflame_potato")
+      if newability.outcome == "create" then
+	 newability.outcome = pseudorandom_element(requirements.cardtype, "nflame_potato")
+      end
+      if newability.outcome == "Joker" and (pseudorandom("nflame_potato") < 0.5) then
+	 -- this isnt implemented yet, but someday?
+	 newability.rarity = pseudorandom_element(requirements.rarity, "nflame_potato")
+      end
+
+      -- rng 0 - 30
+      newability.scalar = (pseudorandom("nflame_potato") * 30)
+
+      card.ability.extra.fires[#card.ability.extra.fires + 1] = newability
+   end,
+
+   check_requirements = function(self, context, ability)
+      if not ability.requiretype then return true end
+
+      local rtype = ability.requiretype
+
+      if rtype == "cardtype" then
+	 if not context.other_card then return false end
+	 
+	 if context.other_card.set == ability.requires then return true end
+	 if (context.other_card.set == "Default") and (ability.requires == "Enhanced") then return true end
+	 if (context.other_card.set == "Enhanced") and (ability.requires == "Default") then return true end
+	 if context.other_card.ability.consumeable and (ability.requires == "consumeable") then return true end
+      end
+
+      if rtype == "cardany" then
+	 if type(ability.requires) == "string" then rtype = "cardsuit" end
+	 else rtype = "cardrank"
+      end
+      
+      if rtype == "cardsuit" then
+	 if not context.other_card then return false end
+	 
+	 if context.other_card.is_suit and context.other_card:is_suit(ability.requires) then return true end
+	 if ability.requires == "Stone" and SMODS.has_no_suit(context.other_card) then return true end
+      end
+      
+      if rtype == "cardrank" then
+	 if not context.other_card then return false end
+	 
+	 if context.other_card.get_id and (context.other_card:get_id() == ability.requires) then return true end
+	 if (ability.requires == 0) and (SMODS.has_no_rank(context.other_card)) then return true end
+      end
+
+      if rtype == "rarity" then
+	 if not context.other_card then return false end
+
+	 if context.other_card:is_rarity(ability.requires) then return true end
+	 if type(context.other_card.rarity) == "string" and ability.requires == 5 then return true end
+      end
+	 
+   end,
+
+   calculate = function(self, card, context)
+      local fire = false
+      for _, ability in pairs(card.ability.extra.fires) do
+	 if context[ability.context] and self:check_requirements(self, context, ability) then
+	    fire = ability
+	 end
+      end
+
+      if not fire then return end
+
+      card.ability.extra.newcounter = card.ability.extra.newcounter + 1
+      if card.ability.extra.newcounter > 3 then
+	 self:add_ability(card) -- no indication to the player, minor trolling :3
+      end
+      
+      if fire.outcome == "scale" then
+	 card.ability.extra.enigmatic = card.ability.extra.enigmatic + (fire.scalar - 5)
+	 return {
+	    message = localize('k_upgrade_ex'),
+	    message_card = card
+	 }
+      end
+
+      if fire.outcome == "xscale" then
+	 card.ability.extra.enigmatic = card.ability.extra.enigmatic + (fire.scalar / 10)
+	 return {
+	    message = localize('k_upgrade_ex'),
+	    message_card = card
+	 }
+      end
+
+      if fire.outcome == "score" then
+	 G.GAME.blind.chips = G.GAME.blind.chips + (fire.scalar * 3000)
+	 return {
+	    message = localize('k_upgrade_ex'),
+	    message_card = card
+	 }
+      end
+
+      if fire.outcome == "mult" or fire.outcome == "chips"
+	 or fire.outcome == "xmult" or fire.outcome == "xchips"
+         or fire.outcome == "dollars" then
+
+	 local ff = {}
+	 ff[fire.outcome] = fire.scalar
+	 return ff
+      end
+
+      if fire.outcome == "Default" then fire.outcome = "Enhanced" end
+      -- we've gotten all the other ones out first so we can do this one with minimal checking :)
+      SMODS.add_card { set = fire.outcome }
+   end
+}

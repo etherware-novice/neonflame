@@ -37,7 +37,7 @@ return {
 		text = {
 		    "When booster pack is opened",
 		    "draw #1# more cards",
-		    "{C:inactive}Idea by badfontkeming{}",
+		    "{s:0.8,C:inactive}Idea by badfontkeming{}",
 		},
 	    },
 
@@ -95,6 +95,18 @@ return {
 		    "When {C:attention}Ghost Cards{} are played and unscored",
 		    "{C:attention}Scored Cards{} gain the {C:white,X:mult}XMult{}",
 		    "of the {C:attention}Ghost Cards{}"
+		}
+	    },
+
+	    j_nflame_potatorevenge = {
+	        name = "Cold Potato",
+		text = {
+		    "{C:attention}You aren't ready for this joker{}.",
+		    "It is so {C:blue,E:1}#1#{}.",
+		    "{s:1.2,C:red}IT WILL BLOW YOUR MIND{}.",
+		    "It gets {E:1}better over time{}, too!",
+		    "{C:inactive}(Currently #2#){}",
+		    "{s:0.8,C:inactive}idea by astro{}",
 		}
 	    }
 	},
