@@ -623,7 +623,9 @@ SMODS.Joker {
    calculate = function(self, card, context)
       local fire = false
       for _, ability in pairs(card.ability.extra.fires) do
-	 if context[ability.context] and self:check_requirements(self, context, ability) then
+	 if context[ability.context] and self:check_requirements(self, context, ability)
+	 and not (ability.context == "individual" and context.area ~= G.Jokers)
+	 then
 	    fire = ability
 	 end
       end
@@ -633,6 +635,7 @@ SMODS.Joker {
       card.ability.extra.newcounter = card.ability.extra.newcounter + 1
       if card.ability.extra.newcounter > 3 then
 	 self:add_ability(card) -- no indication to the player, minor trolling :3
+	 card.ability.extra.newcounter = 0
       end
       
       if fire.outcome == "scale" then
