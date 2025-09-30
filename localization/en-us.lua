@@ -108,7 +108,15 @@ return {
 		    "{C:inactive}(Currently #2#){}",
 		    "{s:0.8,C:inactive}idea by astro{}",
 		}
-	    }
+	    },
+
+            j_nflame_genplanet = {
+               name = "Blind Telescope",
+               text = {
+                  "All hands are scored as {C:attention}Poker Hand All{}",
+                  "All hand level ups also level {C:attention}Poker Hand All{}"
+               }
+            }
 	},
 	Enhanced = {
 	    m_nflame_snow = {
@@ -156,5 +164,13 @@ return {
     	 challenge_names = {
 	     c_nflame_moderntech = "Day-One Patches"
 	 },
+
+	 poker_hands = {
+	     nflame_generic = "Poker Hand All"
+	 },
+
+	 poker_hand_descriptions = {
+	     nflame_generic = { "Any cards." }
+	 }
     }
 }

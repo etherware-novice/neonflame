@@ -18,6 +18,7 @@ SMODS.current_mod.badge_text_colour = SMODS.Gradient {
 
 local files = {
       "items/jokers",
+      "items/pokerhand",
       "items/enhance",
       "items/item",
       "lib/atlas",
