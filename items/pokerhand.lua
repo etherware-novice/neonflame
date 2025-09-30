@@ -3,8 +3,8 @@ SMODS.PokerHand {
    visible = false,
    chips = 100,
    mult = 10,
-   l_mult = 5,
-   l_chips = 50,
+   l_mult = 1,
+   l_chips = 10,
 
    example = {
       { "C_Q", true },
