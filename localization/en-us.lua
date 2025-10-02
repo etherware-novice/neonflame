@@ -116,6 +116,14 @@ return {
                   "All hands are scored as {C:attention}Poker Hand All{}",
                   "All hand level ups also level {C:attention}Poker Hand All{}"
                }
+            },
+
+            j_nflame_bakerfool = {
+               name = "Bakers Dozen",
+               text = {
+                  "When {C:attention}Booster Pack{} is opened",
+                  "create the {C:attention}default card{} for the set"
+               }
             }
 	},
 	Enhanced = {

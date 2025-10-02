@@ -676,3 +676,57 @@ SMODS.Joker {
       SMODS.add_card { set = fire.outcome }
    end
 }
+
+SMODS.Joker {
+   key = "bakerfool",
+   name = "Bakers Dozen",
+
+   atlas = "jokers1",
+   pos = { x = 4, y = 1 },
+
+   rarity = 2,
+   price = 5,
+   blueprint_compat = true,
+   demicolon_compat = true,
+   perishable_compat = true,
+   eternal_compat = true,
+
+   calculate = function(self, card, context)
+      if context.open_booster then
+
+         G.E_MANAGER:add_event(Event({
+            func = function()
+               -- wait for the cards to generate before we do anything
+               if not G.pack_cards.cards[1] then return false end
+
+               local set = G.pack_cards.cards[1].ability.set
+               local ckey = nil
+
+               -- we are NOT creating new playing cards
+               if set == "Default" or set == "Enhanced" then return true end
+
+               if SMODS.ObjectTypes[set] and SMODS.ObjectTypes[set].default and G.P_CENTERS[SMODS.ObjectTypes[set].default] then
+                  ckey = SMODS.ObjectTypes[set].default
+                  
+               -- unfortunately we need to hardcode these becaues the game does
+               -- also idk if any pack gives tags but might as well put it ere
+               elseif set == "Tarot"    then ckey = "c_strength"
+               elseif set == "Joker"    then ckey = "j_joker"
+               elseif set == "Planet"   then ckey = "c_pluto"
+               elseif set == "Spectral" then ckey = "c_incantation"
+               elseif set == "Tag"      then ckey = "tag_handy"
+               end
+
+               if not ckey then
+                  sendWarnMessage("No default for set " .. set .. " found, defaulting to Tarot", "Neonflame - Bakers Dozen")
+                  ckey = "c_fool"
+               end
+
+               SMODS.add_card { key = ckey }
+               card:juice_up(0.5, 0.5)
+               return true
+            end
+         }))
+      end
+   end
+}
