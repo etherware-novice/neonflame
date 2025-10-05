@@ -25,6 +25,7 @@ SMODS.Joker {
 	then
 	    bonus_hand = 0
 	    for _, tcard in ipairs(G.jokers.cards) do
+               if tcard:is_rarity(1) then
 	        G.E_MANAGER:add_event(Event({
 		    trigger = "after",
 		    delay = 0.3,
@@ -35,6 +36,7 @@ SMODS.Joker {
 		}))
 
 		bonus_hand = bonus_hand + card.ability.extra.bonus
+                end
 	    end
 
 	    G.E_MANAGER:add_event(Event({
@@ -47,28 +49,6 @@ SMODS.Joker {
 		    return true
 		end
 	    }))
-	end
-
-	if context.after then
-	    if G.GAME.current_round.hands_left < #G.jokers.cards then
-		
-	        local sac_card = G.jokers.cards[1]
-		if sac_card.is_eternal or sac_card.getting_sliced then
-		    sac_card = card -- sacrifices must be made
-		end
-		sac_card.getting_sliced = true
-
-		G.GAME.joker_buffer = G.GAME.joker_buffer - 1
-		G.E_MANAGER:add_event(Event({
-		    func = function()
-		        G.GAME.joker_buffer = 0
-			card:juice_up(0.8, 0.8)
-			sac_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
-			play_sound("slice1", 0.96 + math.random() * 0.08)
-			return true
-		    end,
-		}))
-	    end
 	end
     end,
 }
@@ -83,7 +63,7 @@ SMODS.Joker {
     rarity = 3,
     cost = 5,
     blueprint_compat = true,
-    config = { extra = { mult = 1 }, immutable = { lv = 1 } },
+    config = { extra = { mult = 0.5 }, immutable = { lv = 1 } },
     loc_vars = function(self, info_queue, center)
         return {vars = { center.ability.extra.mult, center.ability.extra.mult * center.ability.immutable.lv }}
     end,
@@ -188,8 +168,8 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 3, y = 0 },
 
-    config = { extra = { cards = 4 } },
-    rarity = 2,
+    config = { extra = { cards = 8 } },
+    rarity = 1,
     cost = 4,
     blueprint_compat = true,
     demicolon_compat = true,
@@ -227,7 +207,7 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 4, y = 0 },
 
-    config = { extra = { increase = 0.1, requirement = 5 } },
+    config = { extra = { increase = 1.5, requirement = 3 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -235,17 +215,7 @@ SMODS.Joker {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {self:calc_xmult(card), card.ability.extra.increase, card.ability.extra.requirement} }
-    end,
-
-    calc_xmult = function(self, card)
-        local dollar = (G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)
-	local bonus = math.floor(dollar / card.ability.extra.requirement) * card.ability.extra.increase
-        return bonus + 1
-    end,
-
-    set_ability = function(self, card, initial, delay_sprites)
-        self:calc_xmult(card)
+        return { vars = { card.ability.extra.increase, card.ability.extra.requirement} }
     end,
 
     calculate = function(self, card, context)
@@ -262,7 +232,7 @@ SMODS.Joker {
 	end
 
 	if xm_trigger then
-	    local multv = self:calc_xmult(card)
+	    local multv = card.ability.extra.increase
 	    return {
 	        message = localize({ type = "variable", key = "a_xmult", vars = { multv }}),
 		colour = G.C.MULT,
@@ -271,9 +241,9 @@ SMODS.Joker {
 	end
 
 	if context.final_scoring_step then
-	    if SMODS.calculate_round_score() < (G.GAME.blind.chips * 0.25) then
+	    if SMODS.calculate_round_score() > (G.GAME.blind.chips * card.ability.extra.requirement) then
 	        return {
-		    dollars = math.floor(G.GAME.dollars * -0.75),
+		    dollars = math.floor(G.GAME.dollars * -1),
 		    color = G.C.MONEY
 		}
 	    end
@@ -339,7 +309,7 @@ SMODS.Joker {
     pos = { x = 5, y = 0 },
 
     -- its a stanley parable item of course we reference "8"
-    config = { extra = { score = 88 } },
+    config = { extra = { score = 8 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = false,
@@ -353,10 +323,6 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
 
-        if context.end_of_round and context.cardarea == G.jokers then
-	    card.ability.extra.score = card.ability.extra.score + math.floor(G.GAME.chips / 4)
-	end
-
 
         if context.press_play then
 
@@ -367,14 +333,12 @@ SMODS.Joker {
 		end,
 	    }))
 
-	    local transfer = math.floor(card.ability.extra.score / 2)
-	    card.ability.extra.score = transfer
 
 	    G.E_MANAGER:add_event(Event({
 	        trigger = 'ease',
 		ref_table = G.GAME,
 		ref_value = "chips",
-		ease_to = to_big(G.GAME.chips + transfer),
+		ease_to = to_big(G.GAME.chips + card.ability.extra.score),
 		delay = 1,
 		func = (function(t) return math.floor(t) end)
 	    }))
@@ -395,14 +359,13 @@ SMODS.Joker {
 		end,
 	    }))
 
-	    local transfer = math.floor(G.GAME.chips / 2)
-	    card.ability.extra.score = card.ability.extra.score + G.GAME.chips
+  	    card.ability.extra.score = card.ability.extra.score + G.GAME.chips
 
 	    G.E_MANAGER:add_event(Event({
 	        trigger = 'ease',
 		ref_table = G.GAME,
 		ref_value = "chips",
-		ease_to = to_big(transfer),
+		ease_to = to_big(0),
 		delay = 1,
 		func = (function(t) return math.floor(t) end)
 	    }))

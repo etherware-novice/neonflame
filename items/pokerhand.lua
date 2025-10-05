@@ -1,7 +1,7 @@
 SMODS.PokerHand {
    key = "nflame_generic",
    visible = false,
-   chips = 100,
+   chips = 50,
    mult = 10,
    l_mult = 1,
    l_chips = 10,

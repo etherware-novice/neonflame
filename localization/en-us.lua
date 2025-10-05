@@ -5,10 +5,7 @@ return {
 	    j_nflame_jokerhelp = {
 	        name = "Helping Hand",
 		text = {
-		    "{C:blue}+#1#{} Hands for each {C:attention}Joker{}",
-		    "when selecting blind",
-		    "{C:attention}Destroy leftmost Joker{} if",
-		    "{C:blue}Hands{} are less than {C:attention}Jokers{}",
+		    "{C:blue}+#1#{} Hands for each {C:attention}Common Joker{}",
 		}
 	    },
 
@@ -45,8 +42,7 @@ return {
 	        name = "Number Go Up",
 		text = {
 		    "Jokers give {C:white,X:mult}X#1#{}",
-		    "Increases by {C:white,X:mult}X#2#{} for every {C:money}$#3#{} owned",
-		    "If hand scored less than 25% of blind, lose 75% of money",
+		    "If hand scored more than X#2# of blind score, lose all money",
 		}
 	    },
 
@@ -62,9 +58,8 @@ return {
 	    j_nflame_stanleybucket = {
 	        name = "Reassurance Bucket",
 		text = {
-		    "Siphons half of {C:purple}round score {C:attention}on discard{}, then doubles it",
+		    "Siphons {C:purple}round score {C:attention}on discard{}",
 		    "Adds {C:purple}stored round score{} when {C:attention}playing a hand{}",
-		    "Gains a quarter of round score at {C:attention}end of round{}",
 		    "{C:inactive}(Currently {C:purple}+#1#{C:inactive} score){}",
 		    "{s:0.8,C:inactive}Stanley and the bucket couragously bet all of their",
 		    "{s:0.8,C:inactive}life savings on a poker game. Let's see how this turns out."
