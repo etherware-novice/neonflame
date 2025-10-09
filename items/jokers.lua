@@ -693,3 +693,76 @@ SMODS.Joker {
       end
    end
 }
+
+SMODS.Joker {
+   key = "sappy",
+   name = "Sappy",
+
+   atlas = "layerjoker",
+   pos = { x = 2, y = 0 },
+   soul_pos = { x = 3, y = 0 },
+
+   config = { extra = { xmhandgain = 0.2 } },
+   rarity = 4,
+   price = 20,
+   blueprint_compat = true,
+   demicolon_compat = true,
+   perishable_compat = true,
+   eternal_compat = true,
+
+   loc_vars = function(self, info_queue, card)
+      return { vars = { card.ability.extra.xmhandgain } }
+   end,
+
+   calculate = function(self, card, context)
+      if context.pre_discard then
+         local carddraw = 0
+         for i, c in ipairs(context.full_hand) do
+            if not context.blueprint then
+               G.E_MANAGER:add_event(Event({
+                blocking = false,
+                func = function()
+                   if G.STATE ~= G.STATES.DRAW_TO_HAND then return false end
+                   -- gimmie my quickdraws damnit
+                   draw_card(G.discard, G.hand, nil, "up", true, c, 0.05)
+                   return true
+                end                           
+               }))
+               carddraw = i
+            end
+
+
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                   c:juice_up(0.5, 0.5)
+                   card:juice_up(0.5, 0.5)
+
+                   return true
+                end
+            }))
+
+            c.ability.perma_h_x_mult = (c.ability.perma_h_x_mult or 1) + card.ability.extra.xmhandgain
+         end
+
+         if carddraw > 0 then
+            G.E_MANAGER:add_event(Event({
+                blocking = false,
+                func = function()
+                   if G.STATE ~= G.STATES.SELECTING_HAND then return false end
+                   SMODS.draw_cards(carddraw)
+                   return true
+                end
+            }))
+         end
+
+         
+         return {
+            extra = {
+               card = card,
+               message = localize("k_upgrade_ex"),
+               colour = G.C.MULT
+            },
+         }
+      end
+   end
+}

@@ -119,7 +119,16 @@ return {
                   "When {C:attention}Booster Pack{} is opened",
                   "create the {C:attention}default card{} for the set"
                }
-            }
+            },
+
+            j_nflame_sappy = {
+               name = "Sappy",
+               text = {
+                  "Discarded cards are {C:attention}drawn back to hand{}",
+                  "with a bonus {C:white,X:mult}X#1#{} mult when held in hand",
+                  "Draw an extra card for each discarded card"
+               }
+            },
 	},
 	Enhanced = {
 	    m_nflame_snow = {
