@@ -1,5 +1,7 @@
 # NEONFLAME
 
+A **VANILLA** mod
+
 The Joker factory caught fire, leaving a raging inferno that never went out. These are the cards we recovered, though they might be singed, you may still find a use for them.
 
 Coded by candycanearter
