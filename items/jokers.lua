@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1759975824 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1760306859 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -765,4 +765,35 @@ SMODS.Joker {
          }
       end
    end
+}
+
+SMODS.Joker {
+    key = "refund",
+    name = "Refund Policy",
+
+    atlas = "jokers1",
+    pos = { x = 5, y = 1 },
+
+    config = { extra = { chance = 2 } },
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+		local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, "nflame_refund")
+        return { vars = { num, den } }
+	end,
+
+    calculate = function(self, card, context)
+		if context.selling_card and context.card and context.card.ability.consumeable 
+		and not context.card.ability.nflame_refundjeapordy then
+			if SMODS.pseudorandom_probability(card, "nflame_refund", 1, card.ability.extra.chance) then
+				local ncard = SMODS.add_card { set = context.card.ability.set }
+				ncard.ability.nflame_refundjeapordy = true
+			end
+		end
+	end
 }
