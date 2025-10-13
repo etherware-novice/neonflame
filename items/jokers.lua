@@ -521,7 +521,7 @@ SMODS.Joker {
       local desc, ctx = pseudorandom_element(possibility, "nflame_potato")
       newability.context = ctx
 
-      if desc.req and (pseudorandom("nflame_potato") < 0.5) then
+      if desc.req and requirements[desc.req] and (pseudorandom("nflame_potato") < 0.5) then
 	 newability.requiretype = desc.req
 	 newability.requires = pseudorandom_element(requirements[desc.req], "nflame_potato")
       end
