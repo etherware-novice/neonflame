@@ -25,3 +25,21 @@ SMODS.Atlas({
 	px = 71,
 	py = 95,
 })
+
+SMODS.Atlas({
+	key = "placeholders",
+	path = "atlasplaceholder.png",
+	px = 71,
+	py = 95,
+})
+
+
+SMODS.Sound ({
+	key = "rapdog_oops",
+	path = "rapdog_oops.ogg",
+})
+
+SMODS.Sound ({
+	key = "rapdog_oops_end",
+	path = "rapdog_oops_end.ogg",
+})

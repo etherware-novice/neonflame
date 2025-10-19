@@ -138,6 +138,18 @@ return {
 				  "{C:inactive}(Each card can only be resold once){}"
 				}
 			},
+
+			j_nflame_rapdog = {
+				name = "PaRappa",
+				text = {
+					"Gains {C:white,X:mult}X#1#{} if the {C:attention}last scored card this game{}",
+					"matches the {C:attention}rank{} of the first scoring card",
+					-- "and hand contains {C:attention}two ranks{}",
+					"Retriggers itself {C:attention}#2#{} times",
+					"{C:inactive}(Rank #3# and {C:white,X:mult}X#4#{C:inactive}){}",
+					"{C:inactive}oops- oops- oops- oops{}"
+				}
+			}
 	},
 	Enhanced = {
 	    m_nflame_snow = {

@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1760306859 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1760917610 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -794,6 +794,62 @@ SMODS.Joker {
 				local ncard = SMODS.add_card { set = context.card.ability.set }
 				ncard.ability.nflame_refundjeapordy = true
 			end
+		end
+	end
+}
+
+SMODS.Joker {
+    key = "rapdog",
+    name = "Parappa",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    config = { extra = { xmgain = 0.02, xm = 1 }, immutable = { rank = "Ace", retrigger = 10 } },
+    rarity = 4,
+    cost = 20,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    demicolon_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		local rank = localize(card.ability.immutable.rank, "ranks")
+		return { vars = { card.ability.extra.xmgain, card.ability.immutable.retrigger, rank, card.ability.extra.xm } }
+	end,
+
+	calculate = function(self, card, context)
+		if context.before then
+			local lead = context.scoring_hand[1]
+			if not lead then return end -- thanks cass
+			if SMODS.has_no_rank(lead) then return end
+
+			if lead.base.value == card.ability.immutable.rank then
+				card.ability.extra.xm = card.ability.extra.xm + card.ability.extra.xmgain
+				return { message = localize("k_upgrade_ex") }
+			end
+		end
+
+		if context.individual and context.cardarea == G.play then
+			card.ability.immutable.rank = context.other_card.base.value
+		end
+
+        if context.joker_main or context.forcetrigger then
+			if card.ability.extra.xm <= 1 then return end
+
+			local accum = 1
+			for i = 1, card.ability.immutable.retrigger do
+				SMODS.calculate_effect({
+					remove_default_message = true,
+					xmult = card.ability.extra.xm,
+					sound = "nflame_rapdog_oops",
+					message = "oops"
+				}, card)
+				accum = accum * card.ability.extra.xm
+			end
+
+			accum = math.floor(accum * 100) / 100
+			return { message = accum .. " combo!", color = G.C.MULT, sound = "nflame_rapdog_oops_end" }
 		end
 	end
 }
