@@ -21,6 +21,7 @@ local files = {
       "items/pokerhand",
       "items/enhance",
       "items/item",
+	  "items/backs",
       -- "items/edition",
       "lib/atlas",
 }

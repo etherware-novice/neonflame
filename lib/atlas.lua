@@ -33,6 +33,13 @@ SMODS.Atlas({
 	py = 95,
 })
 
+SMODS.Atlas({
+    key = "backs",
+    path = 'atlasback.png',
+    px = 71,
+    py = 95
+})
+
 
 SMODS.Sound ({
 	key = "rapdog_oops",

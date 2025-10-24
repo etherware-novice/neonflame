@@ -1,6 +1,17 @@
 
 return {
     descriptions = {
+        Back = {
+            b_nflame_selfinsert = {
+                name = "Deck of Many Slimes",
+                text = {
+                    "Start with {C:attention}every Sappy Joker",
+                    "from installed mods",
+                    "{C:inactive}#1# Jokers found{}"
+                },
+            }
+        },
+
         Joker = {
 		    j_nflame_jokerhelp = {
 		        name = "Helping Hand",
