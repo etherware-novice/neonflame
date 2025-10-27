@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1761279061 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1761527924 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -853,3 +853,40 @@ SMODS.Joker {
 		end
 	end
 }
+
+SMODS.Joker {
+    key = "stasis",
+    name = "Stasis",
+
+    atlas = "jokers1",
+    pos = { x = 0, y = 2 },
+
+    config = { extra = { mult = 0 } },
+    rarity = 1,
+    cost = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+
+	calculate = function(self, card, context)
+        if context.joker_main or context.forcetrigger then
+            return { mult = card.ability.extra.mult }
+        end
+
+		if context.joker_main and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+            card.ability.extra.mult = mult
+            return { message = localize('k_upgrade_ex') }
+        end
+
+        if context.end_of_round then
+            card.ability.extra.mult = 0
+        end
+
+    end
+}
+ 

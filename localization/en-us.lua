@@ -160,7 +160,16 @@ return {
 					"{C:inactive}(Rank #3# and {C:white,X:mult}X#4#{C:inactive}){}",
 					"{C:inactive}oops- oops- oops- oops{}"
 				}
-			}
+			},
+
+            j_nflame_stasis = {
+                name = "Stasis",
+                text = {
+                    "{C:mult}+#1#{} mult",
+                    "On first hand of round, {C:attention}copies mult{}",
+                    "Resets at end of round"
+                },
+            },
 	},
 	Enhanced = {
 	    m_nflame_snow = {
