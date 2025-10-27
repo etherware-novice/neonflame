@@ -28,7 +28,8 @@ local files = {
 
 local crossmodfiles = {
       "Cryptid",
-      "GSPhanta"
+      "GSPhanta",
+      "HotPotato",
 }
 
 for i, v in pairs(files) do
