@@ -170,6 +170,16 @@ return {
                     "Resets at end of round"
                 },
             },
+
+            j_nflame_localfunc = {
+                name = "local function x() x() end; x()",
+                text = {
+                    "Gains {C:white,X:mult}X#1#{} for each consecutive hand",
+                    "with the first card matching {C:attention}rank OR suit{}",
+                    "Changes after each hand",
+                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} and {C:attention}#3#{C:inactive} or {V:1}#4#{C:inactive})"
+                }
+            },
 	},
 	Enhanced = {
 	    m_nflame_snow = {

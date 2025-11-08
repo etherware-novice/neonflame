@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1761527924 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1762637759 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -889,4 +889,70 @@ SMODS.Joker {
 
     end
 }
- 
+
+SMODS.Joker {
+    key = "localfunc",
+    name = "local function x() x() end; x()",
+
+    atlas = "jokers1",
+    pos = { x = 1, y = 2 },
+
+    config = { extra = { mult = 1, multgain = 0.25 } },
+    rarity = 2,
+    cost = 6,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        local rank = card.ability.extra.rank or "Ace"
+        rank = localize(rank, "ranks")
+        local suit = card.ability.extra.suit or "Spades"
+        suit = localize(suit, "suits_plural")
+        return { vars = {
+            card.ability.extra.multgain, card.ability.extra.mult, rank, suit,
+            colours = { G.C.SUITS[card.ability.extra.suit] }
+        }}
+    end,
+
+    pick_card = function(self, card)
+        local valid_cards = {}
+        for _, playing_card in ipairs(G.playing_cards) do
+            if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
+                valid_cards[#valid_cards + 1] = playing_card
+            end
+        end
+
+        local new_card = pseudorandom_element(valid_cards, "nflame_localfunc")
+        if new_card then
+            card.ability.extra.suit = new_card.base.suit
+            card.ability.extra.rank = new_card.base.value
+        end
+    end,
+
+	calculate = function(self, card, context)
+		if context.before then
+			local lead = context.scoring_hand[1]
+			if not lead then return end -- thanks cass
+
+            if lead:is_suit(card.ability.extra.suit) or
+                lead.base.value == card.ability.extra.rank or
+                context.forcetrigger then
+
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.multgain
+                return { message = localize("k_upgrade_ex") }
+            else
+                card.ability.extra.mult = 1
+                return { message = localize("k_reset") }
+            end
+
+        end
+
+        if context.joker_main or context.forcetrigger then
+            return { xmult = card.ability.extra.mult }
+        end
+
+        if context.after then self:pick_card(card) end
+    end
+}
