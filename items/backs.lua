@@ -1,6 +1,6 @@
 SMODS.Back({
     key = "selfinsert",
-    name "Deck of Slimes",
+    name = "Deck of Slimes",
 
     atlas = "backs",
     pos = { x = 0, y = 0 },
