@@ -5,5 +5,7 @@ G.E_MANAGER.add_event(Event({
         for k, v in pairs(G.P_CENTER_POOLS.Joker) do
             v.hpot_unbreedable = true
         end
+
+        return false
     end
 }))
