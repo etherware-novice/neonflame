@@ -7,7 +7,6 @@ return {
                 text = {
                     "Start with {C:attention}every Sappy Joker",
                     "from installed mods",
-                    "{C:inactive}#1# Jokers found{}"
                 },
             }
         },
