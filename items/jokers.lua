@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1762637759 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1763057270 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -956,3 +956,71 @@ SMODS.Joker {
         if context.after then self:pick_card(card) end
     end
 }
+
+SMODS.Joker {
+    key = "clovercoin",
+    name = "Fake Coin",
+
+    atlas = "jokers1",
+    pos = { x = 2, y = 2 },
+
+    config = { extra = { chance = 3, xmult = 3, thistrigger = 0, maxtrigger = 3 } },
+    rarity = 1,
+    cost = 4,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+		local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, "nflame_refund")
+        
+        local active = "inactive"
+        local color = G.C.UI.TEXT_INACTIVE
+
+        if card.ability.extra.active then
+            active = "active"
+            color = G.C.MULT
+        end
+
+        return { vars = {
+            num, den, card.ability.extra.chance, card.ability.extra.maxtrigger, card.ability.extra.thistrigger,
+            active,
+            colours = { color }
+        }}
+    end,
+
+    calculate = function(self, card, context)
+        if context.after then
+            if SMODS.pseudorandom_probability(card, "nflame_clovercoin", 1, card.ability.extra.chance) then
+                card.ability.extra.thistrigger = card.ability.extra.thistrigger + 1
+                if card.ability.extra.thistrigger >= card.ability.extra.maxtrigger then
+                    SMODS.destroy_cards(card, nil, nil, true)
+                    return { message = localize("k_extinct_ex") }
+                end
+
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        ease_hands_played(1)
+                        return true
+                    end
+                }))
+
+                card.ability.extra.active = true
+
+                -- maybe make it play the coin sound from clovpit here too?
+                return { message = localize("k_active") }
+            end
+        end
+
+        if (context.joker_main and card.ability.extra.active) or context.forcetrigger then
+            card.ability.extra.active = false
+            return { xmult = card.ability.extra.xmult }
+        end
+
+        if context.end_of_round then
+            card.ability.extra.thistrigger = 0
+        end
+    end
+}
+ 

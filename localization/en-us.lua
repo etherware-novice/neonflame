@@ -180,6 +180,16 @@ return {
                     "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} and {C:attention}#3#{C:inactive} or {V:1}#4#{C:inactive})"
                 }
             },
+
+            j_nflame_clovercoin = {
+                name = "Fake Coin",
+                text = {
+                    "{C:green}#1# in #2#{} chance for {C:blue}an extra hand{}",
+                    "and {C:white,X:mult}X#3#{} for the next hand",
+                    "{C:red,E:2}Self destructs{} if triggered more than {C:attention}#4# times{} in a blind",
+                    "{s:0.8,C:inactive}(Currently #5# triggers and {s:0.8,V:1}#6#{s:0.8,C:inactive})"
+                }
+            },
 	},
 	Enhanced = {
 	    m_nflame_snow = {
