@@ -17,13 +17,14 @@ SMODS.current_mod.badge_text_colour = SMODS.Gradient {
 }
 
 local files = {
+	  "lib/globals",
+      "lib/atlas",
       "items/jokers",
       "items/pokerhand",
       "items/enhance",
       "items/item",
 	  "items/backs",
       -- "items/edition",
-      "lib/atlas",
 }
 
 local crossmodfiles = {

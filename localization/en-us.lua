@@ -190,6 +190,14 @@ return {
                     "{s:0.8,C:inactive}(Currently #5# triggers and {s:0.8,V:1}#6#{s:0.8,C:inactive})"
                 }
             },
+
+            j_nflame_slime_steel = {
+                name = "Steel Slime",
+                text = {
+                    "Each {C:attention}#1#{} held in hand gives {C:white,X:mult}X2{} mult",
+                    "{s:0.8,C:inactive}(Rank changes at end of round)"
+                }
+            }
 	},
 	Enhanced = {
 	    m_nflame_snow = {

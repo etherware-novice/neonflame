@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1763057270 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1763068486 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -905,6 +905,7 @@ SMODS.Joker {
     perishable_compat = false,
     demicolon_compat = true,
 
+    -- TODO make this use G.GAME.current_round
     loc_vars = function(self, info_queue, card)
         local rank = card.ability.extra.rank or "Ace"
         rank = localize(rank, "ranks")
@@ -914,21 +915,6 @@ SMODS.Joker {
             card.ability.extra.multgain, card.ability.extra.mult, rank, suit,
             colours = { G.C.SUITS[card.ability.extra.suit] }
         }}
-    end,
-
-    pick_card = function(self, card)
-        local valid_cards = {}
-        for _, playing_card in ipairs(G.playing_cards) do
-            if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
-                valid_cards[#valid_cards + 1] = playing_card
-            end
-        end
-
-        local new_card = pseudorandom_element(valid_cards, "nflame_localfunc")
-        if new_card then
-            card.ability.extra.suit = new_card.base.suit
-            card.ability.extra.rank = new_card.base.value
-        end
     end,
 
 	calculate = function(self, card, context)
@@ -953,7 +939,13 @@ SMODS.Joker {
             return { xmult = card.ability.extra.mult }
         end
 
-        if context.after then self:pick_card(card) end
+        if context.after then
+            local newcard = G.nflame_pick_idol_style()
+            if newcard then
+                card.ability.extra.rank = newcard.base.rank
+                card.ability.extra.suit = newcard.base.value
+            end
+        end
     end
 }
 
@@ -1024,3 +1016,51 @@ SMODS.Joker {
     end
 }
  
+SMODS.Joker {
+    key = "slime_steel",
+    name = "Steel Slime",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    config = { extra = { xmult = 1.5 } },
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        local rs = G.GAME.current_round.nflame_slimesteel or { rank = "Ace" }
+        return { vars = { localize(rs.rank, "ranks"), card.ability.extra.bonus } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and
+            context.other_card:get_id() == G.GAME.current_round.nflame_slimesteel.id then
+
+            if context.other_card.debuff then return { message = localize("k_debuffed"), color = G.C.RED }
+            else return { xmult = card.ability.extra.xmult }
+            end
+        end
+
+        if context.forcetrigger then
+            return { xmult = card.ability.extra.xmult }
+        end
+
+        if context.end_of_round and context.main_eval and not context.blueprint then
+        end
+    end
+}
+
+local function reset_nflame_slimesteel()
+    local newcard = G.nflame_pick_idol_style()
+    if newcard then
+        G.GAME.current_round.nflame_slimesteel = { id = newcard.base.id, rank = newcard.base.value }
+    end
+end
+
+function SMODS.current_mod.reset_game_globals(run_start)
+    reset_nflame_slimesteel()
+end
