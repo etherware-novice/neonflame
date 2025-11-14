@@ -8,3 +8,13 @@ G.nflame_pick_idol_style = function()
 
     return pseudorandom_element(valid_cards, "nflame_idol")
 end
+
+
+local ginit = Game.init_game_object
+function Game:init_game_object()
+    local g = ginit(self)
+
+    g.nflame_offshore_jokers = {}
+
+    return g
+end

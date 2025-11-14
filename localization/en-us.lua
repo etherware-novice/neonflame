@@ -196,6 +196,15 @@ return {
                     "Each {C:attention}#1#{} held in hand gives {C:white,X:mult}X2{} mult",
                     "{s:0.8,C:inactive}(Rank changes at end of round)"
                 }
+            },
+
+            j_nflame_offshorebank = {
+                name = "Offshore Bank",
+                text = {
+                    "When blind is selected, destroy Joker to the right",
+                    "{C:green}#1# in #2#{} chance to instead create a {C:attention}copy of a destroyed card{}",
+                    "{s:0.8,C:inactive}(Can only create one copy of destroyed card)"
+                }
             }
 	},
 	Enhanced = {

@@ -1061,6 +1061,78 @@ local function reset_nflame_slimesteel()
     end
 end
 
+SMODS.Joker {
+    key = "offshorebank",
+    name = "Offshore Bank Account",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    config = { extra = { chance = 4 } },
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+		local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, "nflame_offshorebank")
+        return { vars = { num, den } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.blueprint then return end
+        if not context.setting_blind and not context.forcetrigger then return end
+
+        local trigger = SMODS.pseudorandom_probability(card, "nflame_offshorebank", 1, card.ability.extra.chance)
+        if context.forcetrigger then trigger = true end
+
+        if trigger and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+            local new_card, index = pseudorandom_element(G.GAME.nflame_offshore_jokers, "nflame_offshorebank")
+            if new_card then
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:juice_up(0.8, 0.8)
+                        SMODS.add_card { set = "Joker", key = new_card }
+                        G.GAME.joker_buffer = 0
+
+                        return true
+                    end
+                }))
+
+                table.remove(G.GAME.nflame_offshore_jokers, index)
+                return
+            end
+        end
+
+        local my_pos = nil
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == card then my_pos = 1 end
+        end
+
+        if not my_pos then return end
+        local sliced_card = G.jokers.cards[my_pos + 1]
+        if not sliced_card or SMODS.is_eternal(sliced_card) or sliced_card.getting_sliced then return end
+
+        sliced_card.getting_sliced = true
+        G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.joker_buffer = 0
+                card:juice_up(0.8, 0.8)
+                G.GAME.nflame_offshore_jokers[#G.GAME.nflame_offshore_jokers + 1] = sliced_card.config.center_key
+                sliced_card:start_dissolve({ HEX("57ecab") }, nil, 1.6)
+                play_sound("slice1", 0.96 + math.random() * 0.08)
+                return true
+            end
+        }))
+    end
+}
+
+
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
 end
