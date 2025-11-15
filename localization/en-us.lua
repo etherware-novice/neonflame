@@ -213,7 +213,7 @@ return {
 	        text = {
 		    "Gains {C:mult}+#1#{} Mult {C:attention}permanently{}",
 		    "for each {C:attention}Snow Card{} in hand",
-		    "at end of round"
+		    "when hand played"
 		}
 	    },
 

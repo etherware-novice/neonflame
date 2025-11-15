@@ -12,7 +12,7 @@ SMODS.Enhancement {
     end,
 
     calculate = function(self, card, context)
-        if context.playing_card_end_of_round and context.cardarea == G.hand then
+        if context.before and context.cardarea == G.hand then
 	    local bonus_m = 0
 	    for _, playing_card in pairs(G.hand.cards) do
 	        if SMODS.has_enhancement(playing_card, "m_nflame_snow") then
@@ -37,7 +37,7 @@ SMODS.Enhancement {
     atlas = "enhance",
     pos = { x = 1, y = 0 },
 
-    config = { extra = { decreaseperc = 3, reroll = 6, disable = 5 } },
+    config = { extra = { decreaseperc = 10, reroll = 4, disable = 5 } },
 
     loc_vars = function(self, info_queue, card)
     	local renum, reden = SMODS.get_probability_vars(card, 1, card and card.ability.extra.reroll or self.config.extra.reroll, "nflame_rules")
