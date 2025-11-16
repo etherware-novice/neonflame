@@ -18,3 +18,6 @@ function Game:init_game_object()
 
     return g
 end
+
+SMODS.current_mod.calculate = function(self, context)
+end

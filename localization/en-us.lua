@@ -201,9 +201,9 @@ return {
             j_nflame_offshorebank = {
                 name = "Offshore Bank",
                 text = {
-                    "When blind is selected, destroy Joker to the right",
-                    "{C:green}#1# in #2#{} chance to instead create a {C:attention}copy of a destroyed card{}",
-                    "{s:0.8,C:inactive}(Can only create one copy of destroyed card)"
+                    "When {C:attention}Boss Blind{} is defeated, create",
+                    "a {C:dark_edition}negative{} copy of a Joker sold this ante",
+                    "{s:0.8,C:inactive}(Currently #1# Jokers)"
                 }
             }
 	},
