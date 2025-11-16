@@ -1065,8 +1065,8 @@ SMODS.Joker {
     key = "offshorebank",
     name = "Offshore Bank Account",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 3, y = 2 },
 
     config = { extra = { offshore = {} } },
     rarity = 3,
