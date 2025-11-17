@@ -205,6 +205,14 @@ return {
                     "a {C:dark_edition}negative{} copy of a Joker sold this ante",
                     "{s:0.8,C:inactive}(Currently #1# Jokers)"
                 }
+            },
+
+            j_nflame_henchmen = {
+                name = "Henchmen",
+                text = {
+                    "When {C:attention}Blind{} is selected, create #1# random Jokers",
+                    "{C:inactive}(Must NOT have room)"
+                }
             }
 	},
 	Enhanced = {
