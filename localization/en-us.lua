@@ -213,6 +213,14 @@ return {
                     "When {C:attention}Blind{} is selected, create #1# random Jokers",
                     "{C:inactive}(Must NOT have room)"
                 }
+            },
+
+            j_nflame_furnace = {
+                name = "Furnace",
+                text = {
+                    "Scored {C:attention}Sand Cards{} give {C:white,X:mult}X#1#{} Mult",
+                    "and have a {C:green}#2# in #3#{} chance to be destroyed{}"
+                }
             }
 	},
 	Enhanced = {
