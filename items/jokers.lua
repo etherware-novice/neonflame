@@ -702,7 +702,7 @@ SMODS.Joker {
    pos = { x = 2, y = 0 },
    soul_pos = { x = 3, y = 0 },
 
-   config = { extra = { xmhandgain = 0.2 } },
+   config = { extra = { xmhandgain = 0.05 } },
    rarity = 4,
    price = 20,
    blueprint_compat = true,
