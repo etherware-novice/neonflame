@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1763414333 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1763610951 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1153,6 +1153,35 @@ SMODS.Joker {
         end
     end
 }
+
+SMODS.Joker {
+    key = "bluecat",
+    name = "Helping Hand",
+
+    atlas = "enhance",
+    pos = { x = 2, y = 0 },
+
+    config = { extra = { xchips = 2 } },
+    rarity = 4,
+    cost = 3,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.xchips} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and
+            context.other_card:is_suit("Spades") then
+
+            return { xchips = card.ability.extra.xchips }
+        end
+    end
+}
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()

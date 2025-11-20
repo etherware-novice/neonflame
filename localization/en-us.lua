@@ -221,6 +221,13 @@ return {
                     "Held in hand {C:attention}Sand Cards{} give {C:white,X:mult}X#1#{} Mult",
                     "and have a {C:green}#2# in #3#{} chance to be destroyed{}"
                 }
+            },
+
+            j_nflame_jokerhelps = {
+                name = "asro",
+                text = {
+                    "Scored Spade cards give {C:white,X:blue}X#1#{} Chips"
+                }
             }
 	},
 	Enhanced = {
