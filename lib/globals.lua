@@ -21,3 +21,5 @@ end
 
 SMODS.current_mod.calculate = function(self, context)
 end
+
+test = "item"
