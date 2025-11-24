@@ -236,6 +236,15 @@ return {
                     "On the first hand of a round, {C:attention}destroy{} a random unscoring card",
                     "and add {C:attention}half{} its {C:blue}chip value{} as {C:red}permanent mult{} to {C:attention}all scoring cards"
                 }
+            },
+
+            j_nflame_ralsei = {
+                name = "Ralsei Deltarune",
+                text = {
+                    "When a card is {C:attention}destroyed{}",
+                    "create a copy of the {C:attention}leftmost{} card in hand and draw it to hand",
+                    "{C:inactive,s:0.8}(Hand must be drawn)"
+                }
             }
 	},
 	Enhanced = {

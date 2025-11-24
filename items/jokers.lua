@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764016487 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764027641 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1224,6 +1224,44 @@ SMODS.Joker {
 
         if context.destroy_card and context.destroy_card.ability.nflame_susietarget then
             return { remove = true }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "ralsei",
+    name = "Ralsei",
+
+    atlas = "jokers1",
+    pos = { x = 5, y = 2 },
+
+    rarity = 3,
+    cost = 8,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    calculate = function(self, card, context)
+        if context.remove_playing_cards and not context.blueprint then
+            local revived = G.hand.cards[1]
+            if not revived then return end
+
+            for i = 1, #context.removed do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local dupe = copy_card(revived)
+                        G.hand:emplace(dupe)
+                        dupe:add_to_deck()
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        table.insert(G.playing_cards, dupe)
+                        dupe:start_materialize()
+
+                        return true
+                    end,
+                }))
+            end
         end
     end
 }
