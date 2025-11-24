@@ -14,105 +14,105 @@ return {
         Joker = {
 		    j_nflame_jokerhelp = {
 		        name = "Helping Hand",
-			text = {
-			    "{C:blue}+#1#{} Hands for each {C:attention}Common Joker{}",
-			}
+                text = {
+                    "{C:blue}+#1#{} Hands for each {C:attention}Common Joker{}",
+                }
 		    },
 	
 		    j_nflame_hoarder = {
 		        name = "Hoarder",
-			text = {
-			    "Gains {C:white,X:mult} X#1# {} Mult",
-			    "for each {C:attention}Steam Level{}",
-			    "{C:inactive}Currently {C:white,X:mult}X#2#{}"
-			}
+                text = {
+                    "Gains {C:white,X:mult} X#1# {} Mult",
+                    "for each {C:attention}Steam Level{}",
+                    "{C:inactive,s:0.8}(Currently {C:white,X:mult,s:0.8}X#2#{C:inactive,s:0.8})"
+                }
 		    },
 	
 		    j_nflame_nflame = {
 		        name = "Neonflame",
-			text = {
-			    "Gains {C:white,X:mult} X#1# {} Mult",
-			    "for each {C:attention}new card added by Neonflame{}",
-			    "Loses {C:white,X:mult} X#2# {} Mult for each day",
-			    "since a new update",
-			    "{C:inactive}Currently {C:white,X:mult}X#3#{}"
-			}
+                text = {
+                    "Gains {C:white,X:mult} X#1# {} Mult",
+                    "for each {C:attention}new card added by Neonflame{}",
+                    "Loses {C:white,X:mult} X#2# {} Mult for each day",
+                    "since a new update",
+                    "{C:inactive,s:0.8}(Currently {C:white,X:mult,s:0.8}X#3#{C:inactive,s:0.8})"
+                }
 		    },
 	
 		    j_nflame_forecast = {
 		        name = "Forecast",
-			text = {
-			    "When booster pack is opened",
-			    "draw #1# more cards",
-			    "{s:0.8,C:inactive}Idea by badfontkeming{}",
-			},
+                text = {
+                    "When booster pack is opened",
+                    "draw #1# more cards",
+                    "{s:0.8,C:inactive}Idea by badfontkeming{}",
+                },
 		    },
 	
 		    j_nflame_numberup = {
 		        name = "Number Go Up",
-			text = {
-			    "Jokers give {C:white,X:mult}X#1#{}",
-			    "If hand scored more than X#2# of blind score, lose all money",
-			}
+                text = {
+                    "Jokers give {C:white,X:mult}X#1#{}",
+                    "If hand scored more than X#2# of blind score, lose all money",
+                }
 		    },
 	
 		    j_nflame_tjhenry = {
 		        name = "TJ 'Henry' Yoshi",
-			text = {
-			    "If played hand has #1# or less cards",
-			    "Scored cards gain {C:white,X:mult}X#2#{}",
-			    "and are {C:attention}drawn to hand next round{}"
-			}
+                text = {
+                    "If played hand has #1# or less cards",
+                    "Scored cards gain {C:white,X:mult}X#2#{}",
+                    "and are {C:attention}drawn to hand next round{}"
+                }
 		    },
 	
 		    j_nflame_stanleybucket = {
 		        name = "Reassurance Bucket",
-			text = {
-			    "Siphons {C:purple}round score {C:attention}on discard{}",
-			    "Adds {C:purple}stored round score{} when {C:attention}playing a hand{}",
-			    "{C:inactive}(Currently {C:purple}+#1#{C:inactive} score){}",
-			    "{s:0.8,C:inactive}Stanley and the bucket couragously bet all of their",
-			    "{s:0.8,C:inactive}life savings on a poker game. Let's see how this turns out."
-			}
+                text = {
+                    "Siphons {C:purple}round score {C:attention}on discard{}",
+                    "Adds {C:purple}stored round score{} when {C:attention}playing a hand{}",
+                    "{C:inactive,s:0.8}(Currently {C:purple,s:0.8}+#1#{C:inactive,s:0.8} score){}",
+                    "{s:0.8,C:inactive}Stanley and the bucket couragously bet all of their",
+                    "{s:0.8,C:inactive}life savings on a poker game. Let's see how this turns out."
+                }
 		    },
 	
 		    j_nflame_acpart = {
 		        name = "Agamemnon Counterpart",
-			text = {
-			    "If {C:attention}played hand{} contains an {C:attention}Ace{},",
-			    "convert a {C:attention}random card in hand{} to an {C:attention}Ace{}",
-			    "{C:inactive}a{}"
-			}
+                text = {
+                    "If {C:attention}played hand{} contains an {C:attention}Ace{},",
+                    "convert a {C:attention}random card in hand{} to an {C:attention}Ace{}",
+                    "{C:inactive}a{}"
+                }
 		    },
 	
 		    j_nflame_opensource = {
 		        name = "Open Source",
-			text = {
-			    "When a {C:cry_code}Green Seal{} is scored",
-			    "Create a {C:cry_code}Commit, Rework, or Delete{} card",
-			    "{C:inactive}(Must have room){}"
-			}
+                text = {
+                    "When a {C:cry_code}Green Seal{} is scored",
+                    "Create a {C:cry_code}Commit, Rework, or Delete{} card",
+                    "{C:inactive,s:0.8}(Must have room){}"
+                }
 		    },
 	
 		    j_nflame_miafey = {
 		        name = "Mia Fey",
-			text = {
-			    "When {C:attention}Ghost Cards{} are played and unscored",
-			    "{C:attention}Scored Cards{} gain the {C:white,X:mult}XMult{}",
-			    "of the {C:attention}Ghost Cards{}"
-			}
+                text = {
+                    "When {C:attention}Ghost Cards{} are played and unscored",
+                    "{C:attention}Scored Cards{} gain the {C:white,X:mult}XMult{}",
+                    "of the {C:attention}Ghost Cards{}"
+                }
 		    },
 	
 		    j_nflame_potatorevenge = {
 		        name = "Cold Potato",
-			text = {
-			    "{C:attention}You aren't ready for this joker{}.",
-			    "It is so {C:blue,E:1}#1#{}.",
-			    "{s:1.2,C:red}IT WILL BLOW YOUR MIND{}.",
-			    "It gets {E:1}better over time{}, too!",
-			    "{C:inactive}(Currently #2#){}",
-			    "{s:0.8,C:inactive}idea by astro{}",
-			}
+                text = {
+                    "{C:attention}You aren't ready for this joker{}.",
+                    "It is so {C:blue,E:1}#1#{}.",
+                    "{s:1.2,C:red}IT WILL BLOW YOUR MIND{}.",
+                    "It gets {E:1}better over time{}, too!",
+                    "{C:inactive}(Currently #2#){}",
+                    "{s:0.8,C:inactive}idea by astro{}",
+                }
 		    },
 	
 	        j_nflame_genplanet = {
@@ -145,19 +145,19 @@ return {
 				text = {
 				  "Sold consumables have a {C:green}#1# in #2#{} chance",
 				  "to {C;attention}create a card of the same type{}",
-				  "{C:inactive}(Each card can only be resold once){}"
+				  "{C:inactive,s:0.8}(Each card can only be resold once)"
 				}
 			},
 
 			j_nflame_rapdog = {
 				name = "PaRappa",
 				text = {
-					"Gains {C:white,X:mult}X#1#{} if the {C:attention}last scored card this game{}",
+					"Gains {C:white,X:mult}X#1#{} if the {C:attention}last scored card this game",
 					"matches the {C:attention}rank{} of the first scoring card",
 					-- "and hand contains {C:attention}two ranks{}",
 					"Retriggers itself {C:attention}#2#{} times",
-					"{C:inactive}(Rank #3# and {C:white,X:mult}X#4#{C:inactive}){}",
-					"{C:inactive}oops- oops- oops- oops{}"
+					"{C:inactive,s:0.8}(Rank #3# and {C:white,X:mult,s:0.8}X#4#{C:inactive,s:0.8})",
+					"{C:inactive,s:0.8}oops- oops- oops- oops"
 				}
 			},
 
@@ -166,7 +166,7 @@ return {
                 text = {
                     "{C:mult}+#1#{} mult",
                     "On first hand of round, {C:attention}copies mult{}",
-                    "Resets at end of round"
+                    "{C:inactive,s:0.8}(Resets at end of round)"
                 },
             },
 
@@ -176,7 +176,7 @@ return {
                     "Gains {C:white,X:mult}X#1#{} for each consecutive hand",
                     "with the first card matching {C:attention}rank OR suit{}",
                     "Changes after each hand",
-                    "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} and {C:attention}#3#{C:inactive} or {V:1}#4#{C:inactive})"
+                    "{C:inactive,s:0.8}(Currently {C:white,X:mult,s:0.8}X#2#{C:inactive,s:0.8} and {C:attention,s:0.8}#3#{C:inactive,s:0.8} or {V:1,s:0.8}#4#{C:inactive,s:0.8})"
                 }
             },
 
@@ -211,7 +211,7 @@ return {
                 name = "Henchmen",
                 text = {
                     "When {C:attention}Blind{} is selected, create #1# random Jokers",
-                    "{C:inactive}(Must NOT have room)"
+                    "{C:inactive,s:0.8}(Must NOT have room)"
                 }
             },
 
@@ -234,7 +234,7 @@ return {
                 name = "Susie Deltarune",
                 text = {
                     "On the first hand of a round, {C:attention}destroy{} a random unscoring card",
-                    "and add {C:attention}half{} its {C:blue}chip value{} as {C:red}permanent mult to all scoring cards"
+                    "and add {C:attention}half{} its {C:blue}chip value{} as {C:red}permanent mult{} to {C:attention}all scoring cards"
                 }
             }
 	},
@@ -282,15 +282,15 @@ return {
 
     misc = {
     	 challenge_names = {
-	     c_nflame_moderntech = "Day-One Patches"
-	 },
+             c_nflame_moderntech = "Day-One Patches"
+         },
 
-	 poker_hands = {
-	     nflame_generic = "Poker Hand All"
-	 },
+         poker_hands = {
+             nflame_generic = "Poker Hand All"
+         },
 
-	 poker_hand_descriptions = {
-	     nflame_generic = { "Any cards." }
-	 }
+         poker_hand_descriptions = {
+             nflame_generic = { "Any cards." }
+         }
     }
 }

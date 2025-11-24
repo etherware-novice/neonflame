@@ -386,7 +386,7 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 0, y = 1 },
 
-    rarity = 1,
+    rarity = 2,
     cost = 4,
     blueprint_compat = true,
     demicolon_compat = true,
@@ -874,13 +874,13 @@ SMODS.Joker {
     end,
 
 	calculate = function(self, card, context)
-        if context.joker_main or context.forcetrigger then
-            return { mult = card.ability.extra.mult }
-        end
-
 		if context.joker_main and G.GAME.current_round.hands_played == 0 and not context.blueprint then
             card.ability.extra.mult = mult
             return { message = localize('k_upgrade_ex') }
+        end
+
+        if context.joker_main or context.forcetrigger then
+            return { mult = card.ability.extra.mult }
         end
 
         if context.end_of_round then
