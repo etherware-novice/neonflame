@@ -1205,7 +1205,6 @@ SMODS.Joker {
             for k, v in pairs(context.full_hand) do
                 if not SMODS.in_scoring(v, context.scoring_hand) then
                     table.insert(enemyroundup, v)
-                    print("added card")
                 end
             end
         end
