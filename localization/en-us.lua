@@ -223,10 +223,18 @@ return {
                 }
             },
 
-            j_nflame_jokerhelps = {
+            j_nflame_bluecat = {
                 name = "asro",
                 text = {
                     "Scored Spade cards give {C:white,X:blue}X#1#{} Chips"
+                }
+            },
+
+            j_nflame_susie = {
+                name = "Susie Deltarune",
+                text = {
+                    "On the first hand of a round, {C:attention}destroy{} a random unscoring card",
+                    "and add {C:attention}half{} its {C:blue}chip value{} as {C:red}permanent mult to all scoring cards"
                 }
             }
 	},

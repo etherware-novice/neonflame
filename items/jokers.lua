@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1763610951 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764016487 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1178,6 +1178,53 @@ SMODS.Joker {
             context.other_card:is_suit("Spades") then
 
             return { xchips = card.ability.extra.xchips }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "susie",
+    name = "Susie",
+
+    atlas = "jokers1",
+    pos = { x = 4, y = 2 },
+
+    rarity = 3,
+    cost = 8,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    calculate = function(self, card, context)
+        local enemyroundup = {}
+        local procupgrade = 0
+        if context.forcetrigger then procupgrade = 5 end
+
+        if G.GAME.current_round.hands_played == 0 and context.before then
+            for k, v in pairs(context.full_hand) do
+                if not SMODS.in_scoring(v, context.scoring_hand) then
+                    table.insert(enemyroundup, v)
+                    print("added card")
+                end
+            end
+        end
+
+        local picked_card, id = pseudorandom_element(enemyroundup, "nflame_susie")
+        if picked_card then
+            picked_card.ability.nflame_susietarget = true
+            procupgrade = picked_card:get_chip_bonus()
+        end
+
+        if procupgrade > 0 then
+            for k, v in pairs(context.scoring_hand) do
+                v.ability.perma_mult = (v.ability.perma_mult or 0) + procupgrade
+            end
+            return { message = localize("k_upgrade_ex") }
+        end
+
+        if context.destroy_card and context.destroy_card.ability.nflame_susietarget then
+            return { remove = true }
         end
     end
 }
