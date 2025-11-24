@@ -1213,7 +1213,7 @@ SMODS.Joker {
         local picked_card, id = pseudorandom_element(enemyroundup, "nflame_susie")
         if picked_card then
             picked_card.ability.nflame_susietarget = true
-            procupgrade = picked_card:get_chip_bonus()
+            procupgrade = math.floor(picked_card:get_chip_bonus() / 2)
         end
 
         if procupgrade > 0 then
