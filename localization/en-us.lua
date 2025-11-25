@@ -245,6 +245,15 @@ return {
                     "create a copy of the {C:attention}leftmost{} card in hand and draw it to hand",
                     "{C:inactive,s:0.8}(Hand must be drawn)"
                 }
+            },
+
+            j_nflame_kris = {
+                name = "Kris Deltarune",
+                text = {
+                    "When adding a card to deck, create a {C:red}Hearts{} copy",
+                    "with {C:attention}double{} the chips value and put it in deck",
+                    "Retrigger all played cards once for each {C:attention}unscoring Hearts{} card"
+                }
             }
 	},
 	Enhanced = {

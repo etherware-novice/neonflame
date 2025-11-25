@@ -1197,6 +1197,7 @@ SMODS.Joker {
     demicolon_compat = true,
 
     calculate = function(self, card, context)
+        if context.blueprint then return end
         local enemyroundup = {}
         local procupgrade = 0
         if context.forcetrigger then procupgrade = 5 end
@@ -1257,11 +1258,66 @@ SMODS.Joker {
                         G.deck.config.card_limit = G.deck.config.card_limit + 1
                         table.insert(G.playing_cards, dupe)
                         dupe:start_materialize()
+                        SMODS.calculate_context({ playing_card_added = true, cards = { dupe } })
 
                         return true
                     end,
                 }))
             end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "kris",
+    name = "Kris",
+
+    atlas = "jokers1",
+    pos = { x = 0, y = 3 },
+
+    rarity = 3,
+    cost = 5,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    in_pool = function(self, args)
+        return next(SMODS.find_card('j_nflame_susie')) or next(SMODS.find_card('j_nflame_ralsei'))
+    end
+
+    calculate = function(self, card, context)
+        if context.playing_card_added and not context.blueprint and not context.nflame_kris then
+            for k, v in pairs(context.cards) do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local dupe = copy_card(v)
+                        SMODS.change_base(dupe, 'Hearts')
+                        dupe.perma_bonus = dupe:get_chip_bonus()
+
+                        G.deck:emplace(dupe)
+                        dupe:add_to_deck()
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        table.insert(G.playing_cards, dupe)
+                        dupe:start_materialize()
+                        SMODS.calculate_context({ playing_card_added = true, cards = { dupe }, nflame_kris = true })
+
+                        return true
+                    end,
+                }))
+            end
+        end
+
+        if context.repetition and context.cardarea == G.play then 
+            local soulpower = 0
+            for k, v in pairs(context.full_hand) do
+                if not SMODS.in_scoring(v, context.scoring_hand) and v:is_suit("Hearts") then
+                    soulpower = soulpower + 1
+                end
+            end
+
+            return { repetitions = soulpower }
         end
     end
 }
