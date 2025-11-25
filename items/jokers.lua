@@ -1284,7 +1284,7 @@ SMODS.Joker {
 
     in_pool = function(self, args)
         return next(SMODS.find_card('j_nflame_susie')) or next(SMODS.find_card('j_nflame_ralsei'))
-    end
+    end,
 
     calculate = function(self, card, context)
         if context.playing_card_added and not context.blueprint and not context.nflame_kris then
