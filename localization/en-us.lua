@@ -255,52 +255,82 @@ return {
                     "Retrigger all played cards once for each {C:attention}unscoring Hearts{} card"
                 }
             }
-	},
-	Enhanced = {
-	    m_nflame_snow = {
-	        name = "Snow Card",
-	        text = {
-		    "Gains {C:mult}+#1#{} Mult {C:attention}permanently{}",
-		    "for each {C:attention}Snow Card{} in hand",
-		    "when hand played"
-		}
-	    },
+        },
 
-	    m_nflame_rules = {
-	        name = "Rouxls Kaard",
-		text = {
-		    "Decreases {C:attention}Blind Requirement{} by {C:attention}#1#%{}",
-		    "{C:green}#2# in #3#{} chance to {C:attention}disable boss blind{}",
-		    "{C:inactive,s:0.8}Thou thought me a {C:inactive,E:1,s:0.8}fool{C:inactive,s:0.8}, didest thou?",
-		    "{C:inactive,E:1,s:0.8}Worms{C:inactive,s:0.8}, if thereseth one thingeth I'm {C:red,s:0.8}NOT{},",
-		    "{C:inactive,s:0.8}its a {C:red,E:1}COURTETH JESTER.{}"
-		}
-	    },
-	},
+        Enhanced = {
+            m_nflame_snow = {
+                name = "Snow Card",
+                text = {
+                "Gains {C:mult}+#1#{} Mult {C:attention}permanently{}",
+                "for each {C:attention}Snow Card{} in hand",
+                "when hand played"
+            }
+            },
 
-	Tarot = {
-	    c_nflame_frost = {
-	        name = "The Frost",
-		text = {
-		    "Enhances {C:attention}#1#{}",
-		    "selected cards to",
-		    "{C:attention}#2#{}"
-		}
-	    },
-	    c_nflame_trabant = {
-	        name = "The Trabant",
-		text = {
-		    "Enhances {C:attention}#1#{}",
-		    "selected cards to",
-		    "{C:attention}#2#{}"
-		}
-	    }
-	}
-    },
+            m_nflame_rules = {
+                name = "Rouxls Kaard",
+            text = {
+                "Decreases {C:attention}Blind Requirement{} by {C:attention}#1#%{}",
+                "{C:green}#2# in #3#{} chance to {C:attention}disable boss blind{}",
+                "{C:inactive,s:0.8}Thou thought me a {C:inactive,E:1,s:0.8}fool{C:inactive,s:0.8}, didest thou?",
+                "{C:inactive,E:1,s:0.8}Worms{C:inactive,s:0.8}, if thereseth one thingeth I'm {C:red,s:0.8}NOT{},",
+                "{C:inactive,s:0.8}its a {C:red,E:1}COURTETH JESTER.{}"
+            }
+            },
+        },
+
+        evidence = {
+            c_nflame_badge = {
+                name = "Attorneys Badge",
+                text = {
+                    "On last hand of round, if score is below 50%",
+                    "this card can {C:red}destroy{} another evidence piece",
+                    "to {C:attention}prevent death{} this round",
+                    "{C:attention}+1 Consumable slot",
+                    "{C:inactive,s:0.8}\"otherwise, how will people know im an attorney?\""
+                }
+            },
+
+            c_nflame_passport = {
+                name = "Cindy's Passport",
+                text = {
+                    "If a straight was played this round",
+                    "this card can {C:red}destroy{} all rankless cards in hand",
+                    "{C:inactive,s:0.8}\"stone can't be their real last name, right?\""
+                }
+            },
+        },
+
+        Tarot = {
+            c_nflame_frost = {
+                name = "The Frost",
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#{}"
+                }
+            },
+            c_nflame_trabant = {
+                name = "The Trabant",
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#{}"
+                }
+            }
+        },
+	},
 
     misc = {
     	 challenge_names = {
              c_nflame_moderntech = "Day-One Patches"
+         },
+
+         dictionary = {
+             b_evidence_cards = "Evidence Pieces",
+             k_evidence = "Evidence",
+
+             ph_attorneys = "Bluffed your way out...",
          },
 
          poker_hands = {
@@ -309,6 +339,10 @@ return {
 
          poker_hand_descriptions = {
              nflame_generic = { "Any cards." }
-         }
-    }
+         },
+
+        labels = {
+            evidence = "Evidence Piece",
+        }
+    },
 }

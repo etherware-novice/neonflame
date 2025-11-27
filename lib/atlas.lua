@@ -27,6 +27,13 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+	key = "evidence",
+	path = "atlasevidence.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
 	key = "placeholders",
 	path = "atlasplaceholder.png",
 	px = 71,

@@ -20,6 +20,11 @@ function Game:init_game_object()
 end
 
 SMODS.current_mod.calculate = function(self, context)
+    if context.end_of_round and context.game_over and context.main_eval and G.GAME.current_round.attorneysluck then
+        return { saved = "ph_attorneys" }
+    end
+
+    if context.setting_blind then G.GAME.current_round.attorneysluck = false end
 end
 
 test = "item"

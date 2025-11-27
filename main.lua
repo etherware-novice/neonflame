@@ -23,6 +23,7 @@ local files = {
       "items/pokerhand",
       "items/enhance",
       "items/item",
+	  "items/evidence",
 	  "items/backs",
       -- "items/edition",
 }
