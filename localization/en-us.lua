@@ -254,7 +254,15 @@ return {
                     "with {C:attention}double{} the chips value and put it in deck",
                     "Retrigger all played cards once for each {C:attention}unscoring Hearts{} card"
                 }
-            }
+            },
+
+            j_nflame_lavalamp = {
+                name = "Lava Lamp",
+                text = {
+                    "{C:green}#1#{} to listed {C:green}probabilities",
+                    "{C:inactive,s:0.8}(Changes at end of round)"
+                }
+            },
         },
 
         Enhanced = {

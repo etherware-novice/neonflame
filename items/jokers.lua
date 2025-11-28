@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764211402 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764372796 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1322,7 +1322,42 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "lavalamp",
+    name = "Lava Lamp",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    rarity = 2,
+    cost = 3,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        local mod = G.GAME.current_round.nflame_lamp or 1
+        if mod >= 0 then mod = "+" .. mod end
+        return { vars = {mod} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.mod_probability and not context.blueprint then
+            return { numerator = G.GAME.current_round.nflame_lamp or 1 }
+        end
+    end
+}
+
+local function reset_nflame_lamp()
+    -- range of -1 to 3, rounded to 0.1
+    local new_r = pseudorandom("nflame_lavalamp") * 40
+    new_r = math.floor(new_r) / 10
+    G.GAME.current_round.nflame_lamp = new_r - 1
+end
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
+    reset_nflame_lamp()
 end
