@@ -283,9 +283,9 @@ return {
             c_nflame_badge = {
                 name = "Attorneys Badge",
                 text = {
-                    "On last hand of round, if score is below 50%",
-                    "this card can {C:red}destroy{} another evidence piece",
-                    "to {C:attention}prevent death{} this round",
+                    "Use this card to {C:red}destroy{} another evidence piece",
+                    "and {C:attention}prevent death{} this round",
+                    "Can only be used on the {C:attention}last hand of a round",
                     "{C:attention}+1 Consumable slot",
                     "{C:inactive,s:0.8}\"otherwise, how will people know im an attorney?\""
                 }
@@ -294,8 +294,8 @@ return {
             c_nflame_passport = {
                 name = "Cindy's Passport",
                 text = {
-                    "If a straight was played this round",
-                    "this card can {C:red}destroy{} all rankless cards in hand",
+                    "Use this card to {C:red}destroy{} all rankless card in hand",
+                    "Can only be used if a straight was played this round",
                     "{C:inactive,s:0.8}\"stone can't be their real last name, right?\""
                 }
             },

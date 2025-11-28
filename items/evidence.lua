@@ -37,8 +37,7 @@ SMODS.Consumable {
 
     can_use = function(self, card)
         if G.GAME.current_round.attorneysluck then return false end
-        if to_big(math.floor(G.GAME.chips / 2)) > to_big(G.GAME.blind.chips) then return false end
-        if to_big(G.GAME.current_round.hands_left) > 1 then return false end
+        if G.GAME.current_round.hands_left > 1 then return false end
 
         for k, v in ipairs(G.consumeables.cards) do
             if v.ability.set == "evidence" and v ~= card then return true end
