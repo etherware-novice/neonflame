@@ -7,6 +7,8 @@ return {
                 text = {
                     "Start with {C:attention}every Sappy Joker",
                     "from installed mods",
+                    "Neonflame jokers are {C:dark_edition}100X",
+                    "more likely to appear"
                 },
             }
         },

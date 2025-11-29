@@ -1,3 +1,4 @@
+
 SMODS.current_mod.badge_colour = SMODS.Gradient {
     key = "flame_badge",
     colours = {

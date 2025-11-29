@@ -338,7 +338,7 @@ SMODS.Joker {
 	        trigger = 'ease',
 		ref_table = G.GAME,
 		ref_value = "chips",
-		ease_to = to_big(G.GAME.chips + card.ability.extra.score),
+		ease_to = G.GAME.chips + card.ability.extra.score,
 		delay = 1,
 		func = (function(t) return math.floor(t) end)
 	    }))
@@ -365,7 +365,7 @@ SMODS.Joker {
 	        trigger = 'ease',
 		ref_table = G.GAME,
 		ref_value = "chips",
-		ease_to = to_big(0),
+		ease_to = 0,
 		delay = 1,
 		func = (function(t) return math.floor(t) end)
 	    }))
@@ -429,6 +429,20 @@ SMODS.Joker {
     end
 }
 
+-- more for myself to vent a bit and to
+-- find all the mods that THEYVE made that
+-- i mightve accidentily installed
+-- PLEASE dont commit this it would be a disaster
+for k, v in pairs(SMODS.Mods) do
+	for _, a in ipairs(v.author) do
+		if string.find(a, "Astra") and not v.disabled then
+            v.debug_info = "UNINSTALL!!!!"
+            -- G.draw = 0
+		end
+	end
+end
+
+
 SMODS.Joker {
    key = "potatorevenge",
    name = "Cold Potato",
@@ -487,7 +501,7 @@ SMODS.Joker {
       }
 
       local requirements = {
-	 cardtype = { "Joker", "consumeable", "Tarot", "Spectral", "Planet", "dollars", "Default" },
+	 cardtype = { "Joker", "Consumeables", "Tarot", "Spectral", "Planet", "dollars", "Default" },
 	 cardsuit = { "Hearts", "Clubs", "Spades", "Diamonds", "Stone" }, -- stone is any non rank
 	 cardrank = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }, -- 0 is no rank
 	 cardany = { "Stone", "Hearts", "Clubs", "Spades", "Diamonds", 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 },
