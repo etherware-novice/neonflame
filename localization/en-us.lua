@@ -262,7 +262,8 @@ return {
                 name = "Lava Lamp",
                 text = {
                     "{C:green}#1#{} to listed {C:green}probabilities",
-                    "{C:inactive,s:0.8}(Changes at end of round)"
+                    "{C:inactive,s:0.8}(Changes at end of round)",
+                    "{s:0.8,C:inactive}Art by soda"
                 }
             },
         },

@@ -1340,8 +1340,8 @@ SMODS.Joker {
     key = "lavalamp",
     name = "Lava Lamp",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 1, y = 3 },
 
     rarity = 2,
     cost = 3,
