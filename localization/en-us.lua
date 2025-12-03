@@ -263,7 +263,7 @@ return {
                 text = {
                     "{C:green}#1#{} to listed {C:green}probabilities",
                     "{C:inactive,s:0.8}(Changes at end of round)",
-                    "{s:0.8,C:inactive}Art by soda"
+                    "{s:0.8,C:inactive}Art by Camostar34"
                 }
             },
         },

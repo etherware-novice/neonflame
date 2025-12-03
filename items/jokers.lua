@@ -429,20 +429,6 @@ SMODS.Joker {
     end
 }
 
--- more for myself to vent a bit and to
--- find all the mods that THEYVE made that
--- i mightve accidentily installed
--- PLEASE dont commit this it would be a disaster
-for k, v in pairs(SMODS.Mods) do
-	for _, a in ipairs(v.author) do
-		if string.find(a, "Astra") and not v.disabled then
-            v.debug_info = "UNINSTALL!!!!"
-            -- G.draw = 0
-		end
-	end
-end
-
-
 SMODS.Joker {
    key = "potatorevenge",
    name = "Cold Potato",
