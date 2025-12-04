@@ -310,6 +310,17 @@ return {
                     "{C:inactive,s:0.8}\"stone can't be their real last name, right?\""
                 }
             },
+
+            c_nflame_thinker = {
+                name = "The Thinker (Replica)",
+                text = {
+                    "Use this card to create a {C:dark_edition}negative {C:tarot}Fool",
+                    "for every #1# cards {C:attention}destroyed{} this ante",
+                    "Can only be used in a {C:attention}Boss Blind",
+                    "{C:inactive,s:0.8}(Currently #2# cards destroyed)",
+                    "{C:inactive,s:0.8}\"this thing qualifies as a serial killer by now...\""
+                }
+            }
         },
 
         Tarot = {

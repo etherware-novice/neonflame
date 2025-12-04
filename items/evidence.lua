@@ -72,3 +72,44 @@ SMODS.Consumable {
         end
     end
 }
+
+SMODS.Consumable {
+    key = "thinker",
+    set = "evidence",
+
+    atlas = "placeholders",
+    pos = { x = 1, y = 0 },
+    config = { extra = { destroyed = 0, required = 4 } },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.required, card.ability.extra.destroyed} }
+    end,
+
+    can_use = function(self, card)
+        if card.ability.extra.destroyed < card.ability.extra.required then return false end
+        if not G.GAME.blind.boss then return false end
+        return true
+    end,
+
+    calculate = function(self, card, context)
+        if context.remove_playing_cards then
+            card.ability.extra.destroyed = card.ability.extra.destroyed + #context.removed
+
+            if self:can_use(card) then return { message = localize("k_active_ex") } end
+        end
+
+        if context.end_of_round and context.beat_boss then card.ability.extra.destroyed = 0 end
+    end,
+
+    use = function(self, card, area)
+        local proc = math.floor(card.ability.extra.destroyed / card.ability.extra.required)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for i = 1, proc do
+                    SMODS.add_card { key = "c_fool", edition = "e_negative" }
+                end
+                return true
+            end
+        }))
+    end
+}
