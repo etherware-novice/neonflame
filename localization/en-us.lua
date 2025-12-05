@@ -266,6 +266,15 @@ return {
                     "{s:0.8,C:inactive}Art by Camostar34"
                 }
             },
+
+            j_nflame_cstar = {
+                name = "Camostar",
+                text = {
+                    "First played and {C:attention}unscoring{} card",
+                    "is converted to a {C:attention}Gold Card",
+                    "and gives {C:yellow}$3"
+                }
+            },
         },
 
         Enhanced = {

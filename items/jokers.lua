@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764372796 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1764965023 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1355,6 +1355,53 @@ local function reset_nflame_lamp()
     new_r = math.floor(new_r) / 10
     G.GAME.current_round.nflame_lamp = new_r - 1
 end
+
+SMODS.Joker {
+    key = "cstar",
+    name = "Camostar",
+
+    atlas = "jokers1",
+    pos = { x = 2, y = 3 },
+
+    rarity = 2,
+    cost = 5,
+
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    calculate = function(self, card, context)
+        local trigger = context.force_trigger
+
+        if context.before and not context.blueprint then
+            if #context.scoring_hand < #context.full_hand then trigger = true end
+        end
+
+        if not trigger then return end
+
+        local pcard = nil
+        for k, v in pairs(context.full_hand) do
+            if not SMODS.in_scoring(v, context.scoring_hand) then
+                pcard = v
+                break
+            end
+        end
+
+        if not pcard then return end
+
+        pcard:set_ability("m_gold", nil, true)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card:juice_up()
+                pcard:juice_up()
+                return true
+            end
+        }))
+
+        return { dollars = 3 }
+end,
+}
 
 
 function SMODS.current_mod.reset_game_globals(run_start)
