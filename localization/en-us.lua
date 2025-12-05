@@ -268,7 +268,7 @@ return {
             },
 
             j_nflame_cstar = {
-                name = "Camostar",
+                name = "Samson",
                 text = {
                     "First played and {C:attention}unscoring{} card",
                     "is converted to a {C:attention}Gold Card",
