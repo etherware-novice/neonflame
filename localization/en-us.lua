@@ -68,7 +68,7 @@ return {
 		    },
 	
 		    j_nflame_stanleybucket = {
-		        name = "Reassurance Bucket",
+		        name = "Nostalgic Reassurance Bucket",
                 text = {
                     "Siphons {C:purple}round score {C:attention}on discard{}",
                     "Adds {C:purple}stored round score{} when {C:attention}playing a hand{}",
@@ -272,7 +272,18 @@ return {
                 text = {
                     "First played and {C:attention}unscoring{} card",
                     "is converted to a {C:attention}Gold Card",
-                    "and gives {C:yellow}$3"
+                    "and gives {C:money}$3",
+                    "{s:0.8,C:inactive}OC by Camostar34"
+                }
+            },
+
+            j_nflame_stanleybucket_new = {
+                name = "Reassurance Bucket",
+                text = {
+                    "Swaps {C:blue}chips{} and {C:purple}round score",
+                    "{s:0.8,C:inactive}Come now, Stanley (and the bucket), this is the",
+                    "{s:0.8,C:inactive}thrill you were looking for! Don't let something as",
+                    "{s:0.8,C:inactive}minor as \"having no money\" stop you from GAMBLING!",
                 }
             },
         },

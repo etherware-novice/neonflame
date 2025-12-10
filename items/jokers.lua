@@ -1403,6 +1403,44 @@ SMODS.Joker {
 end,
 }
 
+SMODS.Joker {
+    key = "stanleybucket_new",
+    name = "Reassurance Bucket",
+
+    atlas = "jokers1",
+    pos = { x = 3, y = 3 },
+
+    rarity = 3,
+    cost = 8,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    calculate = function(self, card, context)
+        if context.joker_main and not context.blueprint then
+
+            local swap = hand_chips
+            mod_chips(G.GAME.chips)
+            update_hand_text({ delay = 0 }, { chips = G.GAME.chips })
+
+            G.GAME.chips_text_temp = G.GAME.chips_text
+            G.GAME.chips = swap
+            G.hand_text_area.game_chips.config.ref_value = "chips_text_temp"
+
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.hand_text_area.game_chips.config.ref_value = "chips_text"
+                    G.hand_text_area.game_chips:juice_up()
+
+                    return true
+                end
+            }))
+
+            return { message = "..." }
+        end
+    end
+}
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
