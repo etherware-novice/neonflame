@@ -22,3 +22,44 @@ SMODS.Back({
         }))
     end
 })
+
+SMODS.Back {
+    key = "ramped",
+    name = "Ramped Deck",
+
+    atlas = "backs",
+    pos = { x = 1, y = 0 },
+    config = { cost = 3 },
+
+    loc_vars = function(self, info_queue, back)
+        return { vars = { self.config.cost } }
+    end,
+
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.reroll_cost = self.config.cost
+                return true
+            end
+        }))
+    end,
+
+    calculate = function(self, back, context)
+        if context.ending_shop then
+            G.GAME.nflame_past_reroll = G.GAME.current_round.reroll_cost
+        end
+        
+        if context.end_of_round and context.beat_boss then
+            G.GAME.nflame_past_reroll = nil
+        end
+
+        if context.starting_shop then
+            G.GAME.round_resets.temp_reroll_cost = G.GAME.nflame_past_reroll 
+            calculate_reroll_cost(true)
+        end
+    end,
+
+    in_pool = function(self, args)
+        print(args)
+    end,
+}

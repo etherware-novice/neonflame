@@ -10,6 +10,15 @@ return {
                     "Neonflame jokers are {C:dark_edition}100X",
                     "more likely to appear"
                 },
+            },
+
+            b_nflame_ramped = {
+                name = "Ramped Deck",
+                text = {
+                    "Rerolls start at {C:money}$#1#",
+                    "Rerolls resets at {C:attention}end of ante",
+                    "{C:inactive}Art by Camostar34"
+                }
             }
         },
 
