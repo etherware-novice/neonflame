@@ -29,19 +29,13 @@ SMODS.Back {
 
     atlas = "backs",
     pos = { x = 1, y = 0 },
-    config = { cost = 1 },
+    config = { vouchers = { "v_reroll_surplus", "v_reroll_glut" } },
 
     loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.cost } }
-    end,
-
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.round_resets.reroll_cost = self.config.cost
-                return true
-            end
-        }))
+        return { vars = {
+            localize { type = "name_text", key = self.config.vouchers[1], set = "Voucher" },
+            localize { type = "name_text", key = self.config.vouchers[2], set = "Voucher" },
+        } }
     end,
 
     calculate = function(self, back, context)
