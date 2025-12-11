@@ -29,7 +29,7 @@ SMODS.Back {
 
     atlas = "backs",
     pos = { x = 1, y = 0 },
-    config = { cost = 3 },
+    config = { cost = 1 },
 
     loc_vars = function(self, info_queue, back)
         return { vars = { self.config.cost } }
