@@ -39,7 +39,7 @@ SMODS.Back {
     end,
 
     calculate = function(self, back, context)
-        if context.ending_shop then
+        if context.ending_shop and G.GAME.current_round.reroll_cost > 0 then
             G.GAME.nflame_past_reroll = G.GAME.current_round.reroll_cost
         end
         
@@ -48,7 +48,7 @@ SMODS.Back {
         end
 
         if context.starting_shop then
-            G.GAME.round_resets.temp_reroll_cost = G.GAME.nflame_past_reroll 
+            G.GAME.round_resets.temp_reroll_cost = math.floor(G.GAME.nflame_past_reroll / 2)
             calculate_reroll_cost(true)
         end
     end,
