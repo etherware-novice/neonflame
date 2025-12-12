@@ -351,7 +351,17 @@ return {
                     "{C:inactive,s:0.8}(Currently #2# cards destroyed)",
                     "{C:inactive,s:0.8}\"this thing qualifies as a serial killer by now...\""
                 }
-            }
+            },
+
+            c_nflame_wpowers = {
+                name = "Steel Samurai Spear",
+                text = {
+                    "Use this card to convert {C:attention}all cards in hand{} to {C:attention}Steel Cards",
+                    "Can only be used if {C:attention}#1#{} Steel Cards triggered in the last hand",
+                    "{C:inactive,s:0.8}(Currently {V:1,s:0.8}#2#{C:inactive,s:0.8})",
+                    "{C:inactive,s:0.8}\"the steel samurai....always wins!\""
+                }
+            },
         },
 
         Tarot = {

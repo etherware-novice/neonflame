@@ -113,3 +113,55 @@ SMODS.Consumable {
         }))
     end
 }
+
+SMODS.Consumable {
+    key = "wpowers",
+    set = "evidence",
+
+    atlas = "placeholders",
+    pos = { x = 1, y = 0 },
+    config = { extra = { trigger = 0, required = 4 } },
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+
+        local active = "inactive"
+        local col = G.C.UI.TEXT_INACTIVE
+
+        if card.ability.extra.trigger >= card.ability.extra.required then
+            active = "active"
+            col = G.C.RED
+        end
+
+        return { vars = {card.ability.extra.required, active, colours = { col }} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.before then card.ability.extra.trigger = 0 end
+
+        if context.individual and context.cardarea == G.hand
+            and SMODS.has_enhancement(context.other_card, "m_steel") then
+
+            card.ability.extra.trigger = (card.ability.extra.trigger or 0) + 1
+        end
+    end,
+
+    can_use = function(self, card)
+        if card.ability.extra.trigger < card.ability.extra.required then return false end
+        return true
+    end,
+
+    use = function(self, card, area)
+        for _, playing_card in ipairs(G.hand.cards) do
+            G.E_MANAGER:add_event(Event({
+                after = 0.2,
+                func = function()
+                    playing_card:set_ability("m_steel")
+                    playing_card:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
+        end
+    end,
+}
+
