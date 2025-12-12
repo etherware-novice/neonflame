@@ -47,7 +47,7 @@ SMODS.Back {
             G.GAME.nflame_past_reroll = nil
         end
 
-        if context.starting_shop then
+        if context.starting_shop and not G.GAME.round_resets.temp_reroll_cost and G.GAME.nflame_past_reroll then
             G.GAME.round_resets.temp_reroll_cost = math.floor(G.GAME.nflame_past_reroll / 2)
             calculate_reroll_cost(true)
         end

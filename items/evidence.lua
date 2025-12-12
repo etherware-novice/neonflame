@@ -79,7 +79,7 @@ SMODS.Consumable {
 
     atlas = "placeholders",
     pos = { x = 1, y = 0 },
-    config = { extra = { destroyed = 0, required = 4 } },
+    config = { extra = { destroyed = 0, required = 2 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.required, card.ability.extra.destroyed} }
