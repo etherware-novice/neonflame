@@ -1419,14 +1419,14 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.joker_main and not context.blueprint then
+            local swap = hand_chips
             G.GAME.chips_text_temp = G.GAME.chips_text
             G.GAME.chips = swap
             G.hand_text_area.game_chips.config.ref_value = "chips_text_temp"
 
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local swap = hand_chips
-                    mod_chips(G.GAME.chips)
+                    hand_chips = mod_chips(G.GAME.chips)
                     update_hand_text({ delay = 0 }, { chips = G.GAME.chips })
 
                     G.hand_text_area.game_chips.config.ref_value = "chips_text"
@@ -1437,6 +1437,42 @@ SMODS.Joker {
             }))
 
             return { message = "..." }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "mcbedrock",
+    name = "Minecraft Bedrock",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    config = { extra = { chance = 4, chip = 5, mult = 1 } },
+    rarity = 1,
+    cost = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+		local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, "nflame_mcbedrock")
+        return { vars = {num, den, card.ability.extra.chip, card.ability.extra.mult} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.initial_scoring_step and not context.blueprint and 
+			SMODS.pseudorandom_probability(card, "nflame_mcbedrock", 1, card.ability.extra.chance) then
+
+            card.ability.extra.chip = card.ability.extra.chip + hand_chips
+            card.ability.extra.mult = card.ability.extra.mult + mult
+
+            return { mult_mod = -mult, chip_mod = -hand_chips, message = localize("k_upgrade_ex") }
+        end
+
+        if context.joker_main or context.forcetrigger then
+            return { chips = card.ability.extra.chip, mult = card.ability.extra.mult }
         end
     end
 }

@@ -297,6 +297,15 @@ return {
                     "{s:0.8,C:inactive}minor as \"having no money\" stop you from GAMBLING!",
                 }
             },
+
+            j_nflame_mcbedrock = {
+                name = "Minecraft: Bedrock Edition",
+                text = {
+                    "{C:green}#1# in #2#{} chance to {C:attention}siphon",
+                    "the base {C:blue}chips{} and {C:red}mult{} from played hand",
+                    "{s:0.8,C:inactive}(Currently {s:0.8,C:blue}+#3#{s:0.8,C:inactive} and {s:0.8,C:red}+#4#{s:0.8,C:inactive})"
+                }
+            }
         },
 
         Enhanced = {
