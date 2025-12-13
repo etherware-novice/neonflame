@@ -303,7 +303,7 @@ return {
                 text = {
                     "{C:green}#1# in #2#{} chance to {C:attention}siphon",
                     "the base {C:blue}chips{} and {C:red}mult{} from played hand",
-                    "{s:0.8,C:inactive}(Currently {s:0.8,C:blue}+#3#{s:0.8,C:inactive} and {s:0.8,C:red}+#4#{s:0.8,C:inactive})"
+                    "{s:0.8,C:inactive}(Currently {s:0.8,C:blue}+#3#{s:0.8,C:inactive} chips and {s:0.8,C:red}+#4#{s:0.8,C:inactive} mult)"
                 }
             }
         },
