@@ -1419,16 +1419,13 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.joker_main and not context.blueprint then
-            local swap = hand_chips
+            local swap = G.GAME.chips
             G.GAME.chips_text_temp = G.GAME.chips_text
-            G.GAME.chips = swap
+            G.GAME.chips = hand_chips
             G.hand_text_area.game_chips.config.ref_value = "chips_text_temp"
 
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    hand_chips = mod_chips(G.GAME.chips)
-                    update_hand_text({ delay = 0 }, { chips = G.GAME.chips })
-
                     G.hand_text_area.game_chips.config.ref_value = "chips_text"
                     G.hand_text_area.game_chips:juice_up()
 
@@ -1436,7 +1433,7 @@ SMODS.Joker {
                 end
             }))
 
-            return { message = "..." }
+            return { chip_mod = swap - hand_chips, message = "..." }
         end
     end
 }
