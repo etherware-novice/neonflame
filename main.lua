@@ -24,6 +24,7 @@ local files = {
       "items/pokerhand",
       "items/enhance",
       "items/item",
+	  "items/challenge",
 	  "items/evidence",
 	  "items/backs",
       -- "items/edition",

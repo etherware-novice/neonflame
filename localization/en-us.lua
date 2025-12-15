@@ -305,6 +305,14 @@ return {
                     "the base {C:blue}chips{} and {C:red}mult{} from played hand",
                     "{s:0.8,C:inactive}(Currently {s:0.8,C:blue}+#3#{s:0.8,C:inactive} chips and {s:0.8,C:red}+#4#{s:0.8,C:inactive} mult)"
                 }
+            },
+
+            j_nflame_hitch_brokenprob = {
+                name = "Improbability Drive",
+                text = {
+                    "All {C:green}random {V:1}#1#{} use the {C:attention}first possible option",
+                    "{s:0.8,C:inactive}(every. single. one. expect lots of wackiness)"
+                }
             }
         },
 
@@ -395,7 +403,8 @@ return {
 
     misc = {
     	 challenge_names = {
-             c_nflame_moderntech = "Day-One Patches"
+             c_nflame_moderntech = "Day-One Patches",
+             c_nflame_bugkey = "Bugged Seed"
          },
 
          dictionary = {
@@ -413,8 +422,12 @@ return {
              nflame_generic = { "Any cards." }
          },
 
-        labels = {
+         labels = {
             evidence = "Evidence Piece",
-        }
+         },
+
+         v_text = {
+             -- ch_c_nflame_fullrand = "All random numbers are {C:green}fixed"
+         }
     },
 }

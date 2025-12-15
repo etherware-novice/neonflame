@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1765507610 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1765830702 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1344,7 +1344,7 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.mod_probability and not context.blueprint then
-            return { numerator = G.GAME.current_round.nflame_lamp or 1 }
+            return { numerator = context.numerator + (G.GAME.current_round.nflame_lamp or 1) }
         end
     end
 }
@@ -1354,6 +1354,9 @@ local function reset_nflame_lamp()
     local new_r = pseudorandom("nflame_lavalamp") * 40
     new_r = math.floor(new_r) / 10
     G.GAME.current_round.nflame_lamp = new_r - 1
+
+    -- fun lil synergy to really get your moneys worth
+    if next(SMODS.find_card("j_nflame_hitch_brokenprob")) then G.GAME.current_round.nflame_lamp = 5 end
 end
 
 SMODS.Joker {
@@ -1473,6 +1476,87 @@ SMODS.Joker {
         end
     end
 }
+
+SMODS.Joker {
+    key = "hitch_brokenprob",
+    name = "Improbability Drive",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    rarity = 2,
+    cost = 4,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        local word = "choices"
+        local col = G.C.GREEN
+
+        if next(SMODS.find_card("j_ring_master")) then
+            word = "numbers"
+            col = G.C.RED
+        end
+
+        return { vars = { word, colours = { col } } }
+    end
+}
+
+local randelem_ref = pseudorandom_element
+function pseudorandom_element(list, seed, args)
+    if next(SMODS.find_card("j_nflame_hitch_brokenprob")) then
+        dispseed = seed or "[noseed]"
+
+        for i = 1, #list do
+            -- because shop gen calls pseudorand with DIFFERENT seeds we cant use the calling seed
+            -- sooo this will break with multiple random events at once potentially
+            -- i dont CARE im SICK of coding this
+            if not G.nflame_lockup_prevention("nflame_hbp_elem_" .. i) then
+                -- sendDebugMessage("using index " .. i)
+                return list[i]
+            end
+        end
+        --]]
+    end
+
+    -- if next(SMODS.find_card("j_nflame_hitch_brokenprob")) and not G.nflame_lockup_prevention(500) then
+    --    return list[1]
+    -- end
+    return randelem_ref(list, seed, args)
+end
+
+local randpick_ref = pseudorandom
+function pseudorandom(seed, min, max)
+    if next(SMODS.find_card("j_nflame_hitch_brokenprob")) and next(SMODS.find_card("j_ring_master")) then
+    -- if next(SMODS.find_card("j_nflame_hitch_brokenprob")) then
+    -- if G.GAME.modifiers.nflame_fullrand then
+        dispseed = seed or "[noseed]"
+
+        if min and max then
+            for i = min, max do
+                if not G.nflame_lockup_prevention("nflame_hbp_num_" .. "_" .. i) then
+                    -- sendDebugMessage("using number " .. i .. "(" .. min .. " - " .. max .. ")")
+                    return i
+                end
+            end
+        else
+            -- this one starts at 1 and goes down to 0, for fun
+            for i = 1, 9 do
+                i = 10 - i
+                if not G.nflame_lockup_prevention("nflame_hbp_num_" .. "_" .. i) then
+                    -- sendDebugMessage("using number " .. i)
+                    return i / 10
+                end
+            end
+        end
+
+    end
+
+    return randpick_ref(seed, min, max)
+end
+--]]
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
