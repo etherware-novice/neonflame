@@ -1118,8 +1118,8 @@ SMODS.Joker {
     key = "henchmen",
     name = "Henchmen",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 4, y = 3 },
 
     config = { extra = { bonus = 2 } },
     rarity = 2,
