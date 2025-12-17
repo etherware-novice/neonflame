@@ -26,6 +26,7 @@ local files = {
       "items/item",
 	  "items/challenge",
 	  "items/evidence",
+	  "items/silicon",
 	  "items/backs",
       -- "items/edition",
 }

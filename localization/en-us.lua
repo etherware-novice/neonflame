@@ -313,7 +313,15 @@ return {
                     "All {C:green}random {V:1}#1#{} use the {C:attention}first possible option",
                     "{s:0.8,C:inactive}(every. single. one. expect lots of wackiness)"
                 }
-            }
+            },
+
+            j_nflame_ntmed = {
+                name = "Medibot",
+                text = {
+                    "Scored cards gain {C:mult}+#1#{} Mult when scored",
+                    "for each {C:nflame_silicon}Silicon{} card owned",
+                }
+            },
         },
 
         Enhanced = {
@@ -411,6 +419,8 @@ return {
              b_evidence_cards = "Evidence Pieces",
              k_evidence = "Evidence",
 
+             k_silicon = "Silicon",
+
              ph_attorneys = "Bluffed your way out...",
          },
 
@@ -424,6 +434,13 @@ return {
 
          labels = {
             evidence = "Evidence Piece",
+         },
+
+         v_dictionary = {
+             k_silicon_desc = {
+                 "Multiple copies of Silicon cards can appear",
+                 "#1# Silicon cards owned"
+             },
          },
 
          v_text = {
