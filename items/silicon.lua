@@ -7,7 +7,7 @@ SMODS.ObjectType {
 SMODS.Gradient {
     key = "silicon",
     colours = {
-        HEX("56D129"),
+        HEX("1ad846"),
         G.C.UI.TEXT_INACTIVE
     }
 }
