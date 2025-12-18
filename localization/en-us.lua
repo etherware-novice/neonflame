@@ -326,8 +326,8 @@ return {
             j_nflame_odgamble = {
                 name = "Gamblobot",
                 text = {
-                    "{C:green}#1# in #2#{} chance to gain {C:money}$#3#{} at end of round",
-                    "{C:green}+1{} numerator for each {C:nflame_silicon}Silicon{} card owned"
+                    "{C:nflame_silicon}Silicon{} cards each have a",
+                    "{C:green}#1# in #2#{} chance to give {C:money}$#3#{}",
                 }
             },
         },

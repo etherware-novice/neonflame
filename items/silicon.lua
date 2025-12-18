@@ -124,24 +124,31 @@ SMODS.Joker {
 
     atlas = "jokers1",
     pos = { x = 0, y = 4 },
-    config = { extra = { chance = 10, dollars = 15 } },
+    config = { extra = { chance = 4, dollars = 5 } },
     pools = { silicon = true },
 
-    rarity = 1,
+    rarity = 2,
     cost = 4,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     demicolon_compat = true,
 
     loc_vars = function(self, info_queue, card)
-		local num, den = SMODS.get_probability_vars(card, G.nflame_get_silicontotal(), card.ability.extra.chance, "nflame_odgamble")
+		local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, "nflame_odgamble")
         return { vars = { num, den, card.ability.extra.dollars } }
     end,
 
-    calc_dollar_bonus = function(self, card)
-        if SMODS.pseudorandom_probability(card, 'nflame_odgamble', G.nflame_get_silicontotal(), card.ability.extra.chance) then
-            return card.ability.extra.dollars
+    calculate = function(self, card, context)
+        -- futureproofing when silicons arent just jokers
+        local trigger = false
+        if context.other_joker and context.other_joker.config.center.silicon_worth then trigger = true end
+        if trigger and not SMODS.pseudorandom_probability(card, "nflame_odgamble", 1, card.ability.extra.chance) then
+            trigger = false
+        end
+
+        if trigger or context.force_trigger then
+            return { dollars = card.ability.extra.dollars, message_card = context.other_joker or card }
         end
     end
 }
