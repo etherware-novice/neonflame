@@ -330,6 +330,13 @@ return {
                     "{C:green}#1# in #2#{} chance to give {C:money}$#3#{}",
                 }
             },
+
+            j_nflame_spbump = {
+                name = "Bumpscosity-Bot",
+                text = {
+                    "+#1# Bumpscosity"
+                }
+            }
         },
 
         Enhanced = {
@@ -445,6 +452,8 @@ return {
          },
 
          v_dictionary = {
+             k_bump = "+#1# Bumpscosity",
+
              k_silicon_desc = {
                  "Multiple copies of Silicon cards can appear",
                  "#1# Silicon cards owned"

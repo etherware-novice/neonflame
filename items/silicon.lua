@@ -152,4 +152,31 @@ SMODS.Joker {
         end
     end
 }
- 
+
+SMODS.Joker {
+    key = "spbump",
+    name = "Bumpscosity-Bot",
+
+    atlas = "jokers1",
+    pos = { x = 1, y = 4 },
+    pools = { silicon = true },
+
+    config = { extra = { bonus = 10 } },
+    rarity = 1,
+    cost = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.bonus} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.joker_main or context.force_trigger then
+            local bumpmsg = localize{ type = "variable", key = "k_bump", vars = {card.ability.extra.bonus} }
+            return { message = bumpmsg }
+        end
+    end
+}
