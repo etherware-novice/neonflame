@@ -427,7 +427,8 @@ return {
     misc = {
     	 challenge_names = {
              c_nflame_moderntech = "Day-One Patches",
-             c_nflame_bugkey = "Bugged Seed"
+             c_nflame_bugkey = "Bugged Seed",
+             c_nflame_robofund = "House Always Wins"
          },
 
          dictionary = {
