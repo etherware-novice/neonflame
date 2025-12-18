@@ -17,52 +17,56 @@ function Game.main_menu(self, change_context)
     local g = mmref(self, change_context)
 
     for _, card in pairs(G.P_CENTER_POOLS.silicon) do
-        local badref = card.set_badges
-        card.set_badges = function(self, card, badges)
-            if badref then badref(self, card, badges) end
-            badges[#badges+1] = create_badge(localize('k_silicon'), G.ARGS.LOC_COLOURS.nflame_silicon)
-        end
-
-        local variref = card.loc_vars
-        card.loc_vars = function(self, info_queue, card)
-            local g = variref(self, info_queue, card)
-
-            local silicontotal = G.nflame_get_silicontotal()
-            local lines = {}
-            for _, t in pairs(localize{ type = "variable", key = "k_silicon_desc", vars = {silicontotal} }) do
-                local textn = {
-                    n = G.UIT.T,
-                    config = { text = t, colour = G.C.WHITE, scale = 0.4 }
-                }
-
-                lines[#lines + 1] = {
-                    n = G.UIT.R,
-                    config = {align = "cm", padding = 0.01},
-                    nodes = {textn}
-                }
+        if not card.silicon_inject then
+            local badref = card.set_badges
+            card.set_badges = function(self, card, badges)
+                if badref then badref(self, card, badges) end
+                badges[#badges+1] = create_badge(localize('k_silicon'), G.ARGS.LOC_COLOURS.nflame_silicon)
             end
 
-            g.main_end = {{
-                n = G.UIT.C, config = { align = "cm", padding = 0.05 }, nodes = {{
-                    n = G.UIT.C,
-                    config = {minh = 0.4, align = "cm", padding = 0.07, colour = G.ARGS.LOC_COLOURS.nflame_silicon, r = 0.1, maxw = 3.8},
-                    nodes = lines
+            local variref = card.loc_vars
+            card.loc_vars = function(self, info_queue, card)
+                local g = variref(self, info_queue, card)
+
+                local silicontotal = G.nflame_get_silicontotal()
+                local lines = {}
+                for _, t in pairs(localize{ type = "variable", key = "k_silicon_desc", vars = {silicontotal} }) do
+                    local textn = {
+                        n = G.UIT.T,
+                        config = { text = t, colour = G.C.WHITE, scale = 0.4 }
+                    }
+
+                    lines[#lines + 1] = {
+                        n = G.UIT.R,
+                        config = {align = "cm", padding = 0.01},
+                        nodes = {textn}
+                    }
+                end
+
+                g.main_end = {{
+                    n = G.UIT.C, config = { align = "cm", padding = 0.05 }, nodes = {{
+                        n = G.UIT.C,
+                        config = {minh = 0.4, align = "cm", padding = 0.07, colour = G.ARGS.LOC_COLOURS.nflame_silicon, r = 0.1, maxw = 3.8},
+                        nodes = lines
+                    }}
                 }}
-            }}
 
 
-            return g
+                return g
+            end
+
+            if not card.silicon_worth then card.silicon_worth = 1 end
+
+            card.silicon_inject = true
         end
-
-        local poolref = card.in_pool
-        card.in_pool = function(self, args)
-            local g = poolref(self, args)
-            g.allow_duplicates = true
-            return g
-        end
-
-        if not card.silicon_worth then card.silicon_worth = 1 end
     end
+end
+
+local sman = SMODS.showman
+function SMODS.showman(key)
+    local pools = G.P_CENTERS[key].pools
+    if pools and pools.silicon then return true end
+    return sman(key)
 end
 
 function G.nflame_get_silicontotal(context)
@@ -83,13 +87,13 @@ end
 
 SMODS.Joker {
     key = "ntmed",
-    name = "Medibot",
+    name = "medibot",
 
     atlas = "jokers1",
     pos = { x = 5, y = 3 },
     pools = { silicon = true },
 
-    config = { extra = { bonus = 1 } },
+    config = { extra = { bonus = 2 } },
     rarity = 1,
     cost = 2,
     blueprint_compat = true,
@@ -103,9 +107,42 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            local upgradec = G.nflame_get_silicontotal(context)
+            local upgradec = math.floor(G.nflame_get_silicontotal(context) * card.ability.extra.bonus)
             context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + upgradec
             return { message = localize('k_upgrade_ex'), colour = G.C.MULT }
         end
+    end,
+
+    in_pool = function(self, args)
+        return true
     end
 }
+
+SMODS.Joker {
+    key = "odgamble",
+    name = "Gamblobot",
+
+    atlas = "jokers1",
+    pos = { x = 0, y = 4 },
+    config = { extra = { chance = 4, dollars = 8 } },
+    pools = { silicon = true },
+
+    rarity = 1,
+    cost = 4,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+		local num, den = SMODS.get_probability_vars(card, G.nflame_get_silicontotal(), card.ability.extra.chance, "nflame_odgamble")
+        return { vars = { num, den, card.ability.extra.dollars } }
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        if SMODS.pseudorandom_probability(card, 'nflame_odgamble', G.nflame_get_silicontotal(), card.ability.extra.chance) then
+            return card.ability.extra.dollars
+        end
+    end
+}
+ 

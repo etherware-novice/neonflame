@@ -318,8 +318,16 @@ return {
             j_nflame_ntmed = {
                 name = "Medibot",
                 text = {
-                    "Scored cards gain {C:mult}+#1#{} Mult when scored",
+                    "Scored cards gain {C:mult}+#1#{} Mult",
                     "for each {C:nflame_silicon}Silicon{} card owned",
+                }
+            },
+
+            j_nflame_odgamble = {
+                name = "Gamblobot",
+                text = {
+                    "{C:green}#1# in #2#{} chance to gain {C:money}$#3#{} at end of round",
+                    "{C:green}+1{} numerator for each {C:nflame_silicon}Silicon{} card owned"
                 }
             },
         },
