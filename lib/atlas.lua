@@ -47,6 +47,16 @@ SMODS.Atlas({
     py = 95
 })
 
+-- someday ill figure out how to make this use the asset gen script...
+SMODS.Atlas({
+    key = "blinds",
+    path = "blinds.png",
+    atlas_table = "ANIMATION_ATLAS",
+    frames = 21,
+    px = 34,
+    py = 34
+})
+
 
 SMODS.Sound ({
 	key = "rapdog_oops",

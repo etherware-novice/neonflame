@@ -24,6 +24,16 @@ return {
             }
         },
 
+        Blind = {
+            bl_nflame_jpenguin = {
+                name = "Jade Penguin",
+                text = {
+                    "Played hand must contain",
+                    "an unscoring card"
+                }
+            }
+        },
+
         Joker = {
 		    j_nflame_jokerhelp = {
 		        name = "Helping Hand",
