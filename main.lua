@@ -33,6 +33,7 @@ local files = {
 }
 
 local crossmodfiles = {
+	  "finity",
       "Cryptid",
       "GSPhanta",
 	  "ortalab",

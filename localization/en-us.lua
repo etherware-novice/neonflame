@@ -346,6 +346,16 @@ return {
                 text = {
                     "+#1# Bumpscosity"
                 }
+            },
+
+            j_nflame_jpenguin = {
+                name = "Jade Penguin",
+                text = {
+                    "Played and {C:attention}unscoring{} cards have a",
+                    "{C:green}#1# in #2#{} chance to be {C:red}destroyed",
+                    "Gain a tenth of its rank as {C:white,X:mult}XMult",
+                    "{s:0.8,C:inactive}(Currently {s:0.8,C:white,X:mult}X#3#{s:0.8,C:inactive} Mult)"
+                }
             }
         },
 
@@ -447,6 +457,15 @@ return {
 
              k_silicon = "Silicon",
 
+             k_upgrade_eat = {
+                 "Consumed!",
+                 "Fine dined!",
+                 "Bit!",
+                 "Snacked!",
+                 "Oops!",
+                 "Digested!"
+             },
+
              ph_attorneys = "Bluffed your way out...",
          },
 
@@ -456,6 +475,36 @@ return {
 
          poker_hand_descriptions = {
              nflame_generic = { "Any cards." }
+         },
+
+         quips = {
+             lq_jpenguin_1 = {
+                 "Maybe next time... uhhh,",
+                 "not let one of your stuff",
+                 "not score?"
+             },
+
+             lq_jpenguin_2 = {
+                 "I'm not sure what you're",
+                 "trying to do but it's absolutely",
+                 "funny, keep doing that."
+             },
+
+             lq_jpenguin_3 = {
+                 "I'm hungry,",
+                 "what's for dessert?"
+             },
+
+             lq_jpenguin_4 = {
+                 "Hey, chin up, not everyone",
+                 "can win against me" 
+             },
+
+             lq_endless_jpenguin_1 = {
+                 "C'mon man, can't you let",
+                 "a penguin like me rest",
+                 "for a while?"
+             }
          },
 
          labels = {
