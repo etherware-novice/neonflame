@@ -1,6 +1,6 @@
 SMODS.ObjectType {
     key = "silicon",
-    default = "j_nflame_ntmed",
+    default = "j_nflame_spbump",
     cards = {},
 }
 
