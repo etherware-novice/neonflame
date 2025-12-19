@@ -356,7 +356,17 @@ return {
                     "Gain a tenth of its rank as {C:white,X:mult}XMult",
                     "{s:0.8,C:inactive}(Currently {s:0.8,C:white,X:mult}X#3#{s:0.8,C:inactive} Mult)"
                 }
-            }
+            },
+
+            j_nflame_ntfloor = {
+                name = "Floorbot",
+                text = {
+                    "If played hand contains",
+                    "5 scoring cards or a 5 card hand",
+                    "each card in hand gives {C:mult}+#1#{} Mult",
+                    "for each {C:nflame_silicon}Silicon{} held"
+                }
+            },
         },
 
         Enhanced = {

@@ -180,3 +180,51 @@ SMODS.Joker {
         end
     end
 }
+
+SMODS.Joker {
+    key = "ntfloor",
+    name = "Floorbot",
+
+    atlas = "jokers1",
+    pos = { x = 2, y = 4 },
+    pools = { silicon = true },
+
+    config = { extra = { mult = 2 } },
+    rarity = 1,
+    cost = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.mult} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.force_trigger then
+            local cmult = card.ability.extra.mult * G.nflame_get_silicontotal(context)
+            return { mult = cmult }
+        end
+
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
+            -- checking the vanilla 5 card hands
+            if not (
+                next(context.poker_hands['Flush']) or
+                next(context.poker_hands['Straight']) or
+                next(context.poker_hands['Five of a Kind'])
+                )
+            then
+                return
+            end
+
+            local maxhand = SMODS.four_fingers('flush') or 5
+            if #context.scoring_hand < maxhand then return end
+
+            if context.other_card.debuff then return { message = localize("k_debuffed"), colour = G.C.RED } end
+
+            local cmult = card.ability.extra.mult * G.nflame_get_silicontotal(context)
+            return { mult = cmult }
+        end
+    end
+}
