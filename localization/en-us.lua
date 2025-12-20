@@ -514,7 +514,19 @@ return {
                  "C'mon man, can't you let",
                  "a penguin like me rest",
                  "for a while?"
-             }
+             },
+
+             lq_endless_jpenguin_2 = {
+                 "I'm too drowsy to even",
+                 "finish my...",
+                 "zzzzz..."
+             },
+
+             lq_endless_jpenguin_3 = {
+                 "I believe it's a good",
+                 "time to get up and",
+                 "stretch. Thank me later!"
+             },
          },
 
          labels = {

@@ -54,6 +54,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+    key = "finitydeck",
+    path = "atlasfinitydeck.png",
+    px = 71,
+    py = 95
+})
+
 -- someday ill figure out how to make this use the asset gen script...
 SMODS.Atlas({
     key = "blinds",

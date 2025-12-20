@@ -1,6 +1,7 @@
 -- setting it doesnt work for some reason so we're doing something ELSE
 local smaps = {}
 local quips = {}
+local decks = {}
 
 
 SMODS.Joker {
@@ -51,16 +52,19 @@ SMODS.Joker {
 }
 
 smaps.bl_nflame_jpenguin = {"j_nflame_jpenguin", "Jade Penguin"}
-quips.bl_nflame_jpenguin = {"jpenguin", 4, 1}
+quips.bl_nflame_jpenguin = {"jpenguin", 4, 3}
+decks.bl_nflame_jpenguin = {"nflame_finitydeck", { x = 0, y = 0 }}
 
 
 FinisherBossBlindStringMap = FinisherBossBlindStringMap or {}
 FinisherBossBlindQuips = FinisherBossBlindQuips or {}
+FinisherBossBlinddecksprites = FinisherBossBlinddecksprites or {}
 
 -- im desperate man
 local mmref = Game.main_menu
 function Game.main_menu(self, change_context)
     for k, v in pairs(smaps) do FinisherBossBlindStringMap[k] = v end
     for k, v in pairs(quips) do FinisherBossBlindQuips[k] = v end
+    for k, v in pairs(decks) do FinisherBossBlinddecksprites[k] = v end
     return mmref(self, change_context)
 end
