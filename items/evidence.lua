@@ -6,8 +6,27 @@ SMODS.ConsumableType {
 
     shop_rate = 1.0,
     select_card = 'consumeables',
+    default = "c_nflame_badge",
     can_stack = false,
     can_divide = false
+}
+
+SMODS.Booster {
+    key = "evidence_normal_1",
+    kind = "evidence",
+    group_key = "k_nflame_evidence_pack",
+
+    loc_vars = function(self, info_queue, card)
+        local cfg = (card and card.ability) or self.config
+        return {
+            vars = { cfg.choose, cfg.extra },
+            key = self.key:sub(1, -3)
+        }
+    end,
+
+    create_card = function(self, card)
+        return { set = "evidence", skip_materialize = true }
+    end
 }
 
 SMODS.Consumable {
@@ -55,7 +74,7 @@ SMODS.Consumable {
     key = "passport",
     set = "evidence",
 
-    atlas = "placeholders",
+    atlas = "evidence",
     pos = { x = 1, y = 0 },
 
     can_use = function(self, card)
@@ -77,8 +96,8 @@ SMODS.Consumable {
     key = "thinker",
     set = "evidence",
 
-    atlas = "placeholders",
-    pos = { x = 1, y = 0 },
+    atlas = "evidence",
+    pos = { x = 2, y = 0 },
     config = { extra = { destroyed = 0, required = 2 } },
 
     loc_vars = function(self, info_queue, card)

@@ -434,6 +434,16 @@ return {
             },
         },
 
+        Other = {
+            p_nflame_evidence_normal = {
+                name = "Evidence Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:nflame_evidence} Evidence Pieces"
+                }
+            }
+        },
+
         Tarot = {
             c_nflame_frost = {
                 name = "The Frost",
@@ -477,6 +487,8 @@ return {
              },
 
              ph_attorneys = "Bluffed your way out...",
+
+             k_nflame_evidence_pack = "Evidence Pack"
          },
 
          poker_hands = {
