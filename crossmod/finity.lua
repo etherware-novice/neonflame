@@ -15,7 +15,7 @@ SMODS.Joker {
     config = { extra = { chance = 3, xm = 1 } },
     rarity = "finity_showdown",
     cost = 10,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     demicolon_compat = true,
