@@ -35,6 +35,7 @@ SMODS.Consumable {
 
     atlas = "evidence",
     pos = { x = 0, y = 0 },
+    config = { extra = {active = false} },
 
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
@@ -54,7 +55,18 @@ SMODS.Consumable {
         }))
     end,
 
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over and context.main_eval and card.ability.extra.active then
+            SMODS.destroy_cards(card, true)
+            return { saved = "ph_attorneys" }
+        end
+
+        if context.setting_blind then card.ability.extra.active = false end
+
+    end,
+
     can_use = function(self, card)
+        if card.ability.extra.active then return false end
         if G.GAME.current_round.attorneysluck then return false end
         if G.GAME.current_round.hands_left > 1 then return false end
 
@@ -66,8 +78,24 @@ SMODS.Consumable {
     end,
 
     use = function(self, card, area)
-        G.GAME.current_round.attorneysluck = true
-    end
+        local targets = {}
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability.set == "evidence" and v ~= card then 
+                targets[#targets + 1] = v
+            end
+        end
+
+        local sac = pseudorandom_element(targets, "nflame_badge")
+        if sac then
+            SMODS.destroy_cards(sac, nil, nil, true)
+        end
+
+        card.ability.extra.active = true
+        local eval = function(card) return card.ability.extra.active and not G.RESET_JIGGLES end
+        juice_card_until(card, eval, true)
+    end,
+
+    keep_on_use = function(self, card) return true end
 }
 
 SMODS.Consumable {
