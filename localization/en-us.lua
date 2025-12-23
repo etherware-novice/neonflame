@@ -367,6 +367,15 @@ return {
                     "for each {C:nflame_silicon}Silicon{} held"
                 }
             },
+
+            j_nflame_ntfabricator = {
+                name = "Fabricator",
+                text = {
+                    "When blind is selected, create a random {C:nflame_silicon}Silicon",
+                    "if at least one {C:nflame_silicon}Silicon{} is owned",
+                    "{s:0.8,C:inactive}(Must have room)"
+                }
+            }
         },
 
         Enhanced = {

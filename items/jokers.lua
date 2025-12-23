@@ -1556,7 +1556,42 @@ function pseudorandom(seed, min, max)
 
     return randpick_ref(seed, min, max)
 end
---]]
+
+SMODS.Joker {
+    key = "ntfabricator",
+    name = "Helping Hand",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    calculate = function(self, card, context)
+        local trigger = context.force_trigger
+        if context.setting_blind and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+            -- probably a bit jank
+            if G.nflame_get_silicontotal() > 0 then trigger = true end
+        end
+
+        if trigger then
+            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    SMODS.add_card { set = "silicon", key_append = "nflame_ntfabricator" }
+                    G.GAME.joker_buffer = 0
+
+                    return true
+                end
+            }))
+        end
+    end
+}
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
