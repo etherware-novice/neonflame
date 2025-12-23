@@ -184,3 +184,71 @@ SMODS.Consumable {
     end,
 }
 
+SMODS.Consumable {
+    key = "parrot",
+    set = "evidence",
+
+    atlas = "placeholders",
+    pos = { x = 1, y = 0 },
+    config = { extra = { rankscore = {}, required = 5 } },
+
+    loc_vars = function(self, info_queue, card)
+        local completed = card.ability.extra.rankscore[card.ability.extra.lastscore] or 0
+        local cl = G.C.UI.TEXT_INACTIVE
+        if completed >= card.ability.extra.required then cl = G.C.FILTER end
+
+        local rank = "none"
+        if card.ability.extra.lastscore then rank = localize(card.ability.extra.lastscore, "ranks") end
+
+        return { vars = {
+            rank, card.ability.extra.required, completed, colours = { cl }
+        }}
+    end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round then
+            card.ability.extra.rankscore = {}
+            card.ability.extra.lastscore = nil
+            card.ability.extra.active = false
+        end
+
+        if card.ability.extra.active then
+            -- if context.modify_scoring_hand then return { add_to_hand = true } end
+
+            if context.before then
+
+            end
+
+            return
+        end
+
+        if context.individual and context.cardarea == G.play then
+            if SMODS.has_no_rank(context.other_card) then return end
+            local rank = context.other_card.base.value
+            card.ability.extra.lastscore = rank
+            card.ability.extra.rankscore[rank] = (card.ability.extra.rankscore[rank] or 0) + 1
+        end
+
+    end,
+
+    can_use = function(self, card)
+        if not G.hand then return false end
+        if #G.hand.highlighted < 1 then return false end
+        if not card.ability.extra.lastscore then return false end
+        local count = card.ability.extra.rankscore[card.ability.extra.lastscore]
+        if not count then return false end
+        return count >= card.ability.extra.required
+    end,
+
+    use = function(self, card, area)
+        for _, scored_card in ipairs(G.hand.highlighted) do
+            SMODS.change_base(scored_card, nil, card.ability.extra.lastscore)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    scored_card:juice_up()
+                    return true
+                end
+            }))
+        end
+    end,
+}

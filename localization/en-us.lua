@@ -432,6 +432,17 @@ return {
                     "{C:inactive,s:0.8}\"the steel samurai....always wins!\""
                 }
             },
+
+            c_nflame_parrot = {
+                name = "Parrot",
+                text = {
+                    "Convert {C:attention}all{} selected cards to",
+                    "the {C:attention}last scored rank{} this round (#1#)",
+                    "Can only be used if the rank has been",
+                    "scored #2# {V:1}(#3#){} times this {C:attention}round",
+                    "{C:inactive,s:0.8}\"squack! don't forget dl-6!\""
+                }
+            }
         },
 
         Other = {
