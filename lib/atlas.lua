@@ -47,6 +47,7 @@ SMODS.Atlas({
     py = 95
 })
 
+-- darnit jpenguin i have to add so much here
 SMODS.Atlas({
     key = "finity",
     path = "atlasfinity.png",
@@ -69,6 +70,13 @@ SMODS.Atlas({
     frames = 21,
     px = 34,
     py = 34
+})
+
+SMODS.Atlas({
+    key = "partner",
+    path = "atlaspartner.png",
+    px = 46,
+    py = 58
 })
 
 

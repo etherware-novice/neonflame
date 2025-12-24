@@ -378,6 +378,29 @@ return {
             }
         },
 
+        Partner = {
+            pnr_nflame_snugglepenguin = {
+                name = "Snugglebug",
+                text = {
+                    "When card is {C:attention}destroyed",
+                    "{C:green}#1# in #2#{} chance to",
+                    "gain half its {C:blue}chips",
+                    "{C:inactive}(Currently {C:blue}+#3#{C:inactive} Chips)"
+                }
+            },
+
+            pnr_nflame_snugglepenguin_1 = {
+                name = "Snugglebug",
+                text = {
+                    "When card is {C:attention}destroyed",
+                    "gain half its {C:blue}chips",
+                    "{C:green}#1# in #2#{} chance to",
+                    "instead gain all of its rank",
+                    "{C:inactive,s.0.8}(Currently {C:blue}+#3#{} Chips)"
+                }
+            }
+        },
+
         Enhanced = {
             m_nflame_snow = {
                 name = "Snow Card",
@@ -520,6 +543,16 @@ return {
          },
 
          quips = {
+             pnr_nflame_snugglepenguin_1 = {
+                 "test1",
+                 "test2"
+             },
+
+             pnr_nflame_snugglepenguin_2 = {
+                 "test1",
+                 "test2"
+             },
+
              lq_jpenguin_1 = {
                  "Maybe next time... uhhh,",
                  "not let one of your stuff",
