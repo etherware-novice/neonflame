@@ -1445,8 +1445,8 @@ SMODS.Joker {
     key = "mcbedrock",
     name = "Minecraft Bedrock",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 3, y = 4 },
 
     config = { extra = { chance = 4, chip = 5, mult = 1 } },
     rarity = 1,
