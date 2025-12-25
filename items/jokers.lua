@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1766456966 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1766691189 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1588,6 +1588,35 @@ SMODS.Joker {
                     return true
                 end
             }))
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "personalhomeshredder",
+    name = "Theoretical Shredder",
+
+    atlas = "jokers1",
+    pos = { x = 4, y = 4 },
+
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    calculate = function(self, card, context)
+        if context.first_hand_drawn then
+            local eval = function() return G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
+        end
+
+        if context.pre_discard and not context.blueprint then
+            SMODS.calculate_context{ remove_playing_cards = true, removed = context.full_hand }
+            SMODS.calculate_effect{ message = localize("k_extinct_ex") }
+            SMODS.calculate_context{ playing_card_added = true, cards = context.full_hand }
+            SMODS.calculate_effect{ message = localize("k_copied_ex") }
         end
     end
 }

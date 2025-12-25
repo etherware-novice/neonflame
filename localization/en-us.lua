@@ -375,6 +375,15 @@ return {
                     "if at least one {C:nflame_silicon}Silicon{} is owned",
                     "{s:0.8,C:inactive}(Must have room)"
                 }
+            },
+
+            j_nflame_personalhomeshredder = {
+                name = "Theoretical Shredder",
+                text = {
+                    "All cards in the first discard",
+                    "are considered {C:red}destroyed",
+                    "then {C:attention}added to deck"
+                }
             }
         },
 
