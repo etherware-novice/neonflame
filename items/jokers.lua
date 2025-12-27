@@ -702,7 +702,7 @@ SMODS.Joker {
    pos = { x = 2, y = 0 },
    soul_pos = { x = 3, y = 0 },
 
-   config = { extra = { xmhandgain = 0.1 } },
+   config = { extra = { xmhandgain = 0.25 } },
    rarity = 4,
    price = 20,
    blueprint_compat = true,
@@ -718,20 +718,6 @@ SMODS.Joker {
       if context.pre_discard then
          local carddraw = 0
          for i, c in ipairs(context.full_hand) do
-            if not context.blueprint then
-               G.E_MANAGER:add_event(Event({
-                blocking = false,
-                func = function()
-                   if G.STATE ~= G.STATES.DRAW_TO_HAND then return false end
-                   -- gimmie my quickdraws damnit
-                   draw_card(G.discard, G.hand, nil, "up", true, c, 0.05)
-                   return true
-                end                           
-               }))
-               carddraw = i
-            end
-
-
             G.E_MANAGER:add_event(Event({
                 func = function()
                    c:juice_up(0.5, 0.5)
@@ -742,20 +728,11 @@ SMODS.Joker {
             }))
 
             c.ability.perma_h_x_mult = (c.ability.perma_h_x_mult or 1) + card.ability.extra.xmhandgain
+
+         card.ability.extra.bonusdraw = #context.full_hand
+         card.ability.extra.discard_progress = 0
          end
 
-         if carddraw > 0 then
-            G.E_MANAGER:add_event(Event({
-                blocking = false,
-                func = function()
-                   if G.STATE ~= G.STATES.SELECTING_HAND then return false end
-                   SMODS.draw_cards(carddraw)
-                   return true
-                end
-            }))
-         end
-
-         
          return {
             extra = {
                card = card,
@@ -763,6 +740,41 @@ SMODS.Joker {
                colour = G.C.MULT
             },
          }
+      end
+
+      if context.discard then
+          card.ability.extra.discard_progress = card.ability.extra.discard_progress + 1
+          local progress = card.ability.extra.discard_progress*100/#context.full_hand
+
+          G.E_MANAGER:add_event(Event({
+              blocking = false,
+              func = function()
+                  if G.STATE ~= G.STATES.SELECTING_HAND then return false end
+                  
+                  G.E_MANAGER:add_event(Event({
+                      func = function()
+                          draw_card(G.discard, G.deck, progress, 'down', nil, context.other_card, 0.07)
+                          -- god this is jank :(
+                          -- but i REALLY dont want to patch emplace
+                          -- table.insert(G.deck.cards, G.deck.cards[1])
+                          -- table.remove(G.deck.cards, 1)
+
+                          -- guess we're shuffling 5 times idec anymore
+                          G.deck:shuffle("nflame_sappy")
+
+                          return true
+                      end
+                  }))
+
+                  return true
+              end
+          }))
+      end
+
+      if context.drawing_cards then
+          local bdraw = card.ability.extra.bonusdraw or 0
+          -- if context.amount < 1 then bdraw = math.floor(bdraw * 1.5) end  -- bonuses for if your hand is full
+          return { cards_to_draw = context.amount + bdraw }
       end
    end
 }

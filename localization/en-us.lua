@@ -157,9 +157,9 @@ return {
 	        j_nflame_sappy = {
 	           name = "Sappy",
 	           text = {
-	              "Discarded cards are {C:attention}drawn back to hand{}",
+	              "Discarded cards are {C:attention}shuffled into deck",
 	              "with a bonus {C:white,X:mult}X#1#{} mult when held in hand",
-	              "Draw an extra card for each discarded card"
+	              "Draw an {C:attention}extra card{} for each discarded card"
 	           }
 	        },
 
