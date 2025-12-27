@@ -552,15 +552,38 @@ return {
          },
 
          quips = {
+             -- jpenguin came up with all of these
+             -- blame him not me
              pnr_nflame_snugglepenguin_1 = {
-                 "test1",
-                 "test2"
+                 "Trust me, my appetite",
+                 "is way beyond what",
+                 "you would expect"
              },
 
              pnr_nflame_snugglepenguin_2 = {
-                 "test1",
-                 "test2"
+                 "I like eating",
+                 "cards, they",
+                 "remind me of",
+                 "crackers"
              },
+
+             pnr_nflame_snugglepenguin_3 = {
+                 "I won't accept just",
+                 "fish and krill, I",
+                 "require fine dining..."
+             },
+
+             pnr_nflame_snugglepenguin_4 = {
+                 "My tummy rumbles for",
+                 "some sweet action"
+             },
+
+             pnr_nflame_snugglepenguin_5 = {
+                 "This'll be a piece",
+                 "of cake, now that",
+                 "your favorite casino",
+                 "penguin is here!"
+             }
 
              lq_jpenguin_1 = {
                  "Maybe next time... uhhh,",
