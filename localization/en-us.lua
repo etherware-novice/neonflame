@@ -583,7 +583,7 @@ return {
                  "of cake, now that",
                  "your favorite casino",
                  "penguin is here!"
-             }
+             },
 
              lq_jpenguin_1 = {
                  "Maybe next time... uhhh,",
