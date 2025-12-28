@@ -47,6 +47,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+    key = "booster",
+    path = "atlasbooster.png",
+    px = 71,
+    py = 95
+})
+
 -- darnit jpenguin i have to add so much here
 SMODS.Atlas({
     key = "finity",

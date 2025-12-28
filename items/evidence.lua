@@ -11,23 +11,36 @@ SMODS.ConsumableType {
     can_divide = false
 }
 
-SMODS.Booster {
-    key = "evidence_normal_1",
-    kind = "evidence",
-    group_key = "k_nflame_evidence_pack",
-
-    loc_vars = function(self, info_queue, card)
-        local cfg = (card and card.ability) or self.config
-        return {
-            vars = { cfg.choose, cfg.extra },
-            key = self.key:sub(1, -3)
-        }
-    end,
-
-    create_card = function(self, card)
-        return { set = "evidence", skip_materialize = true }
-    end
+local boostermap = {
+    normal = {pos = { x = 0, y = 0 }, config = { extra = 3, choose = 1 }, cost = 4},
+    jumbo = {pos = { x = 1, y = 0 }, config = { extra = 5, choose = 1 }, cost = 6},
+    mega = {pos = { x = 2, y = 0 }, config = { extra = 5, choose = 2 }, cost = 6},
 }
+
+for name, v in pairs(boostermap) do
+    SMODS.Booster {
+        key = "evidence_" .. name .. "_1",
+        kind = "evidence",
+        group_key = "k_nflame_evidence_pack",
+        atlas = "booster",
+        pos = v.pos,
+
+        config = v.config,
+        cost = v.cost,
+
+        loc_vars = function(self, info_queue, card)
+            local cfg = (card and card.ability) or self.config
+            return {
+                vars = { cfg.choose, cfg.extra },
+                key = "p_nflame_evidence"
+            }
+        end,
+
+        create_card = function(self, card)
+            return { set = "evidence", skip_materialize = true }
+        end
+    }
+end
 
 SMODS.Consumable {
     key = "badge",

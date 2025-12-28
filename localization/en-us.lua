@@ -487,7 +487,7 @@ return {
         },
 
         Other = {
-            p_nflame_evidence_normal = {
+            p_nflame_evidence = {
                 name = "Evidence Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
