@@ -1493,8 +1493,8 @@ SMODS.Joker {
     key = "hitch_brokenprob",
     name = "Improbability Drive",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 5, y = 4 },
 
     rarity = 2,
     cost = 4,
