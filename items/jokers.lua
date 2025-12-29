@@ -1640,7 +1640,7 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 0, y = 5 },
 
-    config = { extra = { card = 2 } },
+    config = { extra = { card = 2, draw = 4 } },
     rarity = 2,
     cost = 4,
     blueprint_compat = true,
@@ -1649,7 +1649,7 @@ SMODS.Joker {
     demicolon_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.card} }
+        return { vars = {card.ability.extra.card, card.ability.extra.draw} }
     end,
 
     calculate = function(self, card, context)
@@ -1673,17 +1673,18 @@ SMODS.Joker {
                         end
                     end
                     if triggers > 0 then G.FUNCS.discard_cards_from_highlighted(nil, true) end
-                    card.ability.extra.draw = triggers
+                    card.ability.extra.trigger = true
 
                     return true
                 end
             }))
         end
 
-        if context.drawing_cards then
-            local bdraw = (card.ability.extra.draw or 0) * 2
-            card.ability.extra.draw = 0
-            return { cards_to_draw = context.amount + bdraw }
+        if context.end_of.round then card.ability.extra.trigger = false end
+
+        if context.drawing_cards and card.ability.extra.trigger then
+            card.ability.extra.trigger = false
+            return { cards_to_draw = context.amount + (card.ability.extra.draw or 0) }
         end
     end
 }

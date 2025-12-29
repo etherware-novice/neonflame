@@ -391,7 +391,7 @@ return {
                 text = {
                     "Discard #1# {C:attention}random{} cards",
                     "when {C:attention}hand played",
-                    "Draw {C:attention}X2{} the cards"
+                    "and draw {C:attention}#2#{} extra cards"
                 }
             }
         },
