@@ -384,6 +384,15 @@ return {
                     "are considered {C:red}destroyed",
                     "then {C:attention}added to deck"
                 }
+            },
+
+            j_nflame_spbird = {
+                name = "Silly Bird Feed",
+                text = {
+                    "Discard #1# {C:attention}random{} cards",
+                    "when {C:attention}hand played",
+                    "Draw {C:attention}X2{} the cards"
+                }
             }
         },
 

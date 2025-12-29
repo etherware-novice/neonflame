@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1766691189 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1767041698 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1629,6 +1629,61 @@ SMODS.Joker {
             SMODS.calculate_effect{ message = localize("k_extinct_ex") }
             SMODS.calculate_context{ playing_card_added = true, cards = context.full_hand }
             SMODS.calculate_effect{ message = localize("k_copied_ex") }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "spbird",
+    name = "Silly Bird Feed",
+
+    atlas = "jokers1",
+    pos = { x = 0, y = 5 },
+
+    config = { extra = { card = 2 } },
+    rarity = 2,
+    cost = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.card} }
+    end,
+
+    calculate = function(self, card, context)
+        -- copied from hook (vremade) since it literally is just hook
+        if context.press_play then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local triggers = 0
+                    local valid_cards = {}
+                    for _, playing_card in ipairs(G.hand.cards) do
+                        valid_cards[#valid_cards + 1] = playing_card
+                    end
+
+                    for i = 1, card.ability.extra.card do
+                        if G.hand.cards[i] then
+                            local selected_card, index = pseudorandom_element(valid_cards, "nflame_spbird")
+                            G.hand:add_to_highlighted(selected_card, true)
+                            table.remove(valid_cards, index)
+                            triggers = triggers + 1
+                            play_sound("card1", 1)
+                        end
+                    end
+                    if triggers > 0 then G.FUNCS.discard_cards_from_highlighted(nil, true) end
+                    card.ability.extra.draw = triggers
+
+                    return true
+                end
+            }))
+        end
+
+        if context.drawing_cards then
+            local bdraw = (card.ability.extra.draw or 0) * 2
+            card.ability.extra.draw = 0
+            return { cards_to_draw = context.amount + bdraw }
         end
     end
 }
