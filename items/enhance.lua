@@ -79,25 +79,50 @@ SMODS.Enhancement {
     end
 }
 
+SMODS.Enhancement {
+    key = "hp",
+    name = "Holepunch Card",
 
---[[
-	    local newboss = nil
+    atlas = "enhance",
+    pos = { x = 3, y = 0 },
 
-	    -- to make it a bit easier, 1/4 chance to disable outright
-	    if pseudorandom("nflame_rules") > 0.25 then
-		newboss = pseudorandom_element(G.P_BLINDS, "nflame_rules")
-	    end
+    calculate = function(self, card, context)
+    end
+}
 
-	    G.E_MANAGER:add_event(Event({
-	        func = function()
-		    local old_ch = G.GAME.blind.chips
-		    G.GAME.blind:disable()
-		    if newboss then
-		        G.GAME.blind:remove()
-		        G.GAME.blind:set_blind(newboss)
-		    end
-		    if old_ch < G.GAME.blind.chips then G.GAME.blind.chips = old_ch end
-		    return true
-		end
-	    }))
---]]
+local drpd = G.FUNCS.draw_from_play_to_discard
+G.FUNCS.draw_from_play_to_discard = function(e)
+    -- more copying from hook
+
+    local candidate = {}
+    for i, playing_card in ipairs(G.hand.cards) do
+        if
+            (not playing_card.shattered) and (not playing_card.destroyed)
+            and SMODS.has_enhancement(playing_card, "m_nflame_hp")
+        then
+            table.insert(candidate, i)
+        end
+    end
+
+    local target = pseudorandom_element(candidate, "nflame_hp")
+    if not target then return drpd(e) end
+
+    G.E_MANAGER:add_event(Event({
+        trigger = "after",
+        delay = 0.7,
+        func = function()
+            G.hand:add_to_highlighted(G.hand.cards[target])
+            G.FUNCS.discard_cards_from_highlighted(nil, true)
+
+            return true
+        end
+    }))
+
+    for i = 1, #G.play.cards do
+        if not G.play.cards[i].shattered and not G.play.cards[i].destroyed then
+            draw_card(G.play, G.hand, i*100/#G.hand.cards, "up", true, G.play.cards[i])
+        end
+    end
+
+    -- return drpd(e)
+end

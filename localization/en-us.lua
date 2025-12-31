@@ -439,6 +439,14 @@ return {
                 "{C:inactive,s:0.8}its a {C:red,E:1}COURTETH JESTER.{}"
             }
             },
+
+            m_nflame_hp = {
+                name = "Holepunch Card",
+                text = {
+                    "If hand played while a {C:attention}Holepunch Card{} is held",
+                    "{C:attention}Discard it{} and return played cards to hand"
+                }
+            }
         },
 
         evidence = {
@@ -520,6 +528,14 @@ return {
                     "Enhances {C:attention}#1#{}",
                     "selected cards to",
                     "{C:attention}#2#{}"
+                }
+            },
+            c_nflame_mathey = {
+                name = "The Mathematician",
+                text = {
+                    "Enhances {C:attention}#1#",
+                    "selected cards to",
+                    "{C:attention}#2#"
                 }
             }
         },
