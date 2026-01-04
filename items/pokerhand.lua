@@ -1,3 +1,44 @@
+-- please like this
+
+SMODS.PokerHandPart {
+    key = "face5",
+    func = function(hand)
+        local ret = {}
+        local ff = SMODS.four_fingers('nflame_blaze')
+
+        if #hand < ff then return {} end
+
+        for _, playing_card in ipairs(hand) do
+            if playing_card:is_face() then ret[#ret + 1] = playing_card end
+        end
+
+        if #ret < ff then return {} end
+        return {ret,}
+    end
+}
+
+SMODS.PokerHand {
+    key = "Blaze",
+    visible = true,
+    chips = 50,
+    mult = 4,
+    l_mult = 5,
+    l_chips = 20,
+
+    example = {
+        { "C_Q", true },
+        { "D_K", true },
+        { "H_J", true },
+        { "D_Q", true },
+        { "S_K", true }
+    },
+
+    evaluate = function(parts, hand)
+        return parts.nflame_face5
+    end
+}
+
+
 SMODS.PokerHand {
    key = "nflame_generic",
    visible = false,

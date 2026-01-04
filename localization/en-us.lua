@@ -569,11 +569,13 @@ return {
          },
 
          poker_hands = {
-             nflame_generic = "Poker Hand All"
+             nflame_generic = "Poker Hand All",
+             nflame_Blaze = "Blaze"
          },
 
          poker_hand_descriptions = {
-             nflame_generic = { "Any cards." }
+             nflame_generic = { "Any cards." },
+             nflame_Blaze = { "5 Face cards" }
          },
 
          quips = {
