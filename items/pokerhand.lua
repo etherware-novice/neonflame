@@ -20,10 +20,10 @@ SMODS.PokerHandPart {
 SMODS.PokerHand {
     key = "Blaze",
     visible = true,
-    chips = 50,
-    mult = 4,
-    l_mult = 5,
-    l_chips = 20,
+    chips = 20,
+    mult = 2,
+    l_mult = 1,
+    l_chips = 10,
 
     example = {
         { "C_Q", true },
