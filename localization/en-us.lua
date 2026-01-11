@@ -393,6 +393,14 @@ return {
                     "when {C:attention}hand played",
                     "and draw {C:attention}#2#{} extra cards"
                 }
+            },
+
+            j_nflame_flynn = {
+                name = "Flynn from Flynnsanity",
+                text = {
+                    "Scored {C:clubs}#1#{} cards have a {C:green}#2# in #3#",
+                    "chance to create a enhanced card with the {C:attention}same rank"
+                }
             }
         },
 
