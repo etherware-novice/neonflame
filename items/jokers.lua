@@ -1750,7 +1750,7 @@ SMODS.Joker {
 
     loc_vars = function(self, info_queue, card)
         if string.find(string.lower(G.PROFILES[G.SETTINGS.profile].name), "paul") then
-            -- return { key = self.key .. "_mf" }
+            return { key = self.key .. "_mf" }
         end
 
         info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
