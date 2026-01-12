@@ -401,6 +401,25 @@ return {
                     "Scored {C:clubs}#1#{} cards have a {C:green}#2# in #3#",
                     "chance to create a enhanced card with the {C:attention}same rank"
                 }
+            },
+
+            j_nflame_bompaul = {
+                name = "Paul, the Favorite of All",
+                text = {
+                    "{C:attention}Glass Cards{} create a {C:tarot}Tarot{} Card",
+                    "and {C:attention}halves the blind requirement{} when {C:red}destroyed",
+                    "{C:inactive,s:0.8}\"vecalius, invictissimi, what is the color on the roof of",
+                    "{C:inactive,s:0.8}a house with human skeletons and should be heard?\""
+                }
+            },
+
+            j_nflame_bompaul_mf = {
+                name = "BasePaul tFoA",
+                text = {
+                    "{C:attention}Shattered Glass Cards{} give {C:tarot}Tarot",
+                    "and {C:attention}halved blind requirement",
+                    "{C:inactive,s:0.8}no, you aren't getting {C:white,X:mult}X12.5{C:inactive,s:0.8} mult.",
+                }
             }
         },
 

@@ -1734,6 +1734,65 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "bompaul",
+    name = "Paul",
+
+    atlas = "jokers1",
+    pos = { x = 1, y = 5 },
+
+    rarity = 3,
+    cost = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        if string.find(string.lower(G.PROFILES[G.SETTINGS.profile].name), "paul") then
+            -- return { key = self.key .. "_mf" }
+        end
+
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
+    end,
+
+    calculate = function(self, card, context)
+        if context.remove_playing_cards then
+            local triggers = 0
+            for _, removed_card in ipairs(context.removed) do
+                if removed_card.shattered then triggers = triggers + 1 end
+            end
+
+            if triggers < 1 then return end
+
+            for i = 1, triggers do
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after", delay = 0.3,
+                    func = function()
+                        if G.GAME.blind and G.GAME.blind.chips then
+                            G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 0.5)
+                            G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
+                            G.HUD_blind:recalculate()
+
+                            G.hand_text_area.blind_chips:juice_up()
+                            card:juice_up()
+                        end
+
+                        if
+                            #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+                        then
+                            SMODS.add_card { set = "Tarot", key_append = "nflame_bompaul" }
+                            G.GAME.consumeable_buffer = 0
+                        end
+
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
