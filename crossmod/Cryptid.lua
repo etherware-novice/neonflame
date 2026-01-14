@@ -13,9 +13,9 @@ SMODS.Joker {
 
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = { set = "Other", key = "cry_green_seal" }
-        info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_commit
-	info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_rework
-	info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_delete
+        -- info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_commit
+        -- info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_rework -- hm
+        -- info_queue[#info_queue + 1] = G.P_CENTERS.c_cry_delete
     end,
 
     calculate = function(self, card, context)
