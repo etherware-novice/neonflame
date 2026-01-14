@@ -1809,7 +1809,7 @@ SMODS.Joker {
     demicolon_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.bonus} }
+        return { vars = {card.ability.extra.bonus, card.ability.extra.bonus * 2} }
     end,
 
     add_to_deck = function(self, card, from_debuff)
@@ -1822,7 +1822,7 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.drawing_cards and context.amount > 0 then
-            return { cards_to_draw = context.amount + card.ability.extra.bonus}
+            return { cards_to_draw = context.amount + (card.ability.extra.bonus * 2)}
         end
     end
 }

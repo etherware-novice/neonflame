@@ -426,7 +426,7 @@ return {
                 name = "Cery",
                 text = {
                     "{C:red}-#1#{} hand size",
-                    "Always draw {C:attention}#1#{} extra cards"
+                    "Always draw {C:attention}#2#{} extra cards"
                 }
             }
         },
