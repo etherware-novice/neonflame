@@ -420,6 +420,14 @@ return {
                     "and {C:attention}halved blind requirement",
                     "{C:inactive,s:0.8}no, you aren't getting {C:white,X:mult}X12.5{C:inactive,s:0.8} mult.",
                 }
+            },
+
+            j_nflame_cery = {
+                name = "Cery",
+                text = {
+                    "{C:red}-#1#{} hand size",
+                    "Always draw {C:attention}#1#{} extra cards"
+                }
             }
         },
 

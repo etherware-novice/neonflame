@@ -1793,6 +1793,41 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "cery",
+    name = "Cery",
+
+    atlas = "jokers1",
+    pos = { x = 2, y = 5 },
+
+    config = { extra = { bonus = 3 } },
+    rarity = 3,
+    cost = 7,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.bonus} }
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.bonus)
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.bonus)
+    end,
+
+    calculate = function(self, card, context)
+        if context.drawing_cards and context.amount > 0 then
+            return { cards_to_draw = context.amount + card.ability.extra.bonus}
+        end
+    end
+}
+
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
