@@ -57,3 +57,39 @@ SMODS.Back {
         print(args)
     end,
 }
+
+SMODS.Back({
+    key = "capital",
+    name = "Capitalist Deck",
+
+    atlas = "backs",
+    pos = { x = 0, y = 0 },
+    config = { vouchers = { "v_seed_money", "v_money_tree" }, req = 500 },
+
+    loc_vars = function(self, info_queue, back)
+        return { vars = {
+            localize { type = "name_text", key = self.config.vouchers[1], set = "Voucher" },
+            localize { type = "name_text", key = self.config.vouchers[2], set = "Voucher" },
+            self.config.req
+        } }
+    end,
+
+    apply = function(self)
+        G.GAME.modifiers.nflame_var_win = "generic"
+    end,
+
+    calculate = function(self, back, context)
+        if
+            context.starting_shop
+            and G.GAME.dollars > self.config.req
+            and not G.GAME.nflame_varwin_generic_active
+        then
+            G.GAME.win_ante_backup = G.GAME.round_resets.ante + 1 + (G.GAME.nflame_var_modifyglob or 0)
+            G.GAME.nflame_varwin_generic_active = true
+        end
+    end
+})
+
+G.FUNCS.nflame_varwin_capital = function(modify)
+    return G.GAME.dollars
+end

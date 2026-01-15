@@ -21,6 +21,17 @@ return {
                     "Rerolls resets at {C:attention}end of ante",
                     "{C:inactive}Art by Camostar34"
                 }
+            },
+
+            b_nflame_capital = {
+                name = "Capitalist Deck",
+                text = {
+                    "Start run with",
+                    "{C:tarot,T:v_seed_money}#1#",
+                    "and {C:tarot,T:v_money_tree}#2#",
+                    "Win ante is {C:attention}set{} when",
+                    "entering a shop with {C:money}$#3#"
+                }
             }
         },
 

@@ -79,8 +79,53 @@ function Game:init_game_object()
     local g = ginit(self)
 
     g.nflame_offshore_jokers = {}
-
     return g
+end
+
+
+local gstartrun = Game.start_run
+function Game:start_run(args)
+    local retr = gstartrun(self, args)
+
+    -- any read/writes to win ante will be intercepted for my deck
+    G.GAME.win_ante_backup = G.GAME.win_ante
+    G.GAME.win_ante = nil
+    local mt = getmetatable(G.GAME) or {}
+
+    mt.__index = function(self, _k)
+        local vfunc = G.FUNCS["nflame_varwin_" .. G.GAME.modifiers.nflame_var_win]
+        if _k == "win_ante" then
+            return vfunc and vfunc() or self.win_ante_backup
+        end
+
+        return rawget(self, _k)
+    end
+
+    mt.__newindex = function(self, _k, _v)
+        local vfunc = G.FUNCS["nflame_varwin_" .. G.GAME.modifiers.nflame_var_win]
+        if _k == "win_ante" then
+            if not self.win_ante_backup then self.win_ante_backup = _k end
+            local retr = vfunc and vfunc(_v)
+            if retr then return retr end
+            self.win_ante_backup = _v
+        end
+
+        rawset(self, _k, _v)
+    end
+
+    setmetatable(G.GAME, mt)
+    return retr
+end
+
+function G.FUNCS.nflame_varwin_generic(modify)
+    if modify then
+        local change = modify - G.GAME.win_ante
+        G.GAME.win_ante_backup = G.GAME.win_ante_backup + change
+        G.GAME.nflame_var_modifyglob = (G.GAME.nflame_var_modifyglob or 0) + change
+        return 0
+    end
+
+    if not G.GAME.nflame_varwin_generic_active then return 999 end
 end
 
 local gdraw = Game.draw
