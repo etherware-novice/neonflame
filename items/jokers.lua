@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1768534526 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1768564425 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -207,47 +207,37 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 4, y = 0 },
 
-    config = { extra = { increase = 1.5, requirement = 3 } },
-    rarity = 3,
-    cost = 8,
+    config = { extra = { xmult = 3 } },
+    rarity = 2,
+    cost = 6,
     blueprint_compat = true,
     demicolon_compat = true,
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.increase, card.ability.extra.requirement} }
+        return { vars = { card.ability.extra.xmult } }
     end,
 
     calculate = function(self, card, context)
-        local xm_trigger = context.forcetrigger
-	
-        if context.other_joker and context.other_joker.ability.set == "Joker" then
-	    G.E_MANAGER:add_event(Event({
-	        func = function()
-		    context.other_joker:juice_up(0.5, 0.5)
-		    return true
-		end
-	    }))
-	    xm_trigger = true
-	end
+        if context.joker_main then return {xmult = card.ability.extra.xmult} end
+        
+        if context.after then --and SMODS.last_hand_oneshot then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    add_tag(Tag("tag_ethereal", false, "Small"))
+                    
+                    if not context.blueprint then
+                        -- for some reason this fires twice so we're using sqrt2 here
+                        G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 1.414)
+                        G.FUNCS.blind_chip_UI_scale(G.hand_text_area.blind_chips)
+                        G.HUD_blind:recalculate()
+                        G.hand_text_area.blind_chips:juice_up()
+                    end
 
-	if xm_trigger then
-	    local multv = card.ability.extra.increase
-	    return {
-	        message = localize({ type = "variable", key = "a_xmult", vars = { multv }}),
-		colour = G.C.MULT,
-		Xmult_mod = multv,
-	    }
-	end
-
-	if context.final_scoring_step then
-	    if SMODS.calculate_round_score() > (G.GAME.blind.chips * card.ability.extra.requirement) then
-	        return {
-		    dollars = math.floor(G.GAME.dollars * -1),
-		    color = G.C.MONEY
-		}
-	    end
-	end
+                    return true
+                end
+            }))
+        end
     end,
 }
 

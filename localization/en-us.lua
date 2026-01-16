@@ -85,8 +85,9 @@ return {
 		    j_nflame_numberup = {
 		        name = "Number Go Up",
                 text = {
-                    "Jokers give {C:white,X:mult}X#1#{}",
-                    "If hand scored more than X#2# of blind score, lose all money",
+                    "{C:white,X:mult}X#1#{} mult",
+                    "If hand scores {C:attention}more{} than blind requirement",
+                    "{C:attention}Double blind requirement{} and create a {C:spectral}Ethereal Tag"
                 }
 		    },
 	
