@@ -87,6 +87,8 @@ local gstartrun = Game.start_run
 function Game:start_run(args)
     local retr = gstartrun(self, args)
 
+    if not G.GAME.modifiers.nflame_var_win then return retr end
+
     -- any read/writes to win ante will be intercepted for my deck
     G.GAME.win_ante_backup = G.GAME.win_ante
     G.GAME.win_ante = nil

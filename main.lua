@@ -29,6 +29,7 @@ local files = {
 	  "items/silicon",
 	  "items/backs",
 	  "items/blinds",
+	  "crossmod/multi"  -- requires multiple so we cant use the generic one
       -- "items/edition",
 }
 

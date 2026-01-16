@@ -439,6 +439,17 @@ return {
                     "{C:red}-#1#{} hand size",
                     "Always draw {C:attention}#2#{} extra cards"
                 }
+            },
+
+            j_nflame_ultshowdown = {
+                name = "Ultimate Showdown of Ultimate Destiny",
+                text = {
+                    "If a {C:attention}Kiln{} or {C:attention}Rouxles Kaard{} is scored",
+                    "Create a {C:attention}Hand{} and {C:attention}Flynnsane{} tag",
+                    "and all cards in hand become {C:attention}Ghost {C:dark_edition}Glitter {C:attention}100% Seal{} cards",
+                    "And create a {C:dark_edition}negative{C:attention} Stardust{} card for each {C:attention}Jolly Joker",
+                    "And create {C:red,s:1.2}EVERY{s:0.8} Astro{} and {C:attention}Sappy Joker"
+                }
             }
         },
 
