@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1768564425 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1768692021 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1813,6 +1813,74 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.drawing_cards and context.amount > 0 then
             return { cards_to_draw = context.amount + (card.ability.extra.bonus * 2)}
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "as_jwarosa",
+    name = "John ?arosa",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+
+    config = { extra = { requirement = 5, remaining = 5, increase = 5, soul = 50 } },
+    rarity = 2,
+    cost = 8,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        -- why am i doing this for something so tiny
+        local cap = "W"
+        local altcap = "b"
+        if math.random() > 0.5 then
+            cap = "B"
+            altcap = "w"
+        end
+
+        return { vars = {
+            cap,
+            altcap,
+            card.ability.extra.requirement,
+            card.ability.extra.remaining,
+            card.ability.extra.increase,
+            card.ability.extra.soul
+        } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.money_altered and context.amount < 0 then
+            -- amount is a negative number here :>
+            card.ability.extra.remaining = card.ability.extra.remaining + context.amount
+            if card.ability.extra.remaining > 0 then return end
+
+            if #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then
+                card.ability.extra.remaining = 1
+                return
+            end
+            
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            card.ability.extra.requirement = card.ability.extra.requirement + card.ability.extra.increase
+            card.ability.extra.remaining = card.ability.extra.requirement
+
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if card.ability.extra.requirement >= card.ability.extra.soul then
+                        SMODS.add_card{ key = "c_soul" }
+                        SMODS.destroy_cards(card, nil, nil, true)
+                    else
+                        SMODS.add_card{ set = "Tarot", key_append = "nflame_ab_jwarosa" }
+                    end
+
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end
+            }))
+
+            return { message = localize("k_active_ex") }
         end
     end
 }

@@ -453,6 +453,20 @@ return {
                     "And create a {C:dark_edition}negative{C:attention} Stardust{} card for each {C:attention}Jolly Joker",
                     "And create {C:red,s:1.2}EVERY{s:0.8} Astro{} and {C:attention}Sappy Joker"
                 }
+            },
+
+            j_nflame_as_jwarosa = {
+                name = "John #1#arosa",
+                text = {
+                    "When at least {C:money}$#3#{C:inactive} ($#4#){} is lost, create a {C:tarot}Tarot",
+                    "and increase the requirement by {C:money}$#5#",
+                    "If requirement is at least {C:money}$#6#{}, instead create",
+                    "a {C:dark_edition}Negative Soul{} and {C:red,E:2}destroy this card",
+                    "{C:inactive,s:0.8}(Must have room)",
+                    "{C:inactive,s:0.8}\"just forget any issue,",
+                    "{C:inactive,s:0.8}or discussion about the {C:dark_edition,s:0.8}soul,",
+                    "{C:inactive,s:0.8}called mister barrister john #2#arosa\""
+                }
             }
         },
 
