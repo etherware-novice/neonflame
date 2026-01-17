@@ -8,7 +8,8 @@ return {
                     "Start with {C:attention}every Sappy Joker",
                     "from installed mods",
                     "Neonflame jokers are {C:dark_edition}100X",
-                    "more likely to appear"
+                    "more likely to appear",
+                    "{C:inactive}Art by Camostar34"
                 },
             },
 
@@ -30,7 +31,8 @@ return {
                     "{C:tarot,T:v_seed_money}#1#",
                     "and {C:tarot,T:v_money_tree}#2#",
                     "Win ante is {C:attention}set{} when",
-                    "entering a shop with {C:money}$#3#"
+                    "entering a shop with {C:money}$#3#",
+                    "{C:inactive}Art by Camostar34"
                 }
             }
         },

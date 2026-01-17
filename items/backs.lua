@@ -63,7 +63,7 @@ SMODS.Back({
     name = "Capitalist Deck",
 
     atlas = "backs",
-    pos = { x = 0, y = 0 },
+    pos = { x = 2, y = 0 },
     config = { vouchers = { "v_seed_money", "v_money_tree" }, req = 500 },
 
     loc_vars = function(self, info_queue, back)
