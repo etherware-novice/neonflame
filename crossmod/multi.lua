@@ -1,13 +1,12 @@
 
 local mods = {
     "Bunco",
-    "SMSN", -- berries and honey
+    -- "SMSN", -- berries and honey
     "ortalab",
     "GSPhanta",
     "flynnsanity",
     "entr", -- entropy
     "Cryptid",
-    "nflame",
     "starspace"
 }
 
