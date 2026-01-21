@@ -1892,7 +1892,7 @@ SMODS.Joker {
     atlas = "jokers1",
     pos = { x = 3, y = 5 },
 
-    config = { extra = { initial = 6, initial_down = 1 } },
+    config = { extra = { initial = 6, initial_down = 0 } },
     rarity = 2,
     cost = 4,
     blueprint_compat = false,
@@ -1907,7 +1907,7 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-        if context.before or context.after then card.ability.extra.chain = card.ability.extra.initial_down end
+        if context.before then card.ability.extra.chain = card.ability.extra.initial_down end
 
         if context.repetition then
             -- this SHOULDNT be null but just incase
@@ -1918,6 +1918,8 @@ SMODS.Joker {
 
             -- this lets it "trigger" multiple times on the same card
 			while SMODS.pseudorandom_probability(card, "nflame_dicechain", odds, card.ability.extra.initial) do
+                if activations > 100 then break end
+
                 odds = odds - 1
                 activations = activations + 1
                 card.ability.extra.chain = card.ability.extra.chain + 1
