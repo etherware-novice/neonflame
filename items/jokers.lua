@@ -1885,6 +1885,54 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "dicechain",
+    name = "Dice Chain",
+
+    atlas = "jokers1",
+    pos = { x = 3, y = 5 },
+
+    config = { extra = { initial = 6, initial_down = 1 } },
+    rarity = 2,
+    cost = 4,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        local start = card.ability.extra.initial - card.ability.extra.initial_down
+		local num, den = SMODS.get_probability_vars(card, start, card.ability.extra.initial, "nflame_dicechain")
+        return { vars = { num, den } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.before or context.after then card.ability.extra.chain = card.ability.extra.initial_down end
+
+        if context.repetition then
+            -- this SHOULDNT be null but just incase
+            card.ability.extra.chain = card.ability.extra.chain or card.ability.extra.initial_down
+            local odds = card.ability.extra.initial - card.ability.extra.chain
+            local activations = 0
+            local visstart = card.ability.extra.chain
+
+            -- this lets it "trigger" multiple times on the same card
+			while SMODS.pseudorandom_probability(card, "nflame_dicechain", odds, card.ability.extra.initial) do
+                odds = odds - 1
+                activations = activations + 1
+                card.ability.extra.chain = card.ability.extra.chain + 1
+            end
+
+            card.ability.extra.chain = card.ability.extra.chain + activations
+            local effects = {}
+            for i = 1, activations do
+                table.insert(effects, {repetitions = 1, message = tostring(visstart + i)})
+            end
+
+            return SMODS.merge_effects(effects)
+        end
+    end
+}
 
 
 function SMODS.current_mod.reset_game_globals(run_start)

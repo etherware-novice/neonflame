@@ -467,6 +467,15 @@ return {
                     "{C:inactive,s:0.8}or discussion about the {C:dark_edition,s:0.8}soul,",
                     "{C:inactive,s:0.8}called mister barrister john #2#arosa\""
                 }
+            },
+
+            j_nflame_dicechain = {
+                name = "Dice Chain",
+                text = {
+                    "Scored cards have a {C:green}#1# in #2#{} chance to be retriggered {C:attention}multiple times",
+                    "{C:attention}Decrease{} numerator by 1 for each successful retrigger {C:attention}this hand",
+                    "{C:inactive}Art by Camostar34"
+                }
             }
         },
 
