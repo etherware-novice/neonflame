@@ -20,3 +20,30 @@ SMODS.Blind {
         return true
     end
 }
+
+SMODS.Blind {
+    key = "jp_mole",
+    dollars = 8,
+    mult = 2,
+    boss = { showdown = true },
+    boss_colour = HEX("A61A1F"),
+
+    atlas = "blinds",
+    pos = { x = 0, y = 0 },
+
+    calculate = function(self, blind, context)
+        if context.nflame_post_shuffle and not blind.disabled then
+            return {
+                sort = function(a, b)
+                    return (a.ability.nflame_scoredcount or 0) > (b.ability.nflame_scoredcount or 0)
+                end,
+                priority = 0,
+                debug = "woawow"
+            }
+        end
+    end,
+
+    disable = function(self)
+        G.deck.cards:shuffle("nflame_mole")
+    end
+}

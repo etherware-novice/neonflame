@@ -147,6 +147,31 @@ function Game:draw()
 end
 
 SMODS.current_mod.calculate = function(self, context)
+    -- keepign track for the mole boss
+    if context.individual and context.cardarea == G.play then
+        context.other_card.ability.nflame_scoredcount = (context.other_card.ability.nflame_scoredcount or 1) + 1
+    end
+end
+
+local cas = CardArea.shuffle
+function CardArea:shuffle(_seed)
+    local retr = cas(self, _seed)
+
+    local sortab = {}
+    SMODS.calculate_context({ nflame_post_shuffle = true, cardarea = self, seed = _seed }, sortab)
+    table.sort(sortab, function(a, b)
+        return (a.individual and a.individual.priority or 100) > (b.individual and b.individual.priority or 100)
+    end)
+
+    for _, lr in ipairs(sortab) do
+        if lr.individual then
+            if lr.individual.debug then print(lr.individual.debug) end
+            table.sort(self.cards, lr.individual.sort)
+        end
+    end
+
+
+    return retr
 end
 
 test = "item"

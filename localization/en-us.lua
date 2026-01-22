@@ -44,6 +44,14 @@ return {
                     "Played hand must contain",
                     "an unscoring card"
                 }
+            },
+
+            bl_nflame_jp_mole = {
+                name = "Maroon Mole",
+                text = {
+                    "Deck is sorted with the",
+                    "most played cards at bottom"
+                }
             }
         },
 
