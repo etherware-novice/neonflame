@@ -1936,6 +1936,47 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "nt4no",
+    name = "4no Raisins",
+
+    atlas = "jokers1",
+    pos = { x = 4, y = 5 },
+
+    config = { extra = { remaining = 4 } },
+    rarity = 2,
+    cost = 6,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.tag_meteor
+        return { vars = {card.ability.extra.remaining} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.remove_playing_cards then
+            for i = 1, #context.removed do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        add_tag(Tag("tag_meteor", false, "Small"))
+                        return true
+                    end
+                }))
+
+                card.ability.extra.remaining = card.ability.extra.remaining - 1
+                if card.ability.extra.remaining < 0 then
+                    SMODS.destroy_cards(card, nil, nil, true)
+                    return { message = localize("k_extinct_ex") }
+                end
+            end
+        end
+    end
+}
+
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()

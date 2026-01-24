@@ -484,6 +484,15 @@ return {
                     "{C:attention}Decrease{} {C:green}base numerator{} by {C:green}1{} for each successful retrigger {C:attention}this hand",
                     "{C:inactive}Art by Camostar34"
                 }
+            },
+
+            j_nflame_nt4no = {
+                name = "4no Raisins",
+                text = {
+                    "The next {C:attention}#1#{} cards {C:red}destroyed",
+                    "creates a {C:planet}Meteor Tag",
+                    "{C:red,E:2}self destructs"
+                }
             }
         },
 
