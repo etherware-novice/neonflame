@@ -493,6 +493,15 @@ return {
                     "creates a {C:planet}Meteor Tag",
                     "{C:red,E:2}self destructs"
                 }
+            },
+
+            j_nflame_buzzy = {
+                name = "Buzzy Beetle",
+                text = {
+                    "If played hand has at least 5 {C:attention}scoring{} cards",
+                    "{C:green}rescore{} a random card in played or held hand",
+                    "for each {C:attention}Stone Card{} in the {C:attention}remaining deck"
+                }
             }
         },
 

@@ -109,7 +109,7 @@ SMODS.Joker {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1768692021 }},
+    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1769574522 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1976,6 +1976,50 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "buzzy",
+    name = "Buzzy Beetle",
+
+    atlas = "jokers1",
+    pos = { x = 5, y = 5 },
+
+    rarity = 2,
+    cost = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = true,
+
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+    end,
+
+    calculate = function(self, card, context)
+        if (context.joker_main and #context.scoring_hand > 4) or context.forcetrigger then
+            local eligible = {}
+            for _, playing_card in ipairs(G.hand.cards) do table.insert(eligible, playing_card) end
+            for _, playing_card in ipairs(G.play.cards) do table.insert(eligible, playing_card) end
+
+            for _, playing_card in ipairs(G.deck.cards) do
+                if SMODS.has_no_suit(playing_card) then
+                    local pc = pseudorandom_element(eligible, "nflame_buzzy")
+                    local ctx = context
+                    ctx.cardarea = G.play
+                    ctx.joker_main = nil
+
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.deck.cards[1]:juice_up()
+                            return true
+                        end
+                    }))
+
+                    SMODS.score_card(pc, ctx)
+                end
+            end
+        end
+    end
+}
 
 
 function SMODS.current_mod.reset_game_globals(run_start)
