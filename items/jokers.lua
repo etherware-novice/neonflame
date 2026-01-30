@@ -1683,8 +1683,8 @@ SMODS.Joker {
     key = "flynn",
     name = "flynnsane",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 0, y = 6 },
 
     config = { extra = { chance = 3 } },
     rarity = 2,
