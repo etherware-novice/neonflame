@@ -174,4 +174,5 @@ function CardArea:shuffle(_seed)
     return retr
 end
 
+
 test = "item"

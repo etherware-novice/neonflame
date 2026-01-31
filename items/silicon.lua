@@ -1,9 +1,3 @@
-SMODS.ObjectType {
-    key = "silicon",
-    default = "j_nflame_spbump",
-    cards = {},
-}
-
 SMODS.Gradient {
     key = "silicon",
     colours = {
@@ -12,53 +6,51 @@ SMODS.Gradient {
     }
 }
 
-local mmref = Game.main_menu
-function Game.main_menu(self, change_context)
-    local g = mmref(self, change_context)
+local sii = SMODS.injectItems
+function SMODS.injectItems(...)
+    local g = sii(...)
 
     for _, card in pairs(G.P_CENTER_POOLS.silicon) do
-        if not card.silicon_inject then
-            local badref = card.set_badges
-            card.set_badges = function(self, card, badges)
-                if badref then badref(self, card, badges) end
-                badges[#badges+1] = create_badge(localize('k_silicon'), G.ARGS.LOC_COLOURS.nflame_silicon)
-            end
-
-            local variref = card.loc_vars
-            card.loc_vars = function(self, info_queue, card)
-                local g = variref(self, info_queue, card)
-
-                local silicontotal = G.nflame_get_silicontotal()
-                local lines = {}
-                for _, t in pairs(localize{ type = "variable", key = "k_silicon_desc", vars = {silicontotal} }) do
-                    local textn = {
-                        n = G.UIT.T,
-                        config = { text = t, colour = G.C.WHITE, scale = 0.4 }
-                    }
-
-                    lines[#lines + 1] = {
-                        n = G.UIT.R,
-                        config = {align = "cm", padding = 0.01},
-                        nodes = {textn}
-                    }
-                end
-
-                g.main_end = {{
-                    n = G.UIT.C, config = { align = "cm", padding = 0.05 }, nodes = {{
-                        n = G.UIT.C,
-                        config = {minh = 0.4, align = "cm", padding = 0.07, colour = G.ARGS.LOC_COLOURS.nflame_silicon, r = 0.1, maxw = 3.8},
-                        nodes = lines
-                    }}
-                }}
-
-
-                return g
-            end
-
-            if not card.silicon_worth then card.silicon_worth = 1 end
-
-            card.silicon_inject = true
+        --[[
+        local badref = card.set_badges
+        card.set_badges = function(self, card, badges)
+            if badref then badref(self, card, badges) end
+            badges[#badges+1] = create_badge(localize('k_silicon'), G.ARGS.LOC_COLOURS.nflame_silicon)
         end
+        --]]
+
+        local variref = card.loc_vars
+        card.loc_vars = function(self, info_queue, card)
+            local g = variref(self, info_queue, card)
+
+            local silicontotal = G.nflame_get_silicontotal()
+            local lines = {}
+            for _, t in pairs(localize{ type = "variable", key = "k_silicon_desc", vars = {silicontotal} }) do
+                local textn = {
+                    n = G.UIT.T,
+                    config = { text = t, colour = G.C.WHITE, scale = 0.4 }
+                }
+
+                lines[#lines + 1] = {
+                    n = G.UIT.R,
+                    config = {align = "cm", padding = 0.01},
+                    nodes = {textn}
+                }
+            end
+
+            g.main_end = {{
+                n = G.UIT.C, config = { align = "cm", padding = 0.05 }, nodes = {{
+                    n = G.UIT.C,
+                    config = {minh = 0.4, align = "cm", padding = 0.07, colour = G.ARGS.LOC_COLOURS.nflame_silicon, r = 0.1, maxw = 3.8},
+                    nodes = lines
+                }}
+            }}
+
+
+            return g
+        end
+
+        if not card.silicon_worth then card.silicon_worth = 1 end
     end
 end
 
@@ -91,7 +83,7 @@ SMODS.Joker {
 
     atlas = "jokers1",
     pos = { x = 5, y = 3 },
-    pools = { silicon = true },
+    pools = { silicon = true, spess = true },
 
     config = { extra = { bonus = 2 } },
     rarity = 1,

@@ -662,6 +662,7 @@ return {
              k_evidence = "Evidence",
 
              k_silicon = "Silicon",
+             k_spess = "Space Station 13",
 
              k_upgrade_eat = {
                  "Consumed!",
