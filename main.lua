@@ -1,3 +1,4 @@
+local mod_path = "" .. SMODS.current_mod.path
 
 SMODS.current_mod.badge_colour = SMODS.Gradient {
     key = "flame_badge",
@@ -17,31 +18,23 @@ SMODS.current_mod.badge_text_colour = SMODS.Gradient {
     cycle = 2,
 }
 
-local files = {
-	  "lib/globals",
-      "lib/atlas",
-      "items/jokers",
-      "items/pokerhand",
-      "items/enhance",
-      "items/item",
-	  "items/challenge",
-	  "items/evidence",
-	  "items/silicon",
-	  "items/backs",
-	  "items/blinds",
-	  "crossmod/multi"  -- requires multiple so we cant use the generic one
-      -- "items/edition",
-}
 
-local crossmodfiles = {
-	  "finity",
-	  "partner",
-      "Cryptid",
-      "GSPhanta",
-	  "ortalab",
-      -- "HotPotato",
-}
+for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "lib")) do
+	assert(SMODS.load_file("lib/" .. f))()
+end
 
+for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "items")) do
+	assert(SMODS.load_file("items/" .. f))()
+end
+
+for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "crossmod")) do
+	local key, _ = string.gsub(f, "%..*$", "")
+	if next(SMODS.find_mod(key)) or key == "multi" then
+		assert(SMODS.load_file("crossmod/" .. f))()
+	end
+end
+
+--[[
 for i, v in pairs(files) do
     assert(SMODS.load_file(v..".lua"))()
 end
@@ -51,3 +44,4 @@ for i, v in pairs(crossmodfiles) do
        assert(SMODS.load_file("crossmod/" .. v .. ".lua"))()
     end
 end
+--]]
