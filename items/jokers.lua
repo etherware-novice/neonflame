@@ -1,6 +1,12 @@
-SMODS.Joker {
+-- if theres any jank indenting
+-- blame emacs
+local retr = {}
+
+
+table.insert(retr, {
     key = "jokerhelp",
     name = "Helping Hand",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 0 },
@@ -21,22 +27,22 @@ SMODS.Joker {
         if context.blueprint then return end
 	
         if context.setting_blind or context.forcetrigger
-	or (context.card_added and context.card == card)
-	then
-	    bonus_hand = 0
-	    for _, tcard in ipairs(G.jokers.cards) do
+            or (context.card_added and context.card == card)
+        then
+            bonus_hand = 0
+            for _, tcard in ipairs(G.jokers.cards) do
                if tcard:is_rarity(1) then
-	        G.E_MANAGER:add_event(Event({
-		    trigger = "after",
-		    delay = 0.3,
-		    func = function()
-		        tcard:juice_up(0.8, 0.5)
-			return true
-		    end,
-		}))
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    delay = 0.3,
+                    func = function()
+                        tcard:juice_up(0.8, 0.5)
+                    return true
+                    end,
+                }))
 
-		bonus_hand = bonus_hand + card.ability.extra.bonus
-                end
+                bonus_hand = bonus_hand + card.ability.extra.bonus
+            end
 	    end
 
 	    G.E_MANAGER:add_event(Event({
@@ -44,18 +50,19 @@ SMODS.Joker {
 		    ease_hands_played(bonus_hand)
 		    card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
 		        messsage = localize({ type = "variable", key = "a_hands", vars = {bonus_hand} })
-		    })
+            })
 
-		    return true
-		end
+            return true
+            end
 	    }))
-	end
+        end
     end,
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     name = "Hoarder",
     key = "hoarder",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 1, y = 0 },
@@ -86,24 +93,23 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-	
-        if context.joker_main or context.forcetrigger
-	then
-	    local cmult = card.ability.extra.mult * card.ability.immutable.lv
+        if context.joker_main or context.forcetrigger then
+            local cmult = card.ability.extra.mult * card.ability.immutable.lv
 	    
-	    return {
-	        message = localize({ type = "variable", key = "a_xmult", vars = { cmult } }),
-		Xmult_mod = cmult,
-		colour = G.C.MULT,
-	    }
-	end
+            return {
+                message = localize({ type = "variable", key = "a_xmult", vars = { cmult } }),
+                Xmult_mod = cmult,
+                colour = G.C.MULT,
+            }
+        end
     end,
-}
+})
 
 
-SMODS.Joker {
+table.insert(retr, {
     key = "nflame",
-    name = "Neonflame",
+    name = "aNeonflame",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 2, y = 0 },
@@ -134,10 +140,10 @@ SMODS.Joker {
 
     calc_xmult = function(self, card)
     	local xm = card.ability.extra.Xmult * card.ability.immutable.cards
-	local decaytime = (os.time() - card.ability.immutable.timestamp) / 86400
-	xm = xm - (card.ability.extra.decay * decaytime)
+        local decaytime = (os.time() - card.ability.immutable.timestamp) / 86400
+        xm = xm - (card.ability.extra.decay * decaytime)
 
-	return math.max(xm, 1.5)
+        return math.max(xm, 1.5)
     end,
 
     set_ability = function(self, card, initial, delay_sprites)
@@ -149,21 +155,21 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-        if context.joker_main or context.forcetrigger
-	then
-	    local xm = self:calc_xmult(card)
-	    return {
-	        message = localize({ type = "variable", key = "a_xmult", vars = { xm } }),
-		Xmult_mod = xm,
-		colour = G.C.MULT,
-	    }
-	end
+        if context.joker_main or context.forcetrigger then
+            local xm = self:calc_xmult(card)
+            return {
+                message = localize({ type = "variable", key = "a_xmult", vars = { xm } }),
+                Xmult_mod = xm,
+                colour = G.C.MULT,
+            }
+        end
     end,
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "forecast",
     name = "Forecast",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 3, y = 0 },
@@ -181,28 +187,29 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
     	if context.ending_booster then
- 	    card.stopinf = false
-	end
+            card.stopinf = false
+        end
 
         if context.other_drawn or context.force_trigger then
-	    if card.stopinf then return end
-	    G.E_MANAGER:add_event(Event({
-		func = function()
-		    card:juice_up(0.8, 0.5)
-		    SMODS.draw_cards(card.ability.extra.cards)
+            if card.stopinf then return end
+            G.E_MANAGER:add_event(Event({
+            func = function()
+                card:juice_up(0.8, 0.5)
+                SMODS.draw_cards(card.ability.extra.cards)
 
 		    return true
-		end,
-	    }))
+            end,
+            }))
 
-	    card.stopinf = true
-	end
+            card.stopinf = true
+        end
     end,
-}
+})
  
-SMODS.Joker {
+table.insert(retr, {
     key = "numberup",
     name = "Number Go Up",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 4, y = 0 },
@@ -239,12 +246,13 @@ SMODS.Joker {
             }))
         end
     end,
-}
+})
 
 
-SMODS.Joker {
+table.insert(retr, {
     key = "tjhenry",
     name = "TJ HENRY Yoshi",
+    object_type = "Joker",
 
     atlas = "layerjoker",
     pos = { x = 0, y = 0 },
@@ -264,36 +272,37 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-	    if #context.full_hand > card.ability.extra.size and not context.force_trigger then return end
+            if #context.full_hand > card.ability.extra.size and not context.force_trigger then return end
 
-	    context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.xmgain
+            context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.xmgain
             context.other_card.ability.nflame_tjdraw = true
 	    
-	    return {
-	        extra = {
-		    message = localize('k_upgrade_ex'),
-		    colour = G.C.MULT
-		},
-	    }
+            return {
+                extra = {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.MULT
+                },
+            }
 
-	end
+        end
 
         if context.first_hand_drawn then
             for _, c in pairs(G.deck.cards) do
                 if c.ability.nflame_tjdraw then
-		    draw_card(G.deck, G.hand, nil, "up", true, c)
-		    c.ability.nflame_tjdraw = false
-		end
+                    draw_card(G.deck, G.hand, nil, "up", true, c)
+                    c.ability.nflame_tjdraw = false
+                end
             end
 
-	    card:juice_up(0.5, 0.5)
-	end
+            card:juice_up(0.5, 0.5)
+        end
     end,
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "stanleybucket",
     name = "Reassurance Bucket",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 5, y = 0 },
@@ -312,66 +321,65 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-
-
         if context.press_play then
 
-	    G.E_MANAGER:add_event(Event({
-	        func = function()
-		    card:juice_up(0.5, 0.5)
-		    return true
-		end,
-	    }))
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up(0.5, 0.5)
+                    return true
+                end,
+            }))
 
 
-	    G.E_MANAGER:add_event(Event({
-	        trigger = 'ease',
-		ref_table = G.GAME,
-		ref_value = "chips",
-		ease_to = G.GAME.chips + card.ability.extra.score,
-		delay = 1,
-		func = (function(t) return math.floor(t) end)
-	    }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'ease',
+                ref_table = G.GAME,
+                ref_value = "chips",
+                ease_to = G.GAME.chips + card.ability.extra.score,
+                delay = 1,
+                func = (function(t) return math.floor(t) end)
+            }))
 
-	    return {
+            return {
 	           message = "...",
-		   message_card = card,
-		   -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
+               message_card = card,
+               -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
             }
-	end
+        end
 
 
-	if context.pre_discard and not context.hook then
-	    G.E_MANAGER:add_event(Event({
-	        func = function()
-		    card:juice_up(0.5, 0.5)
-		    return true
-		end,
-	    }))
+        if context.pre_discard and not context.hook then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                card:juice_up(0.5, 0.5)
+                return true
+            end,
+            }))
 
-  	    card.ability.extra.score = card.ability.extra.score + G.GAME.chips
+            card.ability.extra.score = card.ability.extra.score + G.GAME.chips
 
-	    G.E_MANAGER:add_event(Event({
-	        trigger = 'ease',
-		ref_table = G.GAME,
-		ref_value = "chips",
-		ease_to = 0,
-		delay = 1,
-		func = (function(t) return math.floor(t) end)
-	    }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'ease',
+                ref_table = G.GAME,
+                ref_value = "chips",
+                ease_to = 0,
+                delay = 1,
+                func = (function(t) return math.floor(t) end)
+            }))
 
-	    return {
+            return {
 	           message = "...",
-		   message_card = card,
-		   -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
+               message_card = card,
+               -- func = (function() G.GAME.chips = to_big(G.GAME.chips + card.ability.extra.score) end),
             }
-	end
+        end
     end,
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "acpart",
     name = "Agamemnon Counterpart",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 1 },
@@ -386,42 +394,41 @@ SMODS.Joker {
     calculate = function(self, card, context)
         local trigger = context.force_trigger
 
-	if context.before then
-	    for _, playing_card in ipairs(G.play.cards) do
-	    	print(playing_card:get_id())
-	        if playing_card:get_id() == 14 then
-		    trigger = true
-		    print("trigger enable")
-		end
-	    end
-	end
+        if context.before then
+            for _, playing_card in ipairs(G.play.cards) do
+                print(playing_card:get_id())
+                if playing_card:get_id() == 14 then
+                    trigger = true
+                end
+            end
+        end
 
-	if not trigger then return end
+        if not trigger then return end
 
-	-- looking for non aces in hand
-	local ace_hand = {}
-	for _, playing_card in ipairs(G.hand.cards) do
-	    if playing_card:get_id() ~= 14 then ace_hand[#ace_hand + 1] = playing_card end
-	    print(playing_card:get_id())
-	end
+        -- looking for non aces in hand
+        local ace_hand = {}
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_card:get_id() ~= 14 then ace_hand[#ace_hand + 1] = playing_card end
+        end
 
-	if #ace_hand < 1 then return end
+        if #ace_hand < 1 then return end
 
-	local c = pseudorandom_element(ace_hand, "nflame_acpart")
+        local c = pseudorandom_element(ace_hand, "nflame_acpart")
         G.E_MANAGER:add_event(Event({
-	    func = function()
-	        assert(SMODS.change_base(c, nil, 'Ace'))
-	        c:juice_up(0.8, 0.5)
-		card:juice_up(0.5, 0.5)
-		return true
-	    end,
-	}))
+            func = function()
+                assert(SMODS.change_base(c, nil, 'Ace'))
+                c:juice_up(0.8, 0.5)
+                card:juice_up(0.5, 0.5)
+                return true
+            end,
+        }))
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
    key = "potatorevenge",
    name = "Cold Potato",
+   object_type = "Joker",
 
    atlas = "jokers1",
    pos = { x = 2, y = 1 },
@@ -471,58 +478,58 @@ SMODS.Joker {
       local newability = {}
 
       local outcomes = {
-	 nonblind = { "scale", "xscale", "create" },
-	 blind = { "scale", "xscale", "create", "score" },
-	 score = { "scale", "xscale", "create", "mult", "chips", "xmult", "xchips" }
+         nonblind = { "scale", "xscale", "create" },
+         blind = { "scale", "xscale", "create", "score" },
+         score = { "scale", "xscale", "create", "mult", "chips", "xmult", "xchips" }
       }
 
       local requirements = {
-	 cardtype = { "Joker", "Consumeables", "Tarot", "Spectral", "Planet", "dollars", "Default" },
-	 cardsuit = { "Hearts", "Clubs", "Spades", "Diamonds", "Stone" }, -- stone is any non rank
-	 cardrank = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }, -- 0 is no rank
-	 cardany = { "Stone", "Hearts", "Clubs", "Spades", "Diamonds", 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 },
-	 blind = { "Small", "Big", "Boss" },
-	 rarity = { 1, 2, 3, 4, 5 } -- 5 is modded
+         cardtype = { "Joker", "Consumeables", "Tarot", "Spectral", "Planet", "dollars", "Default" },
+         cardsuit = { "Hearts", "Clubs", "Spades", "Diamonds", "Stone" }, -- stone is any non rank
+         cardrank = { 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }, -- 0 is no rank
+         cardany = { "Stone", "Hearts", "Clubs", "Spades", "Diamonds", 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 },
+         blind = { "Small", "Big", "Boss" },
+         rarity = { 1, 2, 3, 4, 5 } -- 5 is modded
       }
       
       local possibility = {
-	 open_booster = { out = outcomes.nonblind },
-	 buying_card = { out = outcomes.nonblind, req = "cardtype" },
-	 selling_card = { out = outcomes.blind, req = "cardtype" },
-	 reroll_shop = { out = outcomes.nonblind },
-	 skip_blind = { out = outcomes.nonblind },
-	 skipping_booster = { out = outcomes.nonblind },
-	 playing_card_added = { out = outcomes.nonblind, req = "cardany" },
-	 first_hand_drawn = { out = outcomes.blind, req = "cardany", },
-	 setting_blind = { out = outcomes.blind, req = "bind" },
-	 remove_playing_cards = { out = outcomes.nonblind, req = "cardany" },
-	 using_consumeable = { out = outcomes.nonblind }, -- once per round :(
-	 debuffed_hand = { out = outcomes.score },
-	 pre_discard = { out = outcomes.blind },
-	 discard = { out = outcomes.blind, req = "cardany" },
-	 end_of_round = { out = outcomes.blind, req = "cardany" },
-	 individual = { out = outcomes.score, req = "cardany" },
-	 other_joker = { out = outcomes.score, req = "rarity" },
-	 before = { out = outcomes.nonblind },
-	 after = { out = outcomes.nonblind },
-	 joker_main = { out = outcomes.score }
+         open_booster = { out = outcomes.nonblind },
+         buying_card = { out = outcomes.nonblind, req = "cardtype" },
+         selling_card = { out = outcomes.blind, req = "cardtype" },
+         reroll_shop = { out = outcomes.nonblind },
+         skip_blind = { out = outcomes.nonblind },
+         skipping_booster = { out = outcomes.nonblind },
+         playing_card_added = { out = outcomes.nonblind, req = "cardany" },
+         first_hand_drawn = { out = outcomes.blind, req = "cardany", },
+         setting_blind = { out = outcomes.blind, req = "bind" },
+         remove_playing_cards = { out = outcomes.nonblind, req = "cardany" },
+         using_consumeable = { out = outcomes.nonblind }, -- once per round :(
+         debuffed_hand = { out = outcomes.score },
+         pre_discard = { out = outcomes.blind },
+         discard = { out = outcomes.blind, req = "cardany" },
+         end_of_round = { out = outcomes.blind, req = "cardany" },
+         individual = { out = outcomes.score, req = "cardany" },
+         other_joker = { out = outcomes.score, req = "rarity" },
+         before = { out = outcomes.nonblind },
+         after = { out = outcomes.nonblind },
+         joker_main = { out = outcomes.score }
       }
 
       local desc, ctx = pseudorandom_element(possibility, "nflame_potato")
       newability.context = ctx
 
       if desc.req and requirements[desc.req] and (pseudorandom("nflame_potato") < 0.5) then
-	 newability.requiretype = desc.req
-	 newability.requires = pseudorandom_element(requirements[desc.req], "nflame_potato")
+         newability.requiretype = desc.req
+         newability.requires = pseudorandom_element(requirements[desc.req], "nflame_potato")
       end
 
       newability.outcome = pseudorandom_element(desc.out, "nflame_potato")
       if newability.outcome == "create" then
-	 newability.outcome = pseudorandom_element(requirements.cardtype, "nflame_potato")
+         newability.outcome = pseudorandom_element(requirements.cardtype, "nflame_potato")
       end
       if newability.outcome == "Joker" and (pseudorandom("nflame_potato") < 0.5) then
-	 -- this isnt implemented yet, but someday?
-	 newability.rarity = pseudorandom_element(requirements.rarity, "nflame_potato")
+         -- this isnt implemented yet, but someday?
+         newability.rarity = pseudorandom_element(requirements.rarity, "nflame_potato")
       end
 
       -- rng 0 - 30
@@ -546,29 +553,29 @@ SMODS.Joker {
       end
 
       if rtype == "cardany" then
-	 if type(ability.requires) == "string" then rtype = "cardsuit" end
-	 else rtype = "cardrank"
+         if type(ability.requires) == "string" then rtype = "cardsuit" end
+         else rtype = "cardrank"
       end
       
       if rtype == "cardsuit" then
-	 if not context.other_card then return false end
+         if not context.other_card then return false end
 	 
-	 if context.other_card.is_suit and context.other_card:is_suit(ability.requires) then return true end
-	 if ability.requires == "Stone" and SMODS.has_no_suit(context.other_card) then return true end
+         if context.other_card.is_suit and context.other_card:is_suit(ability.requires) then return true end
+         if ability.requires == "Stone" and SMODS.has_no_suit(context.other_card) then return true end
       end
       
       if rtype == "cardrank" then
-	 if not context.other_card then return false end
+         if not context.other_card then return false end
 	 
-	 if context.other_card.get_id and (context.other_card:get_id() == ability.requires) then return true end
-	 if (ability.requires == 0) and (SMODS.has_no_rank(context.other_card)) then return true end
+         if context.other_card.get_id and (context.other_card:get_id() == ability.requires) then return true end
+         if (ability.requires == 0) and (SMODS.has_no_rank(context.other_card)) then return true end
       end
 
       if rtype == "rarity" then
-	 if not context.other_card then return false end
+         if not context.other_card then return false end
 
-	 if context.other_card:is_rarity(ability.requires) then return true end
-	 if type(context.other_card.rarity) == "string" and ability.requires == 5 then return true end
+         if context.other_card:is_rarity(ability.requires) then return true end
+         if type(context.other_card.rarity) == "string" and ability.requires == 5 then return true end
       end
 	 
    end,
@@ -576,63 +583,64 @@ SMODS.Joker {
    calculate = function(self, card, context)
       local fire = false
       for _, ability in pairs(card.ability.extra.fires) do
-	 if context[ability.context] and self:check_requirements(self, context, ability)
-	 and not (ability.context == "individual" and context.area ~= G.Jokers)
-	 then
-	    fire = ability
-	 end
+         if context[ability.context] and self:check_requirements(self, context, ability)
+         and not (ability.context == "individual" and context.area ~= G.Jokers)
+         then
+            fire = ability
+         end
       end
 
       if not fire then return end
 
       card.ability.extra.newcounter = card.ability.extra.newcounter + 1
       if card.ability.extra.newcounter > 3 then
-	 self:add_ability(card) -- no indication to the player, minor trolling :3
-	 card.ability.extra.newcounter = 0
+         self:add_ability(card) -- no indication to the player, minor trolling :3
+         card.ability.extra.newcounter = 0
       end
       
       if fire.outcome == "scale" then
-	 card.ability.extra.enigmatic = card.ability.extra.enigmatic + (fire.scalar - 5)
-	 return {
-	    message = localize('k_upgrade_ex'),
-	    message_card = card
-	 }
+         card.ability.extra.enigmatic = card.ability.extra.enigmatic + (fire.scalar - 5)
+         return {
+            message = localize('k_upgrade_ex'),
+            message_card = card
+         }
       end
 
       if fire.outcome == "xscale" then
-	 card.ability.extra.enigmatic = card.ability.extra.enigmatic + (fire.scalar / 10)
-	 return {
-	    message = localize('k_upgrade_ex'),
-	    message_card = card
-	 }
+         card.ability.extra.enigmatic = card.ability.extra.enigmatic + (fire.scalar / 10)
+         return {
+            message = localize('k_upgrade_ex'),
+            message_card = card
+         }
       end
 
       if fire.outcome == "score" then
-	 G.GAME.blind.chips = G.GAME.blind.chips + (fire.scalar * 3000)
-	 return {
-	    message = localize('k_upgrade_ex'),
-	    message_card = card
-	 }
+         G.GAME.blind.chips = G.GAME.blind.chips + (fire.scalar * 3000)
+         return {
+            message = localize('k_upgrade_ex'),
+            message_card = card
+         }
       end
 
       if fire.outcome == "mult" or fire.outcome == "chips"
-	 or fire.outcome == "xmult" or fire.outcome == "xchips"
+         or fire.outcome == "xmult" or fire.outcome == "xchips"
          or fire.outcome == "dollars" then
 
-	 local ff = {}
-	 ff[fire.outcome] = fire.scalar
-	 return ff
+         local ff = {}
+         ff[fire.outcome] = fire.scalar
+         return ff
       end
 
       if fire.outcome == "Default" then fire.outcome = "Enhanced" end
       -- we've gotten all the other ones out first so we can do this one with minimal checking :)
       SMODS.add_card { set = fire.outcome }
    end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
    key = "bakerfool",
    name = "Bakers Dozen",
+   object_type = "Joker",
 
    atlas = "jokers1",
    pos = { x = 4, y = 1 },
@@ -682,11 +690,12 @@ SMODS.Joker {
          }))
       end
    end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
    key = "sappy",
    name = "Sappy",
+   object_type = "Joker",
 
    atlas = "layerjoker",
    pos = { x = 2, y = 0 },
@@ -767,11 +776,12 @@ SMODS.Joker {
           return { cards_to_draw = context.amount + bdraw }
       end
    end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "refund",
     name = "Refund Policy",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 5, y = 1 },
@@ -798,11 +808,12 @@ SMODS.Joker {
 			end
 		end
 	end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "rapdog",
     name = "Parappa",
+    object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
@@ -854,11 +865,12 @@ SMODS.Joker {
 			return { message = accum .. " combo!", color = G.C.MULT, sound = "nflame_rapdog_oops_end" }
 		end
 	end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "stasis",
     name = "Stasis",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 2 },
@@ -890,11 +902,12 @@ SMODS.Joker {
         end
 
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "localfunc",
     name = "local function x() x() end; x()",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 1, y = 2 },
@@ -949,11 +962,12 @@ SMODS.Joker {
             end
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "clovercoin",
     name = "Fake Coin",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 2, y = 2 },
@@ -1016,11 +1030,12 @@ SMODS.Joker {
             card.ability.extra.thistrigger = 0
         end
     end
-}
+})
  
-SMODS.Joker {
+table.insert(retr, {
     key = "slime_steel",
     name = "Steel Slime",
+    object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
@@ -1054,7 +1069,7 @@ SMODS.Joker {
         if context.end_of_round and context.main_eval and not context.blueprint then
         end
     end
-}
+})
 
 local function reset_nflame_slimesteel()
     local newcard = G.nflame_pick_idol_style()
@@ -1063,9 +1078,10 @@ local function reset_nflame_slimesteel()
     end
 end
 
-SMODS.Joker {
+table.insert(retr, {
     key = "offshorebank",
     name = "Offshore Bank Account",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 3, y = 2 },
@@ -1114,11 +1130,12 @@ SMODS.Joker {
 
 
    end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "henchmen",
     name = "Henchmen",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 4, y = 3 },
@@ -1154,11 +1171,12 @@ SMODS.Joker {
             }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "bluecat",
     name = "Helping Hand",
+    object_type = "Joker",
 
     atlas = "enhance",
     pos = { x = 2, y = 0 },
@@ -1182,11 +1200,12 @@ SMODS.Joker {
             return { xchips = card.ability.extra.xchips }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "susie",
     name = "Susie",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 4, y = 2 },
@@ -1229,11 +1248,12 @@ SMODS.Joker {
             return { remove = true }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "ralsei",
     name = "Ralsei",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 5, y = 2 },
@@ -1268,11 +1288,12 @@ SMODS.Joker {
             end
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "kris",
     name = "Kris",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 3 },
@@ -1322,11 +1343,12 @@ SMODS.Joker {
             return { repetitions = soulpower }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "lavalamp",
     name = "Lava Lamp",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 1, y = 3 },
@@ -1349,7 +1371,7 @@ SMODS.Joker {
             return { numerator = context.numerator + (G.GAME.current_round.nflame_lamp or 1) }
         end
     end
-}
+})
 
 local function reset_nflame_lamp()
     -- range of -1 to 3, rounded to 0.1
@@ -1361,9 +1383,10 @@ local function reset_nflame_lamp()
     if next(SMODS.find_card("j_nflame_hitch_brokenprob")) then G.GAME.current_round.nflame_lamp = 5 end
 end
 
-SMODS.Joker {
+table.insert(retr, {
     key = "cstar",
     name = "Camostar",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 2, y = 3 },
@@ -1406,11 +1429,12 @@ SMODS.Joker {
 
         return { dollars = 3 }
 end,
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "stanleybucket_new",
     name = "Reassurance Bucket",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 3, y = 3 },
@@ -1441,11 +1465,12 @@ SMODS.Joker {
             return { chip_mod = swap - hand_chips, message = "..." }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "mcbedrock",
     name = "Minecraft Bedrock",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 3, y = 4 },
@@ -1477,11 +1502,12 @@ SMODS.Joker {
             return { chips = card.ability.extra.chip, mult = card.ability.extra.mult }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "hitch_brokenprob",
     name = "Improbability Drive",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 5, y = 4 },
@@ -1504,7 +1530,7 @@ SMODS.Joker {
 
         return { vars = { word, colours = { col } } }
     end
-}
+})
 
 local randelem_ref = pseudorandom_element
 function pseudorandom_element(list, seed, args)
@@ -1559,9 +1585,10 @@ function pseudorandom(seed, min, max)
     return randpick_ref(seed, min, max)
 end
 
-SMODS.Joker {
+table.insert(retr, {
     key = "ntfabricator",
     name = "Helping Hand",
+    object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
@@ -1592,11 +1619,12 @@ SMODS.Joker {
             }))
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "personalhomeshredder",
     name = "Theoretical Shredder",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 4, y = 4 },
@@ -1621,11 +1649,12 @@ SMODS.Joker {
             SMODS.calculate_effect{ message = localize("k_copied_ex") }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "spbird",
     name = "Silly Bird Feed",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 5 },
@@ -1677,11 +1706,12 @@ SMODS.Joker {
             return { cards_to_draw = context.amount + (card.ability.extra.draw or 0) }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "flynn",
     name = "flynnsane",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 6 },
@@ -1722,11 +1752,12 @@ SMODS.Joker {
             return { message = localize("k_active_ex") }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "bompaul",
     name = "Paul",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 1, y = 5 },
@@ -1781,11 +1812,12 @@ SMODS.Joker {
             end
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "cery",
     name = "Cery",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 2, y = 5 },
@@ -1815,11 +1847,12 @@ SMODS.Joker {
             return { cards_to_draw = context.amount + (card.ability.extra.bonus * 2)}
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "as_jwarosa",
     name = "John ?arosa",
+    object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
@@ -1883,11 +1916,12 @@ SMODS.Joker {
             return { message = localize("k_active_ex") }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "dicechain",
     name = "Dice Chain",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 3, y = 5 },
@@ -1934,11 +1968,12 @@ SMODS.Joker {
             return SMODS.merge_effects(effects)
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "nt4no",
     name = "4no Raisins",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 4, y = 5 },
@@ -1974,11 +2009,12 @@ SMODS.Joker {
             end
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "buzzy",
     name = "Buzzy Beetle",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 5, y = 5 },
@@ -2019,10 +2055,12 @@ SMODS.Joker {
             end
         end
     end
-}
+})
 
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
     reset_nflame_lamp()
 end
+
+return retr
