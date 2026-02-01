@@ -21,6 +21,7 @@ SMODS.Joker {
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
+    pools = { modcom = true },
 
     -- the challenge is getting all these mods
     rarity = 1,

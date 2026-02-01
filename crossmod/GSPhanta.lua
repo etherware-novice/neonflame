@@ -5,6 +5,7 @@ SMODS.Joker {
     atlas = "layerjoker",
     pos = { x = 4, y = 0 },
     soul_pos = { x = 5, y = 0},
+    pools = { pwright = true },
 
     rarity = 4,
     cost = 20,

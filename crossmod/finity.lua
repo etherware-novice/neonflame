@@ -11,6 +11,7 @@ SMODS.Joker {
     atlas = "finity",
     pos = { x = 0, y = 0 },
     soul_pos = { x = 1, y = 0 },
+    pools = { modcom = true },
 
     config = { extra = { chance = 3, xm = 1 } },
     rarity = "finity_showdown",

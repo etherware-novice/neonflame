@@ -663,6 +663,19 @@ return {
 
              k_silicon = "Silicon",
              k_spess = "Space Station 13",
+             k_modcom = "Balatro Modding Community",
+             k_oc = "slime pond",
+             k_cloverpit = "Cloverpit",
+             k_minecraft = "Minecraft",
+             k_internet = "Internet",
+             k_mario = "Mario",
+             k_gimmiko = "GIMMIKO",
+             k_zelda = "Zelda",
+             k_hitch = "Hitchhikers Guide",
+             k_parable = "The Stanley Parable UD",
+             k_deltarune = "Deltarune",
+             k_inscr = "Inscryption",
+             k_pwright = "Phoenix Wright",
 
              k_upgrade_eat = {
                  "Consumed!",

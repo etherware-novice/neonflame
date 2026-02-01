@@ -114,7 +114,7 @@ table.insert(retr, {
     atlas = "jokers1",
     pos = { x = 0, y = 4 },
     config = { extra = { chance = 6, dollars = 8 } },
-    pools = { silicon = true },
+    pools = { silicon = true, inscr = true },
 
     rarity = 2,
     cost = 4,
@@ -149,7 +149,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 1, y = 4 },
-    pools = { silicon = true },
+    pools = { silicon = true, parable = true },
 
     config = { extra = { bonus = 10 } },
     rarity = 1,
@@ -178,7 +178,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 2, y = 4 },
-    pools = { silicon = true },
+    pools = { silicon = true, spess = true },
 
     config = { extra = { mult = 2 } },
     rarity = 1,

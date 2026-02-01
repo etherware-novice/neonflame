@@ -213,6 +213,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 4, y = 0 },
+    pools = { internet = true },
 
     config = { extra = { xmult = 3 } },
     rarity = 2,
@@ -306,6 +307,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 5, y = 0 },
+    pools = { parable = true },
 
     -- its a stanley parable item of course we reference "8"
     config = { extra = { score = 8 } },
@@ -383,6 +385,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 0, y = 1 },
+    pools = { internet = true },
 
     rarity = 2,
     cost = 4,
@@ -432,6 +435,7 @@ table.insert(retr, {
 
    atlas = "jokers1",
    pos = { x = 2, y = 1 },
+   pools = { modcom = true },
 
    rarity = 1,
    price = 4,
@@ -700,6 +704,7 @@ table.insert(retr, {
    atlas = "layerjoker",
    pos = { x = 2, y = 0 },
    soul_pos = { x = 3, y = 0 },
+   pools = { modcom = true, oc = true },
 
    config = { extra = { xmhandgain = 0.25 } },
    rarity = 4,
@@ -874,6 +879,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 0, y = 2 },
+    pools = { zelda = true },
 
     config = { extra = { mult = 0 } },
     rarity = 1,
@@ -911,6 +917,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 1, y = 2 },
+    pools = { internet = true },
 
     config = { extra = { mult = 1, multgain = 0.25 } },
     rarity = 2,
@@ -971,6 +978,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 2, y = 2 },
+    pools = { cloverpit = true },
 
     config = { extra = { chance = 3, xmult = 3, thistrigger = 0, maxtrigger = 3 } },
     rarity = 1,
@@ -1175,11 +1183,12 @@ table.insert(retr, {
 
 table.insert(retr, {
     key = "bluecat",
-    name = "Helping Hand",
+    name = "asro",
     object_type = "Joker",
 
     atlas = "enhance",
     pos = { x = 2, y = 0 },
+    pools = { modcom = true },
 
     config = { extra = { xchips = 2 } },
     rarity = 4,
@@ -1209,6 +1218,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 4, y = 2 },
+    pools = { deltarune = true },
 
     rarity = 3,
     cost = 8,
@@ -1257,6 +1267,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 5, y = 2 },
+    pools = { deltarune = true },
 
     rarity = 3,
     cost = 8,
@@ -1297,6 +1308,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 0, y = 3 },
+    pools = { deltarune = true },
 
     rarity = 3,
     cost = 5,
@@ -1390,6 +1402,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 2, y = 3 },
+   pools = { modcom = true },
 
     rarity = 2,
     cost = 5,
@@ -1438,6 +1451,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 3, y = 3 },
+    pools = { parable = true },
 
     rarity = 3,
     cost = 8,
@@ -1511,6 +1525,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 5, y = 4 },
+    pools = { hitch = true },
 
     rarity = 2,
     cost = 4,
@@ -1587,11 +1602,12 @@ end
 
 table.insert(retr, {
     key = "ntfabricator",
-    name = "Helping Hand",
+    name = "fabricator",
     object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
+    pools = { spess = true },
 
     rarity = 2,
     cost = 5,
@@ -1628,6 +1644,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 4, y = 4 },
+    pools = { internet = true },
 
     rarity = 2,
     cost = 5,
@@ -1658,6 +1675,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 0, y = 5 },
+    pools = { parable = true },
 
     config = { extra = { card = 2, draw = 4 } },
     rarity = 2,
@@ -1715,6 +1733,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 0, y = 6 },
+    pools = { modcom = true, gimmiko = true },
 
     config = { extra = { chance = 3 } },
     rarity = 2,
@@ -1761,6 +1780,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 1, y = 5 },
+    pools = { internet = true, mario = true },
 
     rarity = 3,
     cost = 4,
@@ -1821,6 +1841,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 2, y = 5 },
+    pools = { oc = true },
 
     config = { extra = { bonus = 3 } },
     rarity = 3,
@@ -1856,6 +1877,7 @@ table.insert(retr, {
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
+    pools = { internet = true },
 
     config = { extra = { requirement = 5, remaining = 5, increase = 5, soul = 50 } },
     rarity = 2,
@@ -1925,6 +1947,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 3, y = 5 },
+    pools = { gimmiko = true },
 
     config = { extra = { initial = 6, initial_down = 0 } },
     rarity = 2,
@@ -1977,6 +2000,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 4, y = 5 },
+    pools = { spess = true },
 
     config = { extra = { remaining = 4 } },
     rarity = 2,
@@ -2018,6 +2042,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 5, y = 5 },
+    pools = { mario = true },
 
     rarity = 2,
     cost = 4,
