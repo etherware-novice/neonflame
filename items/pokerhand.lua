@@ -63,9 +63,21 @@ SMODS.PokerHand {
    end
 }
 
-SMODS.Joker {
+local ref_levelup = level_up_hand
+function level_up_hand(card, hand, instant, amount, ...)
+   local rt = ref_levelup(card, hand, instant, amount, ...)
+   if next(SMODS.find_card("j_nflame_genplanet")) and hand ~= "nflame_generic" then
+      ref_levelup(card, "nflame_generic", true, amount, ...)
+   end
+
+   return rt
+end
+
+
+return { {
    name = "Blind Telescope",
    key = "genplanet",
+   object_type = "Joker",
 
    atlas = "jokers1",
    pos = { x = 3, y = 1 },
@@ -83,15 +95,4 @@ SMODS.Joker {
    remove_from_deck = function(self, card, from_debuff)
       G.GAME.hands['nflame_generic'].visible = false
    end,
-}
-
-
-local ref_levelup = level_up_hand
-function level_up_hand(card, hand, instant, amount, ...)
-   local rt = ref_levelup(card, hand, instant, amount, ...)
-   if next(SMODS.find_card("j_nflame_genplanet")) and hand ~= "nflame_generic" then
-      ref_levelup(card, "nflame_generic", true, amount, ...)
-   end
-
-   return rt
-end
+} }

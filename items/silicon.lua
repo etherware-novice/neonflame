@@ -11,14 +11,6 @@ function SMODS.injectItems(...)
     local g = sii(...)
 
     for _, card in pairs(G.P_CENTER_POOLS.silicon) do
-        --[[
-        local badref = card.set_badges
-        card.set_badges = function(self, card, badges)
-            if badref then badref(self, card, badges) end
-            badges[#badges+1] = create_badge(localize('k_silicon'), G.ARGS.LOC_COLOURS.nflame_silicon)
-        end
-        --]]
-
         local variref = card.loc_vars
         card.loc_vars = function(self, info_queue, card)
             local g = variref(self, info_queue, card)
@@ -77,9 +69,13 @@ function G.nflame_get_silicontotal(context)
 end
 
 
-SMODS.Joker {
+
+local retr = {}
+
+table.insert(retr, {
     key = "ntmed",
     name = "medibot",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 5, y = 3 },
@@ -108,11 +104,12 @@ SMODS.Joker {
     in_pool = function(self, args)
         return true
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "odgamble",
     name = "Gamblobot",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 0, y = 4 },
@@ -143,11 +140,12 @@ SMODS.Joker {
             return { dollars = card.ability.extra.dollars, message_card = context.other_joker or card }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "spbump",
     name = "Bumpscosity-Bot",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 1, y = 4 },
@@ -171,11 +169,12 @@ SMODS.Joker {
             return { message = bumpmsg }
         end
     end
-}
+})
 
-SMODS.Joker {
+table.insert(retr, {
     key = "ntfloor",
     name = "Floorbot",
+    object_type = "Joker",
 
     atlas = "jokers1",
     pos = { x = 2, y = 4 },
@@ -219,4 +218,6 @@ SMODS.Joker {
             return { mult = cmult }
         end
     end
-}
+})
+
+return retr
