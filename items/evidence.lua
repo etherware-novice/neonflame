@@ -6,7 +6,7 @@ SMODS.ConsumableType {
 
     shop_rate = 1.0,
     select_card = 'consumeables',
-    default = "c_nflame_badge",
+    default = "c_nflame_thinker",
     can_stack = false,
     can_divide = false
 }
@@ -108,7 +108,17 @@ SMODS.Consumable {
         juice_card_until(card, eval, true)
     end,
 
-    keep_on_use = function(self, card) return true end
+    keep_on_use = function(self, card) return true end,
+
+    in_pool = function(self, args)
+        for k, v in ipairs(G.consumeables.cards) do
+            if v.ability.set == "evidence" then 
+                return true
+            end
+        end
+
+        return false
+    end
 }
 
 SMODS.Consumable {

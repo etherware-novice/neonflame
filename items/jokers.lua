@@ -115,7 +115,7 @@ table.insert(retr, {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 1, decay = 0.1 }, immutable = { cards = 0, timestamp = 1769574522 }},
+    config = {extra = { Xmult = 0.5, decay = 0.1 }, immutable = { cards = 0, timestamp = 1769574522 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -1949,7 +1949,7 @@ table.insert(retr, {
     pos = { x = 3, y = 5 },
     pools = { gimmiko = true },
 
-    config = { extra = { initial = 6, initial_down = 0 } },
+    config = { extra = { initial = 6, initial_down = 1 } },
     rarity = 2,
     cost = 4,
     blueprint_compat = false,
