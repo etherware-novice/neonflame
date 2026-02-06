@@ -3,10 +3,12 @@ local smaps = {}
 local quips = {}
 local decks = {}
 
+local retr = {}
 
-SMODS.Joker {
+table.insert(retr, {
     key = "jpenguin",
     name = "Jade Penguin",
+    object_type = "Joker",
 
     atlas = "finity",
     pos = { x = 0, y = 0 },
@@ -50,7 +52,7 @@ SMODS.Joker {
 
         if context.joker_main or context.force_trigger then return { xmult = card.ability.extra.xm } end
     end
-}
+})
 
 smaps.bl_nflame_jpenguin = {"j_nflame_jpenguin", "Jade Penguin"}
 quips.bl_nflame_jpenguin = {"jpenguin", 4, 3}
@@ -69,3 +71,5 @@ function Game.main_menu(self, change_context)
     for k, v in pairs(decks) do FinisherBossBlinddecksprites[k] = v end
     return mmref(self, change_context)
 end
+
+return retr

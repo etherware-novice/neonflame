@@ -13,7 +13,8 @@ local pools = {
     parable   = { color = "inactive" },
     deltarune = { color = "dark_edition" },
     inscr     = { color = "spades" },
-    pwright   = { color = "blue" }
+    pwright   = { color = "blue" },
+    crossmod  = { color = "red" }
 }
 
 for rkey, p in pairs(pools) do

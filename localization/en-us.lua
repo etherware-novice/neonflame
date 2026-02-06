@@ -676,6 +676,7 @@ return {
              k_deltarune = "Deltarune",
              k_inscr = "Inscryption",
              k_pwright = "Phoenix Wright",
+             k_crossmod = "Crossmod",
 
              k_upgrade_eat = {
                  "Consumed!",

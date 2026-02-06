@@ -1,6 +1,9 @@
-SMODS.Joker {
+local retr = {}
+
+table.insert(retr, {
     key = "miafey",
     name = "Mia Fey",
+    object_type = "Joker",
 
     atlas = "layerjoker",
     pos = { x = 4, y = 0 },
@@ -38,4 +41,4 @@ SMODS.Joker {
 	    }
 	end
     end
-}
+})

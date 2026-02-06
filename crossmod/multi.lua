@@ -15,9 +15,12 @@ for _, v in ipairs(mods) do if not next(SMODS.find_mod(v)) then return end end
 -- dear god this is stupid
 
 
-SMODS.Joker {
+local retr = {}
+
+table.insert(retr, {
     key = "ultshowdown",
     name = "Ultimate Showdown of Ultimate Destiny",
+    object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
@@ -87,4 +90,6 @@ SMODS.Joker {
         }))
 
     end
-}
+})
+
+return retr

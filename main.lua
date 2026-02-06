@@ -32,6 +32,19 @@ for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "items")) do
 	for _, o in ipairs(objs) do table.insert(regtable, o) end
 end
 
+for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "crossmod")) do
+	local key, _ = string.gsub(f, "%..*$", "")
+	if next(SMODS.find_mod(key)) or key == "multi" then
+		local objs = assert(SMODS.load_file("crossmod/" .. f))() or {}
+		for _, o in ipairs(objs) do
+			o.order = 10	-- put crossmod jokers at the VERY end
+			o.pools = o.pools or {}
+			o.pools.crossmod = true
+			table.insert(regtable, o)
+		end
+	end
+end
+
 table.sort(regtable, function(a, b)
 	-- grouping jokers by global order
 	if (a.order or 0) < (b.order or 0) then return true end
@@ -66,10 +79,5 @@ end
 
 
 -- its probably fine to ignore sorting for crossmods
-for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "crossmod")) do
-	local key, _ = string.gsub(f, "%..*$", "")
-	if next(SMODS.find_mod(key)) or key == "multi" then
-		assert(SMODS.load_file("crossmod/" .. f))()
-	end
-end
+
 

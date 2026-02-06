@@ -1,6 +1,10 @@
-SMODS.Joker {
+local retr = {}
+
+
+table.insert(retr, {
     key = "opensource",
     name = "Open Source",
+    object_type = "Joker", 
 
     atlas = "jokers1",
     pos = { x = 1, y = 1 },
@@ -42,7 +46,7 @@ SMODS.Joker {
 	    end,
 	}))
     end,
-}
+})
 
 SMODS.Challenge {
     key = "moderntech",
@@ -76,3 +80,5 @@ SMODS.Challenge {
         { id = "v_cry_command_prompt" }
     },
 }
+
+return retr

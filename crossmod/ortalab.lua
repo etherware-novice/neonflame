@@ -1,8 +1,9 @@
--- Furnace: Scored Sand Cards give X2 and have a 1 in 4 chance to break 
+local retr = {}
 
-SMODS.Joker {
+table.insert(retr, {
     key = "furnace",
     name = "furnace",
+    object_type = "Joker",
 
     atlas = "placeholders",
     pos = { x = 0, y = 0 },
@@ -39,4 +40,6 @@ SMODS.Joker {
             end
         end
     end
-}
+})
+
+return retr
