@@ -33,6 +33,10 @@ for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "items")) do
 end
 
 table.sort(regtable, function(a, b)
+	-- grouping jokers by global order
+	if (a.order or 0) < (b.order or 0) then return true end
+	if (a.order or 0) > (b.order or 0) then return false end
+
 	-- put original jokers before reference jokers
 	if not a.pools and b.pools then return true end
 	if not b.pools and a.pools then return false end

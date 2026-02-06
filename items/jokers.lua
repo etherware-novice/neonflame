@@ -108,8 +108,9 @@ table.insert(retr, {
 
 table.insert(retr, {
     key = "nflame",
-    name = "aNeonflame",
+    name = "Neonflame",
     object_type = "Joker",
+    order = -1, -- meta jokers go first
 
     atlas = "jokers1",
     pos = { x = 2, y = 0 },
