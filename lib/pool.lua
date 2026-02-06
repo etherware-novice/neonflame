@@ -14,7 +14,6 @@ local pools = {
     deltarune = { color = "dark_edition" },
     inscr     = { color = "spades" },
     pwright   = { color = "blue" }
-
 }
 
 for rkey, p in pairs(pools) do

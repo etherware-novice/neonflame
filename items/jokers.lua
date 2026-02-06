@@ -259,6 +259,7 @@ table.insert(retr, {
     atlas = "layerjoker",
     pos = { x = 0, y = 0 },
     soul_pos = { x = 1, y = 0},
+    pools = { internet = true, mario = true },
 
     config = { extra = { size = 3, xmgain = 0.1 } },
     rarity = 4,
@@ -1489,6 +1490,7 @@ table.insert(retr, {
 
     atlas = "jokers1",
     pos = { x = 3, y = 4 },
+    pools = { minecraft = true },
 
     config = { extra = { chance = 4, chip = 5, mult = 1 } },
     rarity = 1,
