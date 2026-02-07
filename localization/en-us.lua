@@ -677,6 +677,9 @@ return {
              k_inscr = "Inscryption",
              k_pwright = "Phoenix Wright",
              k_crossmod = "Crossmod",
+             k_unfinished = "LBL_UNFINISHED",
+
+             nflame_uf = "CTG_UNFINISHED",
 
              k_upgrade_eat = {
                  "Consumed!",

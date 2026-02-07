@@ -1,5 +1,6 @@
 local pools = {
     silicon   = { default = "j_nflame_spbump", color = "nflame_silicon" },
+    unfinished = { color = "inactive" },
     spess     = { color = "planet" },
     modcom    = { color = "red" },
     oc        = { color = "gold" },
@@ -10,7 +11,7 @@ local pools = {
     gimmiko   = { color = "green" },
     zelda     = { color = "attention" },
     hitch     = { color = "spectral" },
-    parable   = { color = "inactive" },
+    parable   = { color = "orange" },
     deltarune = { color = "dark_edition" },
     inscr     = { color = "spades" },
     pwright   = { color = "blue" },
