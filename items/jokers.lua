@@ -2085,6 +2085,67 @@ table.insert(retr, {
     end
 })
 
+table.insert(retr, {
+    key = "bomcarbon",
+    name = "Carbon Christ",
+    object_type = "Joker",
+
+    atlas = "jokers1",
+    pos = { x = 1, y = 6 },
+    pools = { internet = true, mario = true },
+
+    config = { extra = { perc = 3 } },
+    rarity = 3,
+    cost = 4,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.perc} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.press_play then
+            -- because forced selection still checks the hand sel limit :(
+            SMODS.change_play_limit(999)
+
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for _, playing_card in ipairs(G.hand.cards) do
+                        G.hand:add_to_highlighted(playing_card)
+                    end
+
+                    G.FUNCS.discard_cards_from_highlighted(nil, true)
+                    SMODS.change_play_limit(-999)
+                    return true
+                end
+            }))
+        end
+
+        -- this effect also sets the hook flag so we just use it to provide a easy way to toggle it
+        -- also for some reason discard doesnt have the hook flag
+        if context.pre_discard then card.ability.extra.activate = context.hook end
+
+        if context.discard and card.ability.extra.activate then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local newperc = (100 - card.ability.extra.perc) / 100
+
+                    G.GAME.blind.chips = math.floor(G.GAME.blind.chips * newperc)
+                    G.hand_text_area.blind_chips:juice_up()
+                    context.other_card:juice_up()
+                    card:juice_up()
+
+                    return true
+                end
+            }))
+        end
+    end
+})
+
+
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()

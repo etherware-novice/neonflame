@@ -502,6 +502,15 @@ return {
                     "{C:green}rescore{} a random card in played or held hand",
                     "for each {C:attention}Stone Card{} in the {C:attention}remaining deck"
                 }
+            },
+
+            j_nflame_bomcarbon = {
+                name = "Carbon Christ",
+                text = {
+                    "Cards held in hand decrease {C:attention}Blind Requirement",
+                    "by {C:purple}#1#%{} and are {C:red}discarded",
+                    "{C:inactive,s:0.8}\"i want petalberg back, carbon.\""
+                }
             }
         },
 
