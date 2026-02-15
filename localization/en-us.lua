@@ -618,6 +618,15 @@ return {
                     "scored #2# {V:1}(#3#){} times this {C:attention}round",
                     "{C:inactive,s:0.8}\"squack! don't forget dl-6!\""
                 }
+            },
+
+            c_nflame_evlaw = {
+                name = "Evidence Law",
+                text = {
+                    "Use this card to {C:attention}permanently{} gain +1 consumeable slot",
+                    "Can only be used if #1# {V:1}(#2#){} evidence pieces have been used this round",
+                    "+1 consumeable slot"
+                }
             }
         },
 

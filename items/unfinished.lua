@@ -16,10 +16,44 @@ local jokers = {
     -- superiority complex
     OTHR_SupCx = {rarity = 1, desc = {"{C:mult}+2{} mult for every hand played less times than the current hand"}},
     -- dark side of the moon
-    OBJE_DSoMn = {rarity = 2,
+    SPAC_DSoMn = {rarity = 2,
        desc = {"{C:attention}Secret hands{} level up an extra time for every hand of a higher {C:planet}level{}"}},
     -- garbage license
-    OBJE_GarbL = { rarity = 2, desc = {"Go up to 2 {C:blue}hands{} and {C:red}discards{} in {C:red}debt"}}
+    OBJE_GarbL = { rarity = 2, desc = {"Go up to 2 {C:blue}hands{} and {C:red}discards{} in {C:red}debt"}},
+    -- drawer tarot
+    TROT_Drwer = { rarity = 1, desc = {{"Store selected Joker and {C:attention}replaces with stored Joker",
+                                       "All values on spawned Joker is reset",
+                                       "{C:attention}Not consumed on use",
+                                       "{C:inactive}(Currently storing none)"},
+                                       {"{C:inactive}NOTE_1: the value reset is easier to code"}}},
+    -- clovpit cigs
+    OBJE_Ciggs = { rarity = 1, desc = {"When an item is bought, gain a free reroll",
+                                       "and {C:attention}increase{} shop prices by {C:money}$1"}},
+    -- clovpit skull
+    OBJE_Skull = { rarity = 3, desc = {"On Blind Selection, create a {C:dark_edition}negative{} Joker",
+                                       "{C:attention}Debuffs{} the leftmost non-negative for each negative Joker"}},
+    -- black hole sun
+    SPAC_BHSun = { rarity = 2, desc = {"{C:green}0 in 8{} chance to level up all hands at end of round",
+                                       "{C:green}+1{} numerator for every 4 cards above 52 in full deck"}},
+    -- firewood
+    OBJE_FWood = { rarity = 1, desc = {"{C:blue}+4{} chips for every unimplemented item"}},
+    -- void of ideas
+    SPAC_VoIde = { rarity = 1, desc = {"At end of round, create a {C:dark_edition}Negative{} Unimplemented Joker"}},
+    -- never implement this
+    UNIM_JOKER = { rarity = 1, desc = {"Will never be implemented"}},
+    -- loc58
+    OTHR_LOC58 = { rarity = 2, desc = {"When blind is selected, destroy a random Joker and level up all hands"}},
+    -- clovpit announcer
+    CHAR_CLOVP = { rarity = 4, desc = {"6s in the remaining deck give {C:white,X:mult}X1.5{} mult",
+                                       "Gain a free reroll for every 6 in in the remaining deck at end of round"}},
+    -- magpie
+    CHAR_MAGPI = { rarity = 3, desc = {"+1 hand size for every 4 cards {C:red}discarded{} this round"}},
+    -- clovpit memvard
+    OBJE_MEMCR = { rarity = 2, desc = {"+1 card and choice for every consecutive round won in 1 hand"}},
+    -- emptied pockets
+    OTHR_EMPPT = { rarity = 2, desc = {"+3 shop slots", "-1 shop slot when an item is bought",
+                                       "{C:inactive}(Minimum of 1 shop slot)",
+                                       "{C:inactive}(Resets at end of deadline"}},
 }
 
 

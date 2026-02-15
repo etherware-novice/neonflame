@@ -53,7 +53,7 @@ SMODS.Consumable {
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+                G.consumeables:change_size(1)
                 return true
             end
         }))
@@ -62,7 +62,7 @@ SMODS.Consumable {
     remove_from_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+                G.consumeables:change_size(-1)
                 return true
             end
         }))
@@ -303,3 +303,61 @@ SMODS.Consumable {
         end
     end,
 }
+
+SMODS.Consumable {
+    key = "evlaw",
+    set = "evidence",
+
+    atlas = "placeholders",
+    pos = { x = 1, y = 0 },
+    config = { extra = {active = 0, required = 2} },
+
+    loc_vars = function(self, info_queue, card)
+        local col = G.C.UI.TEXT_INACTIVE
+
+        if card.ability.extra.active >= card.ability.extra.required then
+            col = G.C.FILTER
+        end
+
+        return { vars = {card.ability.extra.required, card.ability.extra.active, colours = { col }} }
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.consumeables:change_size(1)
+                return true
+            end
+        }))
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.consumeables:change_size(-1)
+                return true
+            end
+        }))
+    end,
+
+    calculate = function(self, card, context)
+        if context.setting_blind then card.ability.extra.active = 0 end
+        if context.using_consumeable and context.consumeable.ability.set == "evidence" then
+            card.ability.extra.active = card.ability.extra.active + 1
+        end
+    end,
+
+    can_use = function(self, card)
+        return card.ability.extra.active >= card.ability.extra.required
+    end,
+
+    use = function(self, card, area)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.consumeables:change_size(1)
+                return true
+            end
+        }))
+    end
+}
+
