@@ -511,6 +511,15 @@ return {
                     "by {C:purple}#1#%{} and are {C:red}discarded",
                     "{C:inactive,s:0.8}\"i want petalberg back, carbon.\""
                 }
+            },
+
+            j_nflame_yrank = {
+                name = "To The Yrank",
+                text = {
+                    "{C:attention}Discard{} effects are {C:attention}retriggered",
+                    "After hand or discard, draw {C:attention}#1#{} cards from {C:attention}discard pile",
+                    "{C:inactive,s:0.8}(Rightmost card is drawn first)"
+                }
             }
         },
 

@@ -2145,6 +2145,68 @@ table.insert(retr, {
     end
 })
 
+table.insert(retr, {
+    key = "yrank",
+    name = "To The Yrank",
+    object_type = "Joker",
+
+    atlas = "jokers1",
+    pos = { x = 2, y = 6 },
+    pools = { internet = true },
+
+    config = { extra = { bonus = 2 } },
+    rarity = 2,
+    cost = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.bonus} }
+    end,
+
+    calculate = function(self, card, context)
+        if context.nflame_yrank_flash then return end
+
+        if context.pre_discard or context.discard then
+            local ctx = context
+            ctx.nflame_yrank_flash = true
+            SMODS.calculate_context(ctx)
+        end
+
+        if context.nflame_pre_draw then
+            card.ability.extra.drawoff = 0
+            for i = 1, math.min(card.ability.extra.bonus, context.hand_size or math.huge) do
+                if G.discard.cards[1] then
+                    card.ability.extra.drawoff = card.ability.extra.drawoff + 1
+                    draw_card(G.discard, G.hand)
+
+                    G.E_MANAGER:add_event(Event{
+                        func = function()
+                            card:juice_up()
+                            return true
+                        end
+                    })
+                end
+            end
+
+            SMODS.cards_to_draw = (SMODS.cards_to_draw or 0) + card.ability.extra.drawoff
+        end
+
+        if context.hand_drawn then
+            SMODS.cards_to_draw = SMODS.cards_to_draw - card.ability.extra.drawoff
+        end
+    end
+})
+
+local dfdth = G.FUNCS.draw_from_deck_to_hand
+function G.FUNCS.draw_from_deck_to_hand(e)
+    SMODS.calculate_context{nflame_pre_draw = true, hand_size = e}
+    return dfdth(e)
+end
+
+
 
 
 function SMODS.current_mod.reset_game_globals(run_start)
