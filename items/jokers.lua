@@ -1720,7 +1720,7 @@ table.insert(retr, {
             }))
         end
 
-        if context.end_of.round then card.ability.extra.trigger = false end
+        if context.end_of_round then card.ability.extra.trigger = false end
 
         if context.drawing_cards and card.ability.extra.trigger then
             card.ability.extra.trigger = false
