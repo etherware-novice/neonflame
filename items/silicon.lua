@@ -48,8 +48,8 @@ end
 
 local sman = SMODS.showman
 function SMODS.showman(key)
-    local pools = G.P_CENTERS[key].pools
-    if pools and pools.silicon then return true end
+    local center = G.P_CENTERS[key]
+    if center and center.pools and center.pools.silicon then return true end
     return sman(key)
 end
 
