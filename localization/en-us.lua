@@ -636,6 +636,16 @@ return {
                     "Can only be used if #1# {V:1}(#2#){} evidence pieces have been used this round",
                     "+1 consumeable slot"
                 }
+            },
+
+            c_nflame_autopsy = {
+                name = "Autopsy Report",
+                text = {
+                    "Converts up to {C:attention}#1#{} selected cards",
+                    "into the {C:attention}rightmost{} card",
+                    "Can only be used on the first drawn cards of a round",
+                    "{C:inactive,s:0.8}\"that autopsy report is....OUTDATED!\""
+                }
             }
         },
 

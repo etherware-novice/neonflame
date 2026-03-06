@@ -6,7 +6,7 @@ SMODS.ConsumableType {
 
     shop_rate = 1.0,
     select_card = 'consumeables',
-    default = "c_nflame_thinker",
+    default = "c_nflame_autopsy",
     can_stack = false,
     can_divide = false
 }
@@ -358,6 +358,100 @@ SMODS.Consumable {
                 return true
             end
         }))
+    end
+}
+
+SMODS.Consumable {
+    key = "autopsy",
+    set = "evidence",
+
+    atlas = "placeholders",
+    pos = { x = 1, y = 0 },
+    config = { max_highlighted = 3, min_highlighted = 2 },
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.max_highlighted } }
+    end,
+
+    can_use = function(self, card)
+        if G.STATE ~= G.STATES.SELECTING_HAND then return false end
+        if not G.GAME or not G.GAME.current_round or not G.hand then return false end
+        local sel = #G.hand.highlighted
+
+        if G.GAME.current_round.hands_played > 0 then return false end
+        if G.GAME.current_round.discards_used > 0 then return false end
+
+        return sel >= card.ability.min_highlighted and sel <= card.ability.max_highlighted
+    end,
+
+    use = function(self, card, area)
+        G.E_MANAGER:add_event(Event{
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        })
+
+        local rightmost = G.hand.highlighted[1]
+        for i = 1, #G.hand.highlighted do
+            local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event{
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    G.hand.highlighted[i]:flip()
+                    play_sound('card1', percent)
+                    return true
+                end
+            })
+
+            if G.hand.highlighted[i].T.x > rightmost.T.x then
+                rightmost = G.hand.highlighted[i]
+            end
+        end
+
+        delay(0.2)
+
+        for i = 1, #G.hand.highlighted do
+            G.E_MANAGER:add_event(Event{
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    if G.hand.highlighted[i] ~= rightmost then
+                        copy_card(rightmost, G.hand.highlighted[i])
+                    end
+
+                    return true
+                end
+            })
+        end
+
+        for i = 1, #G.hand.highlighted do
+            G.E_MANAGER:add_event(Event{
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    G.hand.highlighted[i]:flip()
+                    play_sound('tarot2', nil, 0.6)
+                    G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                    return true
+                end
+            })
+        end
+
+        G.E_MANAGER:add_event(Event{
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        })
+
+        delay(0.5)
     end
 }
 
