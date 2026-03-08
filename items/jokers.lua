@@ -116,7 +116,7 @@ table.insert(retr, {
     pos = { x = 2, y = 0 },
 
     -- hardcoding the timestamp will definitely not bite me in the butt later
-    config = {extra = { Xmult = 0.5, decay = 0.1 }, immutable = { cards = 0, timestamp = 1769574522 }},
+    config = {extra = { Xmult = 0.5, decay = 0.1 }, immutable = { cards = 0, timestamp = 1772934916 }},
     rarity = 3,
     cost = 7,
     blueprint_compat = true,
@@ -131,12 +131,13 @@ table.insert(retr, {
     update_numbers = function(self, card)
     	local scale = 0
         for _, jok in pairs(G.P_CENTER_POOLS.Joker) do
-	    if jok.original_mod and jok.original_mod.id == "nflame" then
-	        scale = scale + 1
-	    end
-	end
+            if jok.original_mod and jok.original_mod.id == "nflame" then
+                scale = scale + 1
+            end
+        end
 
-	card.ability.immutable.cards = scale
+        card.ability.immutable = card.ability.immutable or { timestamp = os.time() }
+        card.ability.immutable.cards = scale
     end,
 
     calc_xmult = function(self, card)

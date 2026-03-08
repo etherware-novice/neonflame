@@ -18,6 +18,10 @@ SMODS.current_mod.badge_text_colour = SMODS.Gradient {
     cycle = 2,
 }
 
+SMODS.current_mod.optional_features = function()
+	return { retrigger_joker = true }
+end
+
 
 for _, f in ipairs(NFS.getDirectoryItems(mod_path .. "lib")) do
 	assert(SMODS.load_file("lib/" .. f))()
