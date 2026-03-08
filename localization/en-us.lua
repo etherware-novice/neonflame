@@ -520,6 +520,14 @@ return {
                     "After hand or discard, draw {C:attention}#1#{} cards from {C:attention}discard pile",
                     "{C:inactive,s:0.8}(Rightmost card is drawn first)"
                 }
+            },
+
+            j_nflame_nt_poly = {
+                name = "Poly the Parrot",
+                text = {
+                    "When a card is scored, {C:green}rescore{} a card",
+                    "with the same {C:atttention}rank{} in the {C:attention}discard pile"
+                }
             }
         },
 

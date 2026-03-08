@@ -2207,6 +2207,44 @@ function G.FUNCS.draw_from_deck_to_hand(e)
     return dfdth(e)
 end
 
+table.insert(retr, {
+    key = "nt_poly",
+    name = "Poly the Parrot",
+    object_type = "Joker",
+
+    atlas = "jokers1",
+    pos = { x = 3, y = 6 },
+    pools = { spess = true },
+
+    rarity = 3,
+    cost = 5,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.polyecho then
+            local eligible = {}
+            for _, playing_card in ipairs(G.discard.cards) do
+                if
+                    playing_card:get_id() == context.other_card:get_id()
+                    or (SMODS.has_no_rank(playing_card) and SMODS.has_no_rank(context.other_card))
+                then
+                    table.insert(eligible, playing_card)
+                end
+            end
+            print(#eligible)
+
+            local echo = pseudorandom_element(eligible, "nflame_poly")
+            if not echo then return end
+            local ctx = SMODS.shallow_copy(context)
+            ctx.polyecho = true
+            SMODS.score_card(echo, ctx)
+            return { message = "" }
+        end
+    end
+})
 
 
 

@@ -53,7 +53,29 @@ local jokers = {
     -- emptied pockets
     OTHR_EMPPT = { rarity = 2, desc = {"+3 shop slots", "-1 shop slot when an item is bought",
                                        "{C:inactive}(Minimum of 1 shop slot)",
-                                       "{C:inactive}(Resets at end of deadline"}},
+                                       "{C:inactive}(Resets at end of ante"}},
+    -- choice paralysis
+    VOUC_CPRYL = { rarity = 1, desc = {"When a booster pack is opened",
+                                       "move a random card from pack into consumable tray",
+                                       "{C:inactive}(Must have room)"}},
+    -- market garden
+    TOOL_MRKGD = { rarity = 2, desc = {"Sets hand mult to {C:red}1",
+                                       "Scored cards give {C:white,X:mult}X2{} mult"}},
+    -- missing ladder
+    OTHR_LADDR = { rarity = 2, desc = {"When blind is selected, spawn a random [Pool] Joker",
+                                       "{C:inactive}(Changes at end of round)"}},
+    -- vorago
+    OBJE_VORGO = { rarity = 2, desc = {"When a card is sold or destroyed",
+                                       "create a copy in the next shop",
+                                       "{C:inactive}(Currently none)"}},
+    -- aristotle means justify the ends
+    CHAR_DAoTL = { rarity = 2, desc = {"When an evidence card is used",
+                                       "destroy all held evidence cards",
+                                       "and gain {C:inactive,X:mult}X0.2{} mult for each card",
+                                       "{C:inactive}(Currently X1)"}},
+    -- starlight (thanks qwertyqwerty)
+    SPAC_STARL = { rarity = 3, desc = {"+1 hand size when a hand is leveled",
+                                       "-1 hand size at end of ante"}},
 }
 
 
