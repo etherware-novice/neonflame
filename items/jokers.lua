@@ -1879,8 +1879,8 @@ table.insert(retr, {
     name = "John ?arosa",
     object_type = "Joker",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 4, y = 6 },
     pools = { internet = true },
 
     config = { extra = { requirement = 5, remaining = 5, increase = 5, soul = 50 } },

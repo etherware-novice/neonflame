@@ -473,7 +473,8 @@ return {
                     "{C:inactive,s:0.8}(Must have room)",
                     "{C:inactive,s:0.8}\"just forget any issue,",
                     "{C:inactive,s:0.8}or discussion about the {C:dark_edition,s:0.8}soul,",
-                    "{C:inactive,s:0.8}called mister barrister john #2#arosa\""
+                    "{C:inactive,s:0.8}called mister barrister john #2#arosa\"",
+                    "{C:inactive}art by Camostar34"
                 }
             },
 
