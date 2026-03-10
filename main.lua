@@ -19,7 +19,7 @@ SMODS.current_mod.badge_text_colour = SMODS.Gradient {
 }
 
 SMODS.current_mod.optional_features = function()
-	return { retrigger_joker = true }
+	return { retrigger_joker = true, cardareas = { discard = true } }
 end
 
 

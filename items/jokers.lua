@@ -2240,7 +2240,8 @@ table.insert(retr, {
             if not echo then return end
             local ctx = SMODS.shallow_copy(context)
             ctx.polyecho = true
-            SMODS.score_card(echo, ctx)
+            NF_cardfling(echo, ctx)
+            NF_cardunfling()
             return { message = "" }
         end
     end

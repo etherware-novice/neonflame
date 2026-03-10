@@ -46,15 +46,21 @@ end
 function NF_cardunfling()
     if not NF_flingactive() then return end
 
-    print(xinit)
-    lastfling.T.x = xinit
+    local del = lastfling
+
+    G.E_MANAGER:add_event(Event{
+        func = function()
+            del.T.x = xinit
+            return true
+        end
+    })
 
     G.E_MANAGER:add_event(Event{
         trigger = "after",
         delay = 3.8,
         blocking = false,
         func = function()
-            lastfling:remove()
+            del:remove()
             return true
         end
     })
@@ -65,10 +71,11 @@ end
 
 local cest = card_eval_status_text
 function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+    extra = extra or {}
     if dpsource and dpsource == card then
         card = lastfling
-        if extra then extra.focus = nil end
+        extra.focus = nil 
     end
 
-    return cest(card, eval_type, amt, percent_dir, extra)
+    return cest(card, eval_type, amt, percent, dir, extra)
 end
