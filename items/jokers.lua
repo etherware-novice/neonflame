@@ -2293,7 +2293,7 @@ table.insert(retr, {
             end
         end
 
-        if context.destroy_card then return context.destroy_card.ability.nf_glass_tower_eat end
+        if context.destroy_card then return { remove = context.destroy_card.ability.nf_glass_tower_eat } end
     end
 })
 
