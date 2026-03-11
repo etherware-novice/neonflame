@@ -2247,6 +2247,57 @@ table.insert(retr, {
     end
 })
 
+table.insert(retr, {
+    key = "glasstower",
+    name = "Glass Tower",
+    object_type = "Joker",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+    config = { extra = {xmult = 1.5, chance = 4} },
+
+    rarity = 3,
+    cost = 6,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+		local num, den = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, "nflame_refund")
+        return { vars = { card.ability.extra.xmult, num, den } }
+    end,
+
+    calculate = function(self, card, context)
+        if
+            context.individual and context.cardarea == G.discard and context.full_hand
+            and SMODS.has_enhancement(context.other_card, "m_glass")
+        then
+            local dummy = NF_cardfling(context.other_card)
+
+            SMODS.calculate_effect({xmult = card.ability.extra.xmult}, dummy)
+            if SMODS.pseudorandom_probability(card, "nflame_glasstower", 1, card.ability.extra.chance) then
+                G.E_MANAGER:add_event(Event{
+                    func = function()
+                        dummy:shatter()
+                        return true
+                    end
+                })
+
+                -- we cant ACTUALLY destroy a card mid-scoring
+                -- so we just set a flag on the card and check for it in the context.destroy_card step
+                context.other_card.ability.nf_glass_tower_eat = true
+                return { message = localize("k_eaten_ex"), message_card = card }
+            else
+                NF_cardunfling()
+            end
+        end
+
+        if context.destroy_card then return context.destroy_card.ability.nf_glass_tower_eat end
+    end
+})
+
+
 
 
 function SMODS.current_mod.reset_game_globals(run_start)

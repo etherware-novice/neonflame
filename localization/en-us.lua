@@ -529,6 +529,14 @@ return {
                     "When a card is scored, {C:green}rescore{} a card",
                     "with the same {C:atttention}rank{} in the {C:attention}discard pile"
                 }
+            },
+
+            j_nflame_glasstower = {
+                name = "Glass Tower",
+                text = {
+                    "Glass cards in the {C:attention}discard pile{} give {C:white,X:mult}X#1#{} Mult",
+                    "and have a {C:green}#2# in #3#{} chance to be {C:red}destroyed"
+                }
             }
         },
 
