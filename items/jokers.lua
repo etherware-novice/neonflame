@@ -967,8 +967,8 @@ table.insert(retr, {
         if context.after then
             local newcard = G.nflame_pick_idol_style()
             if newcard then
-                card.ability.extra.rank = newcard.base.rank
-                card.ability.extra.suit = newcard.base.value
+                card.ability.extra.rank = newcard.base.value
+                card.ability.extra.suit = newcard.base.suit
             end
         end
     end
