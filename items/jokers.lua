@@ -1609,8 +1609,8 @@ table.insert(retr, {
     name = "fabricator",
     object_type = "Joker",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 5, y = 6 },
     pools = { spess = true },
 
     rarity = 2,
