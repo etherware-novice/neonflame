@@ -76,6 +76,9 @@ local jokers = {
     -- starlight (thanks qwertyqwerty)
     SPAC_STARL = { rarity = 3, desc = {"+1 hand size when a hand is leveled",
                                        "-1 hand size at end of ante"}},
+    -- bis gigacarrot
+    FOOD_CARRT = { rarity = 2, desc = {"Destroy played Ace of Spades and gain {C:money}$7",
+                                       "{C:red}-$1{} and changes at end of round"}}
 }
 
 

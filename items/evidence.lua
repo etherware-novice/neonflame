@@ -188,8 +188,8 @@ SMODS.Consumable {
     key = "wpowers",
     set = "evidence",
 
-    atlas = "placeholders",
-    pos = { x = 1, y = 0 },
+    atlas = "evidence",
+    pos = { x = 4, y = 0 },
     config = { extra = { trigger = 0, required = 4 } },
 
     loc_vars = function(self, info_queue, card)
