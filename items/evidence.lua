@@ -365,8 +365,8 @@ SMODS.Consumable {
     key = "autopsy",
     set = "evidence",
 
-    atlas = "placeholders",
-    pos = { x = 1, y = 0 },
+    atlas = "evidence",
+    pos = { x = 3, y = 0 },
     config = { max_highlighted = 3, min_highlighted = 2 },
 
     loc_vars = function(self, info_queue, card)
