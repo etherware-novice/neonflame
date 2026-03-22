@@ -2252,8 +2252,8 @@ table.insert(retr, {
     name = "Glass Tower",
     object_type = "Joker",
 
-    atlas = "placeholders",
-    pos = { x = 0, y = 0 },
+    atlas = "jokers1",
+    pos = { x = 0, y = 7 },
     config = { extra = {xmult = 1.5, chance = 4} },
 
     rarity = 3,
