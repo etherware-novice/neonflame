@@ -81,6 +81,7 @@ table.insert(retr, {
 	    value = G.STEAM.user.getPlayerSteamLevel()
 	end
 
+    card.ability.immutable = card.ability.immutable or {}
 	card.ability.immutable.lv = 1 + value
     end,
 
@@ -2297,12 +2298,71 @@ table.insert(retr, {
     end
 })
 
+table.insert(retr, {
+    key = "witherstorm",
+    name = "Wither Storm",
+    object_type = "Joker",
+
+    atlas = "placeholders",
+    pos = { x = 0, y = 0 },
+    pools = { minecraft = true },
+
+    rarity = 3,
+    cost = 7,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    demicolon_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        local rs = G.GAME.current_round.nflame_witheramulet or { rank = "Ace", suit = "Spades" }
+        return { vars = { localize(rs.rank, "ranks"), localize(rs.suit, "suits_plural"),
+                          colours = {G.C.SUITS[rs.suit]} } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.blueprint then return end
+
+        if context.end_of_round and context.main_eval then
+            local destructors = {}
+            for i = 1, #G.hand.cards do
+                local searcher = G.hand.cards[i]
+
+                if searcher:get_id() == G.GAME.current_round.nflame_witheramulet.id and
+                    searcher:is_suit(G.GAME.current_round.nflame_witheramulet.suit)
+                then
+                    destructors[i - 1] = true
+                    destructors[i] = true
+                    destructors[i + 1] = true
+                end
+            end
+
+            local cardref = {}
+            for i = 1, #G.hand.cards do
+                if destructors[i] then table.insert(cardref, G.hand.cards[i]) end
+            end
+
+            if #cardref < 1 then return end
+            SMODS.destroy_cards(cardref)
+            return { message = localize("k_eaten_ex") }
+        end
+    end
+})
+
+local function reset_nflame_witheramulet()
+    local newcard = G.nflame_pick_idol_style()
+    if newcard then
+        G.GAME.current_round.nflame_witheramulet = { id = newcard.base.id, rank = newcard.base.value, suit = newcard.base.suit }
+    end
+end
+
 
 
 
 function SMODS.current_mod.reset_game_globals(run_start)
     reset_nflame_slimesteel()
     reset_nflame_lamp()
+    reset_nflame_witheramulet()
 end
 
 return retr

@@ -537,6 +537,15 @@ return {
                     "Glass cards in the {C:attention}discard pile{} give {C:white,X:mult}X#1#{} Mult",
                     "and have a {C:green}#2# in #3#{} chance to be {C:red}destroyed"
                 }
+            },
+
+            j_nflame_witherstorm = {
+                name = "Wither Storm",
+                text = {
+                    "At end of round, {C:red}destroy{} held",
+                    "{C:attention}#1#{} of {V:1}#2#{} and {C:attention}adjacent{} cards",
+                    "{C:inactive,s:0.8}(Changes at end of round)"
+                }
             }
         },
 
